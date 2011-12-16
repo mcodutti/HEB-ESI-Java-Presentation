@@ -3,6 +3,14 @@
   Contact : mcodutti@heb.be
 ===========================================================================
 
+===== Dépendances
+Pour pouvoir créer les slides, il faut les outils suivants
+- make
+- rubber
+- pdfnup
+- classe Prosper 
+- TODO : indiquer les packages LaTeX nécessaires
+
 =====  Créer les slides
 Les slides sont créés via un Makefile
 
@@ -12,8 +20,26 @@ Les slides sont créés via un Makefile
 
 ===== Contribuer
 
-TODO
+
+La structure des fichiers LaTeX est la suivante.
+
+Pour la version couleur :
+	java1-presentation.tex
+		java1-presentation-comman.tex
+			java.sty
+			toc.tex
+			chapter*.tex
+Pour la version N/B :
+	java1-presentation-print.tex
+		... idem version couleur
+
+Les images sont dans le dossier img
+
+Pour contribuer à une leçon, éditer le fichier chapitre*.tex correspondant
 
 ===== Remarques
 
 - Les fichiers .tex et .sty sont en latin1 car en utf8, le package listings pose des problèmes (accents non reconnus)
+(TODO : vérifier si c'est toujours le cas)
+
+
