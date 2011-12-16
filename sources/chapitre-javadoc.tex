@@ -1,0 +1,200 @@
+% === Cours de Java
+% === Chapitre : Javadoc
+\section{La documentation Java}
+
+\leconwithtoc
+
+\subsection{Motivation}
+
+\begin{frame}{Motivation}
+Documenter son code
+\begin{itemize}
+\item Pour qui ?
+\begin{itemize}
+\item Le programmeur qui va \emph{utiliser} le code
+\item Le programmeur qui va \emph{maintenir} le code \\(peut-être vous)
+\end{itemize}
+\item Quel type de documentation ?
+\begin{itemize}
+\item \emph{Ce que fait} la méthode/classe
+\item \emph{Comment} elle le fait
+\\(peut être réduit au minimum si code lisible)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation}
+Qui est intéressé par quoi ?
+\begin{itemize}
+\item Le programmeur-\emph{utilisateur}
+\begin{itemize}
+\item intéressé uniquement par le \emph{quoi}
+\end{itemize}
+\item Le programmeur-\emph{mainteneur}
+\begin{itemize}
+\item intéressé par le \emph{quoi} et le \emph{comment}
+\end{itemize}
+\end{itemize}
+\bigskip\pause
+Où mettre la documentation ?
+\begin{itemize}
+\item Avec le code
+\begin{itemize}
+\item Plus facile pour le maintenir
+\item Plus de chance de garder la synchronisation avec le code
+\end{itemize}
+\item Mais le programmeur-utilisateur n'a pas à voir le code pour l'utiliser
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Motivation}
+$\longrightarrow$ Utilisation du \emph{litterate programming}
+\begin{itemize}
+\item la documentation accompagne le code
+\item un outil extrait cette documentation pour en faire un document facile à lire
+\item de plus, toute la documentation suit la même structure, le même style
+\\$\rightarrow$ plus facile à lire
+\end{itemize}
+\end{frame}
+
+\subsection{La Javadoc}
+
+\begin{frame}[fragile]{Javadoc}
+En \sigle{Java}, l'outil est \sigle{javadoc}
+\begin{itemize}
+\item Commentaire \sigle{javadoc} identifié par  {\small \code|/** ... */|}
+\begin{Java}
+/**
+    Calcule et retourne le maximum de 2 nombres.
+*/
+\end{Java}
+\item documentation produite au format \sigle{HTML}
+\item On commente essentiellement 
+\begin{itemize}
+\item la classe: rôle et fonctionnement
+\item les méthodes publiques: ce que ça fait, paramètres et résultats
+\end{itemize}
+\item Se met \emph{juste au dessus} de ce qui est commenté
+\end{itemize}
+\end{frame}
+
+\subsection{Les tags}
+
+\begin{frame}{Les tags}
+Utilisation de \emph{tags} pour identifier certains éléments
+\\\bigskip 
+Les plus courants :
+\begin{itemize}
+\item \emph{@param} : décrit les paramètres 
+\item \emph{@return} : décrit ce qui est retourné
+\item \emph{@throws} : spécifie les exceptions lancées 
+\item \emph{@author} : note sur l'auteur
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Les tags}
+\emph{Exemple}
+\begin{Java}
+/**
+ * Donne la racine carrée d'un nombre.
+ * @param nb le nombre dont on veut la racine carée.
+ * @return la racine carée du nombre.
+ * @throws IllegalArgumentException si le nombre est négatif.
+*/
+public static double sqrt( double nb ) {...}
+\end{Java}
+\begin{itemize}
+\item Les types sont déduits de la signature et ajoutés à la documentation
+\item La première phrase (terminée par un \java|.|) sert de résumé
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Les tags}
+Résumé
+\vspace{-10pt}
+\begin{center}\includegraphics[scale=.6]{../img/javadoc-resume}\end{center}
+\vspace{-10pt}
+Détail
+\vspace{-10pt}
+\begin{center}\includegraphics[scale=.6]{../img/javadoc-detail}\end{center}
+\vspace{-10pt}
+Remarquez tout ce qui est ajouté !
+\end{frame}
+
+\subsection{Le code HTML}
+
+\begin{frame}[fragile]{Le code HTML}
+Peut contenir des balises \sigle{HTML}
+\\\medskip
+\emph{Exemple} :
+\begin{Java}[basicstyle=\scriptsize]
+  /**
+  * Indique si l'année est bissextile. Pour rappel :
+  * <ul>
+  *   <li>Une année qui n'est pas divisible par 4 n'est pas bissextile 
+  *       (ex: 2009)</li>
+  *   <li>Une année qui est divisible par 4</li>
+  *     <ul>
+  *     <li>est en général bissextile (ex: 2008)</li>
+  *     <li>sauf si c'est un multiple de 100 mais pas de 400 (ex: 1900, 2100)</li>
+  *     <li>les multiples de 400 sont donc bien bissextiles (ex: 2000, 2400)</li>
+  *     </ul>
+  *   </ul>
+  * Plus formellement, <code>a</code> est bissextile si et seulement si <br/>
+  * <code>a MOD 400 = 0 OU (a MOD 4 = 0 ET a MOD 100 != 0)</code>
+  * @param année l'année dont on se demande si elle est bissextile 
+  * @return vrai si l'année est bissextile
+  */
+\end{Java}
+\end{frame}
+
+\begin{frame}{Le code HTML}
+Ce qui donne
+\begin{center}
+\includegraphics[scale=.7]{../img/javadoc-html}
+\end{center}
+\end{frame}
+
+\subsection{Produire la documentation}
+
+\begin{frame}[fragile]{Production de la documentation}
+On utilise la commande \code|javadoc|
+\begin{itemize}
+\item Création de la documentation d'une classe 
+\\\java|javadoc Temps.java|
+\item Possibilité de spécifier des sources multiples 
+\\\java|javadoc *.java|
+\item Créer la documentation dans un dossier spécifique 
+\\\java|javadoc -d doc *.java |
+\item Il y a beaucoup d'autres options \dots
+\\(cf. la documentation de \sigle{javadoc})
+\end{itemize}
+\end{frame}
+
+\subsection{Pour une <<bonne>> documentation}
+
+\begin{frame}{Une bonne documentation}
+Une bonne \textit{javadoc} décrit le \emph{quoi} mais jamais le \emph{comment}
+\begin{itemize}
+\item $\longrightarrow$ Ne jamais parler de ce qui est privé
+\item Mauvais exemples :
+  \begin{itemize}
+  \item \textit{On utilise un for pour parcourir le tableau.}
+  \item \textit{Pour aller plus vite, on stocke le prix hors tva dans une variable temporaire.}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Une bonne documentation}
+Ne pas écrire ce que \sigle{javadoc} écrit lui-même :
+\begin{itemize}
+\item Mauvais exemples :
+  \begin{itemize}
+  \item \textit{nb - un entier qui ...}
+  \item \textit{La méthode sqrt ...}
+  \item \textit{Cette méthode ne retourne rien.}
+  \end{itemize}
+\item Pour en savoir plus :
+{\scriptsize \code|http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html|}
+\end{itemize}
+\end{frame}

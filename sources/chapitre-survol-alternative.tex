@@ -1,0 +1,168 @@
+% === Cours de Java
+% === Chapitre : Survol 
+
+\section{Alternatives (survol)}
+
+\leconwithabstract{Nous voyons comment traduire les algorithmes contenant des alternatives que vous écrivez en logique}
+
+\begin{frame}[fragile]{Instructions de choix}
+Le \emph{Si}
+\begin{Java}
+  if ( condition ) {
+    instructions
+  }
+\end{Java}
+\bigskip
+Le \emph{Si-sinon}
+\begin{Java}
+  if ( condition ) {
+    instructions
+  } else {
+    instructions
+  }
+\end{Java} 
+\end{frame}
+
+\begin{frame}[fragile]{Exemple} 
+\begin{Java}
+import java.util.Scanner;
+public class Test {
+  public static void main(String[] args) {
+      Scanner clavier = new Scanner(System.in);
+      int nombre1;
+
+      nombre1 = clavier.nextInt();
+      if (nombre1 < 0) {
+         System.out.println(nombre1 + " est négatif"); 
+      }   
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple} 
+\begin{Java}
+import java.util.Scanner;
+public class Test {
+  public static void main(String[] args) {
+      Scanner clavier = new Scanner(System.in);
+      int nombre1;
+
+      nombre1 = clavier.nextInt();
+      System.out.println(nombre1 + " est un nombre ");
+      if (nombre1 < 0) {
+         System.out.println("négatif"); 
+      } else {
+         System.out.println("positif");   
+      }
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Exercice} 
+Comment traduire cet algorithme ?
+\begin{Code}
+MODULE Test
+    nombre1: Entier
+    LIRE nombre1
+    SI nombre1 > 0 ALORS
+        ECRIRE nombre1, "est positif"
+    SINON
+        SI nombre1 = 0 ALORS
+            ECRIRE nombre1, "est nul"
+        SINON
+            ECRIRE nombre1, "est négatif"
+        FIN SI
+    FIN SI
+FIN MODULE
+\end{Code}
+\end{frame}
+
+\begin{frame}[fragile]{Expressions booléennes} 
+Pour les tests, on peut utiliser :
+\begin{itemize}
+\item Des comparateurs : \java|<|, \java|>|, \java|<=|, \java|>=|, \java|==|, \java|!=|
+\item Des opérateurs booléens : \java|&&| (et), \java{||} (ou), \java|!| (non)
+\end{itemize} 
+\bigskip
+\emph{Attention !} Bien distinguer \java|=| et \java|==|
+\end{frame}
+
+\begin{frame}[fragile]{Exemple} 
+\begin{Java}
+import java.util.Scanner;
+public class Exemple {
+  public static void main(String[] args) {
+      Scanner clavier = new Scanner(System.in);
+      int nombre1;
+
+      nombre1 = clavier.nextInt();
+      if ((nombre1 % 2) == 0) {
+         System.out.println("Le nombre est pair");
+      } else {
+         System.out.println("Le nombre est impair"); 
+      }
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple} 
+\begin{Java}
+import java.util.Scanner;
+public class Exemple {
+  public static void main(String[] args) {
+      Scanner clavier = new Scanner(System.in);
+      int âge;
+
+      âge = clavier.nextInt();
+      if ( âge<21 || âge>=60 ) {
+         System.out.println("Tarif réduit !");
+      }
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Le \og selon-que\fg} 
+Première forme
+\begin{Java}
+  switch(numéroJour) {
+    case 1 : intituléJour="Lundi"; break;
+    case 2 : intituléJour="Mardi"; break;
+    case 3 : intituléJour="Mercredi"; break;
+    case 4 : intituléJour="Jeudi"; break;
+    case 5 : intituléJour="Vendredi"; break;
+    case 6 : intituléJour="Samedi"; break;
+    case 7 : intituléJour="Dimanche"; break;
+    default : intituléJour="Inconnu"; break;
+  }
+\end{Java}
+\begin{itemize}
+\item Notez le \java{break}
+\item Possible avec : entiers, caractères et chaines
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Le \og selon-que\fg} 
+Deuxième forme : la logique suivante
+\begin{Code}
+  Selon que 
+    nb > 0 : Ecrire "positif"
+    nb = 0 : Ecrire "nul"
+    autrement : Ecrire "négatif"
+  Fin selon que
+\end{Code}
+s'écrit en Java
+\begin{Java}
+  if (nb>0) {
+      System.out.println("positif");
+  } else if (nb==0) {
+      System.out.println("nul");
+  } else {
+      System.out.println("négatif");
+  }  
+\end{Java}
+\end{frame}
+

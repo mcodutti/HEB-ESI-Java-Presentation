@@ -1,0 +1,780 @@
+\section{Les entrées-sorties}
+\leconwithtoc
+
+\subsection{Présentation}
+
+\begin{frame}{Présentation}
+Rappel : En \sigle{Logique} vous avez vu
+  \begin{itemize}
+  \item Les fichiers \emph{séquentiels} \emph{structurés}
+  \item En \emph{entrée} ou en \emph{sortie} (mais pas les 2)
+  \end{itemize}
+\bigskip
+Possible aussi en \sigle{Java} (et bien plus)
+\begin{itemize}
+  \item Mais plus complexe
+  \item On doit s'intéresser aux aspects pratiques
+    \begin{itemize}
+    \item Comment coder l'information \\(texte, binaire, sérialisation, \dots)  
+    \item Comment gérer les erreurs (fichier inexistant, \dots)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Coder l'information}
+En \sigle{java}, on peut coder l'information de 2 façons
+  \begin{description}
+  \item[Binaire] : On utilise la représentation mémoire
+  \item[Texte] : On utilise une suite de caractères
+  \end{description}
+\bigskip\emph{Exercice} : Soit l'entier $16$
+    \begin{itemize}
+    \item Donner les représentations <<binaire>> et <<texte>>
+    \item Quelle sont les tailles de ces représentations ? 
+    \item Voyez-vous des avantages/inconvénients à ces représentations ?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Types de fichiers}
+En \sigle{java}, les fichiers sont \emph{uniformes}
+  \begin{description}
+  \item[Fichier binaire] : Tout est codé en binaire
+  \item[Fichier texte] : Tout est codé en caractères
+  \end{description}
+\bigskip
+Ce n'est pas indiqué dans le fichier
+    \begin{itemize}
+    \item Il faut le savoir et utiliser le fichier en conséquence
+    \item Sinon le résultat n'est pas celui espéré
+    \end{itemize}
+\bigskip\emph{Exercice} : Si on crée un fichier binaire avec l'entier 16 et qu'on le relit comme un fichier texte que se passe-t-il ?
+\end{frame}
+
+\begin{frame}{Types de fichiers}
+Par contre les fichiers ne sont \emph{pas structurés}
+    \begin{itemize}
+    \item On peut mélanger le contenu
+    \item \emph{Ex} : écrire un entier puis une chaine puis un réel
+    \end{itemize}
+\bigskip
+On ne peut pas demander ce qui s'y trouve, il faut le savoir.
+\end{frame}
+
+\begin{frame}{Vue d'ensemble}
+Au niveau le plus bas, \sigle{Java} fournit des classes et méthodes pour lire/écrire
+  \begin{itemize}
+  \item des \java|byte| dans un fichier \emph{binaire}
+  \item des \java|char| dans un fichier \emph{texte}
+  \end{itemize}
+\bigskip
+D'autres classes spécialisées vont permettre de lire/écrire
+  \begin{itemize}
+  \item Des valeurs primitives
+  \item Des objets (via la <<sérialisation>>)
+  \end{itemize}
+\bigskip
+Presque tout se trouve dans le package \java|java.io|
+\end{frame}
+
+\begin{frame}{Vue d'ensemble}
+\begin{center}
+\includegraphics[scale=.45]{../img/java-io-schema}
+\end{center}
+\end{frame}
+
+\subsection{Fichier binaire}
+\leconwithtocinside
+
+\begin{frame}[fragile]{Lecture dans un fichier binaire}
+\emph{Exemple} : Lire le contenu d'un fichier binaire 
+\begin{Java}
+try {
+    FileInputStream in = new FileInputStream("nomFichier");
+    b = in.read();    
+    while( b != -1 ) {
+        System.out.print(b+" ");
+        b = in.read();    
+    }
+    in.close();   
+} catch ( IOException ex ) {
+    // gérer le problème ici si possible
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Lecture dans un fichier binaire}
+\emph{Déclaration du fichier}
+  \begin{itemize}
+  \item \java|FileInputStream| permet la lecture dans un fichier binaire
+  \item On ne spécifie pas le contenu (non structuré)
+  \end{itemize}
+\medskip
+\emph{Ouverture}
+  \begin{itemize}
+  \item Se fait lors de l'instanciation de la classe
+  \item C'est ici qu'on fait le lien avec le fichier physique
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Lecture dans un fichier binaire}
+\emph{Fermeture}
+  \begin{itemize}
+  \item Via la méthode \java|close|
+  \end{itemize}
+\bigskip
+\emph{Lecture dans le fichier}
+  \begin{itemize}
+  \item Via la méthode \java|read|
+  \end{itemize}
+\bigskip
+\emph{Fin de fichier}
+  \begin{itemize}
+  \item La lecture de la valeur $-1$ indique la fin du fichier
+  \end{itemize}
+\bigskip
+Comprenez-vous pourquoi la méthode de lecture retourne un \java|int| et pas un \java|byte| ?
+\end{frame}
+
+\begin{frame}[fragile]{Lecture dans un fichier binaire}
+\emph{Exercice} : \textit{(compréhension du concept de fichier binaire)}
+\\Créez un fichier qui contient
+\begin{Java}
+16
+
+\end{Java}
+et lisez-le avec le code précédent. 
+\\Comprenez-vous le résultat ?
+\end{frame}
+
+\begin{frame}[fragile]{Lecture dans un fichier binaire}
+\emph{Gestion des erreurs}
+  \begin{itemize}
+  \item L'exception liée aux fichiers est \java|IOException|
+  \item Pour l'ouverture en lecture il y a aussi \java|FileNotFoundException| 
+  (qui hérite de \java|IOException|)
+  \item Elles sont contrôlées par le compilateur \\(on doit en tenir compte)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Lecture dans un fichier binaire}
+On rencontre souvent une version compacte de la boucle de lecture
+\begin{Java}
+    int b;
+    while ((b=file.read())!=-1) {
+         System.out.print(b+" ");
+    }
+\end{Java}
+  \begin{itemize}
+  \item Évite la duplication du code de lecture
+  \item Quid de la lisibilité ?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Écriture dans un fichier binaire}
+Pour l'écriture on utilise la classe \java|FileOutputStream|
+\\\bigskip\emph{Exemple}
+\begin{Java}
+try {
+    FileOutputStream out = new FileOutputStream("nomFichier");
+    out.write(64);
+    out.close();   
+} catch ( IOException ex ) {
+    // gérer le problème ici si possible
+}
+\end{Java}
+\bigskip
+\emph{Exercice} : Afficher le contenu du fichier et comprendre le résultat.
+\end{frame}
+
+\begin{frame}[fragile]{Écriture dans un fichier binaire}
+\emph{Exemple} : copie d'un fichier
+\begin{Java}
+public static void copier( String nomIn, String nomOut )
+                                             throws IOException {
+    FileInputStream in = new FileInputStream(nomIn);
+    FileOutputStream out = new FileOutputStream(nomOut);
+    int b;
+    while((b = in.read()) != -1) {
+        out.write(b);
+    }
+    in.close();   
+    out.close();
+}
+\end{Java}
+  \begin{itemize}
+  \item Appel possible : \java|copier("date.txt","data.bak");|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Écriture dans un fichier binaire}
+\emph{Remarques}
+\begin{itemize}
+\item Création du fichier lors de l'instanciation
+\item Si le fichier existe, son contenu est remplacé
+\item Seul l'octet de poids faible est écrit \\(pourquoi accepter un \java|int| ?)
+\item Pas de \java{FileNotFoundException}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Écriture dans un fichier binaire}
+\emph{Exemple} : autre possibilité pour la copie
+\begin{Java}
+public static void copier( FileInputStream in, FileOutputStream out)
+                                             throws IOException {
+    int b;
+    while((b = in.read()) != -1) {
+        out.write(b);
+    }
+    in.close();   
+    out.close();
+}
+\end{Java}
+  \begin{itemize}
+  \item Appel possible : 
+  \begin{Java}
+      copier( new FileInputStream("date.txt"),
+              new FileOutputStream("data.bak") ); 
+  \end{Java}
+  \end{itemize}
+\end{frame}
+
+\subsection{Fichier texte}
+\leconwithtocinside
+
+\begin{frame}{Les fichiers textes}
+Mêmes principes que pour les fichiers binaires mais avec des classes adaptées
+\medskip
+\begin{itemize}
+\item \java|FileReader| pour lire un fichier texte
+  \begin{itemize}
+  \item \java|int read()| lit un caractère (-1 si fin de fichier)
+  \end{itemize}
+\medskip
+\item \java|FileWriter| pour écrire un fichier texte
+  \begin{itemize}
+  \item \java|void write(int c)| écrit le caractère c
+  \\(Seuls les 2 octets de poids faible sont écrits)
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Les fichiers textes}
+\emph{Exemple} : lire le contenu d'un fichier texte
+\begin{Java}
+public static void cat( String nameIn) throws IOException {
+    FileReader in = new FileReader(nameIn);
+    int c;
+    while((c = in.read()) != -1) {
+        System.out.print(c);
+    }
+
+
+
+    in.close();   
+}
+\end{Java}
+\emph{Exercice} : Corriger l'exemple précédent pour qu'il affiche fidèlement le contenu du fichier.
+\end{frame}
+
+\begin{frame}[fragile]{Les fichiers textes}
+\emph{Exemple} : copie d'un fichier texte
+\begin{Java}
+public static void copier( String nameIn, String nameOut) 
+                                          throws IOException {
+    FileReader in = new FileReader(nameIn);
+    FileWriter out = new FileWriter(nameOut);
+    int c;
+    while((c = in.read()) != -1) {
+        out.write(c);
+    }
+    in.close();   
+    out.close();
+}
+\end{Java}
+\end{frame}
+
+\subsection{Manipulation des fichiers}
+\leconwithtocinside
+
+\begin{frame}[fragile]{Manipulation des fichiers}
+La classe \java|File| permet de manipuler les fichiers du système de fichiers
+\\\bigskip\emph{Exemple}
+\begin{Java}
+  public static void deleteBig(String nom) {
+      File fichier = new File(nom);
+      if (fichier.exists() && fichier.length()>1000000L) {
+          fichier.delete();
+      }
+  }
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Manipulation des fichiers}
+Les classes de type \java{FileXXX} peuvent être construites à partir d'un \java|File|
+\\\bigskip\emph{Exemple}
+  \begin{Java}
+    File fichierIn = new File("data.txt");
+    if (fichierIn.exists()) {
+        FileInputStream in = new FileInputStream(fichierIn);
+        //...
+    } else {
+        // gérer le problème si possible
+    }
+  \end{Java}
+\end{frame}
+
+\subsection{Données primitives}
+\leconwithtocinside
+
+\begin{frame}[fragile]{Données primitives}
+Concerne
+  \begin{itemize}
+  \item Tous les types primitifs
+  \item Le type \java|String|
+  \end{itemize}
+\bigskip
+Deux approches différentes en fonction du format utilisé
+  \begin{itemize}
+  \item Fichier binaire
+  \item Fichier texte
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Données primitives sur un fichier binaire}
+Pour écrire des données primitives sur un fichier binaire on se base sur la classe \java|DataOutputStream|
+\\\bigskip
+\emph{Exemple}
+\begin{Java}
+try {
+    DataOutputStream out = new DataOutputStream( 
+                                   new FileOutputStream("nomFichier"));
+    out.writeInt(16);
+    out.writeUTF("Hello");    
+    out.close();   
+} catch ( IOException ex ) {
+    // gérer le problème ici si possible
+}
+\end{Java}
+  \begin{itemize}
+  \item La constructeur met bien en évidence que ça se base sur un fichier binaire
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Données primitives sur un fichier binaire}
+Pour la lecture on se base sur la classe \java|DataInputStream|
+\\\medskip
+\emph{Exemple}
+\begin{itemize}
+\item[]
+\begin{Java}
+try {
+    DataInputStream in = new DataInputStream( 
+                                new FileInputStream("nomFichier"));
+    int nb = in.readInt();
+    String titre = in.readUTF();    
+    in.close();   
+} catch ( IOException ex ) {
+    // gérer le problème ici si possible
+}
+\end{Java}
+\end{itemize}
+\medskip
+Pas de valeur sentinelle; génère une \java|EOFException| si tentative de lecture au-delà de la fin du fichier.
+\end{frame}
+
+\begin{frame}[fragile]{Données primitives sur un fichier binaire}
+\emph{Exemple} : somme des nombres d'un fichier
+\begin{Java}
+  public double somme( DataInputStream in ) throws IOException {
+      double somme = 0;
+      try {
+          while(true) {
+              somme += in.readDouble();
+          }
+      } catch (EOFException ex) }
+          // rien à faire, on passe simplement à la suite
+      }
+      return somme; 
+  }
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Données primitives sur un fichier texte}
+Commençons par l'écriture sur fichier texte
+\\\bigskip \emph{Exemple}
+\begin{Java}
+PrintWriter out = new PrintWriter(new FileOutputStream("result.dat"));
+out.println(10);
+out.print("Hello");
+out.close();
+\end{Java}
+\bigskip \emph{Remarques}
+\begin{itemize}
+\item \java|PrintWriter| se base sur \java|FileOutputStream|
+\item \java|print| et \java|println| fonctionnent comme vous les connaissez
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Données primitives sur un fichier texte}
+On a déjà abordé la classe \java|Scanner|
+    \begin{itemize}
+    \item Permet de lire au clavier (l'entrée standard) 
+    \item Offre des méthodes de lecture : \java{nextInt()}, \dots
+    \item Et aussi des méthodes de test : \java|hasNextInt()|, \dots
+    \item \emph{Exemple} 
+	\begin{Java}
+  import java.util.Scanner ; 
+  ...
+  Scanner clavier = new Scanner(System.in);
+  int somme=0, nb;
+  while (clavier.hasNextInt()) {
+      somme += clavier.nextInt();
+  } 
+  System.out.println( somme );
+	\end{Java}
+\end{itemize}	
+\end{frame}
+
+\begin{frame}[fragile]{Données primitives sur un fichier texte}
+La classe \java|Scanner| fonctionne aussi avec un fichier texte
+\\\bigskip\emph{Exemple} 
+	\begin{Java}
+  import java.util.Scanner ; 
+  ...
+  Scanner fileIn = new Scanner( new FileReader( "mesData" ) );
+  int somme=0, nb;
+  while (fileIn.hasNextInt()) {
+      somme += fileIn.nextInt();
+  } 
+  System.out.println( somme );
+	\end{Java}
+\end{frame}
+
+\subsection{Les <<flux>> standards}
+\leconwithtocinside
+
+\begin{frame}{La notion de <<flux>>}
+Quelques points étranges ne vous auront peut-être pas échappés
+  \begin{itemize}
+  \item \java|Scanner| sert aussi bien pour un fichier que pour le <<clavier>>
+  \item La méthode \java|println| existe pour les fichiers mais aussi pour l'<<écran>>
+  \end{itemize}
+\bigskip
+En fait, le package \java|java.io| ne fonctionne pas uniquement avec des fichiers mais avec n'importe quel <<flux>> (<<stream>> en anglais)
+\end{frame}
+
+\begin{frame}{La notion de <<flux>>}
+\emph{Flux} : élément qui peut fournir ou recevoir une suite d'octets ou de caractères
+  \begin{itemize}
+  \item Un \emph{clavier} peut être vu comme un flux fournissant des octets
+  \item Un \emph{écran} peut être vu comme un flux recevant des caractères
+  \item Et il y en a d'autres
+    \begin{itemize}
+    \item Un <<\emph{socket}>> (connection entre 2 ordinateurs)
+    \item Une \emph{chaine} (fournit des caractères)
+    \item \dots
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Les flux standards}
+Lorsqu'un programme s'exécute, 3 flux existent automatiquement
+  \begin{itemize}
+  \item À priori connectés au clavier et à l'écran
+  \item Mais peut être changé via une <<redirection>>
+  \\(cf. cours de système et exercices Linux au laboratoire)
+  \end{itemize}
+\bigskip
+\java|System.in| : l'entrée standard
+  \begin{itemize}
+  \item De type \java|InputStream|
+    \begin{itemize}
+    \item Classe générale pour un flux binaire en entrée
+    \item \java|FileInputStream| hérite de \java|InputStream|
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Les flux standards}
+\java|System.out| : la sortie standard
+  \begin{itemize}
+  \item De type \java|PrintStream|
+  \item Ce qui explique l'existence de \java|println|
+  \end{itemize}
+\bigskip
+\java|System.err| : l'erreur standard
+  \begin{itemize}
+  \item Aussi de type \java|PrintStream|
+  \item Flux séparé ce qui permet de ne rediriger que les erreurs
+  \end{itemize}
+\bigskip
+\emph{Exercice} : Expliquez la nature de chacun des éléments de 
+\java|System.out.println("Hello");|
+\end{frame}
+
+\subsection{Données primitives formattées}
+\leconwithtocinside
+
+\begin{frame}[fragile]{Données primitives formattées}
+Les textes ayant pour vocation d'être lus par des humains
+  \begin{itemize}
+  \item On veut un \emph{contrôle fin} sur la \emph{mise en page} des textes produits
+  \item On doit être capable de \emph{gérer} une \emph{mise en page complexe} du texte lu
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Écriture de données formattées}
+\java|PrintWriter| offre également la méthode \java|printf| 
+  \begin{itemize}
+  \item Permet un contrôle très fin de la sortie
+  \item \emph{Exemple}
+    \begin{Java}
+public void test(PrintStream out) {  // Un fichier, l'écran, ...
+  out.printf("%04d\n", 23);	                     // 0023
+  out.printf("%4.2f\n", 12.2);	                  // 12.20
+
+  Calendar c = GregorianCalendar.getInstance();
+  c.set(9, 00, 23);                              // 23 janvier 2009
+  out.printf("le %1$td/%1$tm/%1$ty\n", c);       // le 23/01/09
+}
+    \end{Java}
+  \item cf. l'API pour tous les détails
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Lecture de données formattées}
+Voyons à présent toute la puissance de \java|Scanner|
+  \begin{itemize}
+  \item Seule classe vue ici qui n'est pas dans \java|java.io|
+  \item Permet de décomposer une suite de caractères
+  \item Fonctionne sur
+    \begin{itemize}
+    \item Un \java|InputStream| (fichier binaire, entrée standard, \dots)
+    \item Mais aussi un \java|String|
+    \\\emph{Exemple} : \java|new Scanner("3 14 15 92 65")|
+    \end{itemize}
+  \item L'entrée est décomposée en \emph{tokens}
+    \begin{itemize}
+    \item Cf. leçon sur l'analyse lexicale 
+    \item Le séparateur est le \emph{whitespace} (configurable)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Lecture de données formattées}
+Fonctionnement de base
+  \begin{itemize}
+  \item À la création on est au début
+  \item Chaque \java|next()| \emph{lit} un token
+  \item \java{nextType} équivaut à un \java|next| suivi d'une conversion en le bon 
+       \textit{type} (pour certains types)
+  \item \emph{Exemple}
+     \begin{Java}
+  Scanner uneEntrée = new Scanner("12 true \n false");
+  // \n est un whitespace aussi !
+  int n = uneEntrée.nextInt();
+  boolean b = uneEntrée.nextBoolean();
+  String s = uneEntrée.next();
+    \end{Java}  
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Lecture de données formattées}
+Si l'entrée ne correspond pas au type demandé :
+  \begin{itemize}
+  \item \java|InputMismatchException| est lancée
+  \item Le token n'est pas \emph{consommé}
+  \item \emph{Exemple}
+    \begin{Java}
+  Scanner uneEntrée = new Scanner("true 12");
+  int n = 0;
+  try {
+    n = uneEntrée.nextInt();
+  } catch (InputMismatchException ex) {
+    uneEntrée.next(); // Nécessaire !
+    n = uneEntrée.nextInt(); 
+  }
+    \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Lecture de données formattées}
+\java|nextLine()| lit la chaine jusqu'à la fin de la ligne (lue mais non incluse)
+  \begin{itemize}
+  \item \emph{Exemple}
+    \begin{Java}
+  Scanner uneEntrée = new Scanner("12 true \n false");
+  String s = uneEntrée.nextLine(); //"12 true "
+    \end{Java}
+  \item \emph{Exemple}
+    \begin{Java}
+  Scanner uneEntrée = new Scanner("12\n suite");
+  int n = uneEntrée.nextInt();
+  String s = uneEntrée.nextLine(); // lit "" !!!
+  s = uneEntrée.nextLine(); // lit " suite" !!!
+    \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Lecture de données formattées}
+Pas de \java|nextChar()|
+  \begin{itemize}
+  \item Peut être simulé par \java|next().charAt(0)|
+  \item \emph{Exemple}
+    \begin{Java}
+  Scanner uneEntrée = new Scanner("12 suite");
+  char c1 = uneEntrée.next().charAt(0); // 1
+  char c2 = uneEntrée.next().charAt(0); // s
+    \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Lecture de données formattées}
+On peut imposer un \emph{schéma} de lecture
+  \begin{itemize}
+  \item via \java|next(String pattern)|
+  \item La syntaxe est très riche et un peu complexe (cf. les expressions
+régulières (\textit{regex}), classe Pattern dans la documentation). 
+  \item \emph{Exemple} : le token doit être le caractère "H", "h", "F" ou "f" sinon 
+     \java|InputMismatchException|
+    \begin{Java}
+  String s = clavier.next("[HhFf]");
+    \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Lecture de données formattées}
+\begin{itemize}
+	\item \emph{Exemple} : lire un opérateur : +, -, * ou /
+	\begin{Java}
+  String s = clavier.next("[\\+\\-\\*/]");
+	\end{Java}
+
+	\item \emph{Exemple} : lire un login étudiant
+	\begin{Java}
+  String s = clavier.next("[gG]\\d{5}");
+	\end{Java}
+
+	\item \emph{Remarque} : on échappe (via le caractère $\backslash$ ) deux fois 
+	certains caractères afin de leur rendre leur sens premier (ils en ont deux)
+	\begin{itemize}
+		\item une fois à cause de "\java{String}",
+		\item une deuxième fois à cause de la \textit{regex}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Lecture de données formattées}
+Les méthodes de la forme \java|hasNext()| permettent de savoir
+  \begin{itemize}
+  \item Si un token est disponible en entrée
+    \begin{Java}
+  int somme = 0;
+  while ( clavier.hasNextInt() ) {
+      somme = somme + clavier.nextInt();
+  }
+    \end{Java}
+  \item S'il est du bon type
+    \begin{Java}
+  System.out.println( "Je voudrais un entier" );
+  while( !clavier.hasNextInt() ) {
+      System.out.println( "Message d'erreur" );
+      clavier.next(); // passer l'entrée erronée
+  }
+  int n = clavier.nextInt();
+    \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Lecture de données formattées}
+La notion de <<locale>>
+  \begin{itemize}
+  \item Un \emph{locale} représente les habitudes locales de l'utilisateur
+  (ex: la \emph{virgule décimale} pour les francophones)
+  \item Par défaut un scanner prend le locale propre au système
+  \item On peut en déterminer un autre
+  \item Ex : nombres flottants à \emph{l'anglaise}
+    \begin{Java}
+  Scanner clavier = new Scanner(System.in); 
+  clavier.useLocale(Locale.UK);
+    \end{Java}
+  \end{itemize}
+\end{frame}
+
+
+\subsection{Lire/Écrire des objets}
+\leconwithtocinside
+
+\begin{frame}{Sérialisation}
+Nous savons à présent lire/écrire des valeurs primitives
+\\\bigskip
+Quid des objets ?
+  \begin{itemize}
+  \item Revient à sauver tous les attributs
+  \item Dont certains sont aussi des objets
+  \item $\Longrightarrow$ plus complexe
+  \item On s'en sort via la <<sérialisation>>
+  \end{itemize} 
+\bigskip
+\emph{Sérialiser} : Transformer un objet (ses attributs) en une suite d'octets
+\end{frame}
+
+\begin{frame}[fragile]{Sérialisation}
+Pour l'écriture, on utilise \java|ObjectOutputStream|
+  \begin{itemize}
+  \item \emph{Exemple} : Écriture d'objets
+    \begin{Java}
+  FileOutputStream out = new FileOutputStream("theTime");
+  ObjectOutputStream s = new ObjectOutputStream(out);
+  s.writeObject("Today");
+  s.writeObject(new Date());
+  s.close();
+  out.close();
+    \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Sérialisation}
+Pour la lecture, on utilise \java|ObjectInputStream|
+  \begin{itemize}
+  \item \emph{Exemple} : Relecture des objets
+\begin{Java}
+  FileInputStream in = new FileInputStream("theTime");
+  ObjectInputStream s = new ObjectInputStream(in);
+  String today = (String) s.readObject();
+  Date date = (Date) s.readObject();
+  s.close();
+  in.close();
+\end{Java}
+  \item À la lecture, le casting est nécessaire car \java|readObject()| retourne un \java|Object|
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Sérialisation}
+Une classe doit implémenter \java|Serializable| pour être sérialisable 
+  \begin{itemize}
+  \item Pas de méthode, sert juste de <<tag>>
+  \item Tous ses attributs doivent aussi être sérialisables
+  \end{itemize}
+\bigskip
+\emph{Exemple}
+\begin{itemize}
+\item []
+\begin{Java}
+  public class MaClasse implements Serializable {...}
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Sérialisation}
+La sérialisation est utilisée pour
+  \begin{itemize}
+  \item La communicaton réseau entre processus \sigle{Java}
+  \item La sauvegarde des données d'une application. Mais
+    \begin{itemize}
+    \item Pas très efficace : tout est lu ou sauvé en bloc
+    \item La classe ne doit pas avoir changé entre le moment de l'écriture et le moment de la relecture $\Longrightarrow$ probl\`eme de pérennité de l'information
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+

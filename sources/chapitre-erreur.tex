@@ -1,0 +1,212 @@
+% === Cours de Java
+\section{Écrire du code robuste}
+
+\leconwithtoc
+
+\subsection{Motivation}
+
+\begin{frame}{Motivation}
+Un programme ne tourne pas dans un monde idéal
+\\\bigskip
+Il doit pouvoir \emph{résister aux défaillances} de l'environnement
+  \begin{itemize}
+  \item On tente d'ouvrir un fichier qui n'existe pas
+  \item L'utilisateur entre des données incorrectes
+  \item \dots
+  \end{itemize}
+\end{frame}
+
+\subsection{Gérer les erreurs}
+
+\begin{frame}[fragile]{La gestion des erreurs}
+\emph{Exemple} :
+\begin{Java}
+import java.util.Scanner;
+public class Affiche {
+  /**
+   * Affiche un nombre entier lu au clavier.
+   * @param args non utilisé
+   */
+  public static void main(String[] args) {
+      Scanner clavier = new Scanner(System.in);
+      int nb;
+ 
+      nb = clavier.nextInt();
+      System.out.println(nb);
+  }
+}
+\end{Java}
+\begin{itemize}
+\item À priori tout va bien !
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{La gestion des erreurs}
+Et si l'utilisateur entre une lettre ?
+\vspace{-1ex}
+\begin{center}
+\includegraphics[scale=.65]{../img/erreur1}
+\end{center}
+\vspace{-1ex}
+%\begin{Code}
+%> javac Affiche.java
+%> java Affiche
+%a
+%Exception in thread "main" java.util.InputMismatchException
+%	at java.util.Scanner.throwFor(Scanner.java:857)
+%	at java.util.Scanner.next(Scanner.java:1478)
+%	at java.util.Scanner.nextInt(Scanner.java:2108)
+%	at java.util.Scanner.nextInt(Scanner.java:2067)
+%	at Affiche.main(Affiche.java:7)
+%\end{Code}
+  \begin{itemize}
+  \item Une \emph{exception} est générée
+  \item Le programme s'\emph{arrête brutalement} et affiche un message d'erreur
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{La gestion des erreurs}
+2 inconvénients majeurs
+  \begin{itemize}
+  \item Le message d'erreur est très utile pour le développeur mais pas pour l'utilisateur
+  \item L'arrêt du programme est rarement le comportement souhaité
+  \end{itemize}
+\bigskip
+On aimerait pouvoir \emph{gérer} le problème
+  \begin{itemize}
+  \item Au mieux, le régler
+  \item Au pire, afficher un message plus clair pour l'utilisateur
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{La gestion des erreurs}
+Possible grâce à l'instruction \java|try catch|
+  \begin{itemize}
+  \item \java{try} : contient les instructions qui \emph{peuvent mal se passer}
+  \item \java{catch} : contient le code qui est \emph{en charge} de gérer le problème
+  \end{itemize}
+\bigskip
+Quand un problème se présente dans le \java{try}
+  \begin{itemize}
+  \item Le code du \java{try} est interrompu
+  \item Le code du \java{catch} est exécuté
+  \item Ensuite, on continue après le \java{try-catch} 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{La gestion des erreurs}
+\emph{Exemple} : on affiche un message plus clair
+\begin{Java}[basicstyle=\scriptsize]
+package be.heb.esi.lgj1;
+import java.util.Scanner;
+public class Affiche {
+  /**
+   * Affiche l'entier lu au clavier ou un message si ce n'est pas un entier.
+   */
+  public static void main(String[] args) {
+      Scanner clavier = new Scanner(System.in);
+      int nb;
+      try { 
+        nb = clavier.nextInt();
+        System.out.println(nb);
+      }
+      catch(Exception e) { 
+        System.out.println("Ce n'est pas un entier!");
+      }
+  }
+}
+\end{Java}
+\vspace{-3ex}
+\hspace{3ex}
+\includegraphics[scale=.65]{../img/throw}
+\end{frame}
+
+\subsection{Confiner les problèmes}
+
+\begin{frame}{Confiner les problèmes - Motivation}
+Imaginons la situation suivante :
+\begin{itemize}
+\item Un programme demande un entier à l'utilisateur
+\item Il doit être positif
+\item L'utilisateur entre un nombre négatif
+\item Le programme ne le vérifie pas tout de suite
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Confiner les problèmes - Motivation}
+On aura un problème :
+\begin{itemize}
+\item Un plantage
+\item Un résultat erroné
+\item Un effet indésiré (perte de données, \dots)
+\end{itemize}
+\medskip
+Mais le problème va survenir :
+\begin{itemize}
+\item Plus tard dans le temps
+\item Plus loin dans le code
+\end{itemize}
+\medskip
+$\Longrightarrow$ \emph{Difficile} à comprendre et \emph{corriger}
+\end{frame}
+
+\begin{frame}{Confiner les problèmes}
+Besoin de \emph{confiner} les problèmes
+  \begin{itemize}
+  \item Un problème est \emph{détecté rapidement} avant qu'il ne se propage dans le reste du code
+  \end{itemize}
+\bigskip
+Cas pratique : vérifier les \emph{paramètres}
+  \begin{itemize}
+  \item Si une contrainte est associée à un paramètre
+    \begin{itemize}
+    \item Le vérifier en début de méthode
+    \item Que faire si pas valide ?
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Confiner les problèmes}
+Nous avons appris à attraper une exception.
+\par
+On peut aussi en créer une
+\begin{Java}[basicstyle=\scriptsize]
+  /**
+   * Calcule la racine carrée d'un nombre.
+   * @param nb le nombre dont on veut la racine carée.
+   * @return la racine carrée de <code>nb<\code>.
+   * @throws IllegalArgumentException si <code>nb</code> est négatif.
+   */
+  public static double racineCarrée(double nb) {
+    if (nb<0) {
+      throw new IllegalArgumentException("nb doit être positif!");
+    }
+    // Traitement normal. On est sûr que le paramètre est OK.
+  }
+\end{Java}
+\begin{itemize}
+\item On dit qu'on \emph{lance} une exception
+\\(ici de type \java|IllegalArgumentException|)
+\item Pourra être attrapée via un \java{catch}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Confiner les problèmes}
+\emph{Exemple}
+\begin{Java}
+  try {
+    System.out.println( racineCarrée( val ) );
+  } catch (Exception ex) {
+    System.out.println( "Calcul impossible !" );
+  }
+\end{Java}
+\bigskip
+On peut aussi préciser qu'on n'attrape \emph{que} les \java|IllegalArgumentException|
+\begin{Java}
+  try {
+    System.out.println( racineCarrée( val ) );
+  } catch (IllegalArgumentException ex) {
+    System.out.println( "Calcul impossible !" );
+  }
+\end{Java}
+\end{frame}

@@ -1,0 +1,170 @@
+% === Cours de Java
+
+\section{Écrire du code lisible}
+
+\leconwithabstract{Nous montrons pourquoi et comment écrire du code lisible}
+
+\begin{frame}[fragile]{Et pourtant ça tourne !}
+On a vu que le compilateur ne se préoccupe pas de la \textit{mise en page}
+\begin{itemize}
+\item Tous les \textit{whitespace} sont éliminés lors de l'analyse lexicale
+(\textit{whitespace} $\equiv$ \textit{espace}, \textit{retour à la ligne}, \dots)
+\end{itemize}
+$\Longrightarrow$ ceci est \emph{équivalent} au \textit{Hello World}
+\begin{Java}
+public
+class
+Hello{public static void main(String[] args){System.
+out.              println( "Bonjour !"         );}}
+\end{Java}
+\end{frame}
+
+\begin{frame}{Et pourtant ça tourne !}
+C'est correct pour le compilateur mais à \emph{proscrire}
+\begin{itemize}
+\item Un code est \emph{souvent lu}
+  \begin{itemize}
+  \item Lorsqu'il est écrit / mis au point
+  \item Correction de bug 
+  \item Évolution du code (les besoins changent)
+  \end{itemize}
+\item Et souvent par des \emph{personnes différentes}
+\end{itemize}
+\bigskip
+$\Longrightarrow$ \emph{La lisibilité est essentielle}
+\end{frame}
+
+\begin{frame}[fragile]{Un code lisible}
+\emph{Règle 1} : \emph{Indenter} correctement son code 
+  \begin{itemize}
+  \item Pour un aperçu global de la structure du code
+  \item Pour repérer rapidement la fin d'un \textit{bloc}
+  \end{itemize}
+\bigskip
+\emph{Règle 2} : Bien choisir le \emph{nom des variables}
+\begin{itemize}
+\item Ce bout de code est syntaxiquement correct
+\item Mais que fait-il ?
+\end{itemize}
+\begin{Java}
+  int u=clavier.nextInt(),n=clavier.nextInt(),
+  t=clavier.nextInt();
+  double p=u*n*(1+t/100.0);
+  System.out.println(p);
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Un code lisible}
+Nous lui préférons celui-ci plus lisible :
+\begin{Java}                                                 
+  double àPayer;
+  int prixUnitaire = clavier.nextInt();
+  int nombreArticles = clavier.nextInt();
+  int tauxTva = clavier.nextInt();
+
+  àPayer = prixUnitaire * nombreArticles * (1 + tauxTva/100.0);
+
+  System.out.println(àPayer);
+\end{Java}
+\end{frame}
+
+\begin{frame}{Un code lisible}
+\emph{Règle 3} : \emph{Décomposer} les expressions trop longues
+  \begin{itemize}
+  \item Une variable intermédiaire peut accroitre la lisibilité : le nom donne un sens à l'expression
+  \item La perte de place mémoire est négligeable 
+  \\(voire nulle car un compilateur peut optimiser) 
+  \item Trop décomposer nuit parfois à la lisibilité 
+  \\(limite floue)
+  \\$\Longrightarrow$ importance de l'\emph{expérience}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Un code lisible}
+\emph{Exemple} : reprenons l'exemple du calcul du prix à payer
+\begin{Java}
+  int prixUnitaireHTva = clavier.nextInt();
+  int nombreArticles = clavier.nextInt();
+  int tauxTva = clavier.nextInt();
+  int prixUnitaireTTC = prixUnitaireHTva * (1 + tauxTva/100.0);                               
+  double àPayer = prixUnitaireTTC * nombreArticles;
+\end{Java}
+\medskip
+\emph{Exemple} : que préférer de
+\begin{Java}
+int hypo = sqrt( a*a + b*b );
+\end{Java}
+\begin{Java}
+int aCarré = a*a;
+int bCarré = b*b;
+int hypo = sqrt( aCarré + bCarré );
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Un code lisible}
+\emph{Règle 4} : Utiliser des \emph{constantes}
+\begin{itemize}
+\item Rend le code plus lisible
+\item Facilite aussi son évolution
+\end{itemize}
+\begin{Java}                                                 
+  final double TAUX_TVA = 0.21;
+  double taxe;
+  double prix = clavier.nextInt();
+  taxe = prix * TAUX_TVA;
+  System.out.println(taxe);
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Un code lisible}
+\emph{Anti-règle} : Surcharger de \emph{commentaires}
+\begin{itemize}
+\item Vient souvent au secours d'un code non lisible
+\item Idéalement on utilisera les commentaires
+  \begin{itemize}
+  \item En début de programme, de module
+  \item Pour expliquer \emph{ce qu'il fait}
+  \item Mais surtout \emph{pas comment} il le fait
+  \item cf. \textit{javadoc}
+  \end{itemize} 
+\end{itemize}
+\bigskip
+Il y a d'autres règles ? Oui !
+\begin{itemize}
+\item Pour \sigle{Java}, document reprenant les conventions à respecter :
+{\scriptsize \code|http://www.oracle.com/technetwork/java/codeconv-138413.html|}
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{La refactorisation}
+\emph{En réalité} : On n'écrit pas un code lisible du premier coup !
+\\\bigskip
+\emph{Refactoriser} = changer le code en vue d'améliorer sa lisibilité / son évolutivité sans changer ce qu'il fait
+  \begin{itemize}
+  \item \emph{Exemples}
+    \begin{itemize}
+    \item donner un nom plus explicite à une variable
+    \item mieux indenter le code
+    \end{itemize}
+  \item \emph{Contre-exemples}
+    \begin{itemize}
+    \item ajouter une fonctionnalité
+    \item réparer un bug
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{La refactorisation}
+Mais refactoriser c'est toucher à du code qui fonctionne ! 
+Ce n'est pas dangereux ?
+\\\medskip
+\emph{Oui}! $\Longrightarrow$ importance 
+  \begin{itemize}
+  \item des tests de \emph{non-régression} (cf. \sigle{JUnit})
+  \item d'un système de \emph{gestion des versions}
+  \end{itemize}
+\medskip
+Pour aller plus loin : Martin Fowler, \\
+<<\textit{Refactoring: Improving the design of existing code}>>
+\end{frame}
+

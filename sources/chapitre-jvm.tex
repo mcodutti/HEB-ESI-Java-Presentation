@@ -1,0 +1,119 @@
+% === Cours de Java
+% === Chapitre : Introduction
+\section{Développer en \sigle{Java}}
+\leconwithtoc
+
+\subsection{La machine virtuelle}
+
+\begin{frame}{Le problème de la portabilité}
+Il est difficile de développer un programme \textit{multi-OS}
+  \begin{itemize}
+  \item Parties de code différentes d'un OS à l'autre
+  \item $\Longrightarrow$ ne tourne que sur un OS
+  \end{itemize} 
+\medskip
+Intenable pour \sigle{Java} (\emph{applets})
+  \begin{itemize}
+  \item Nécessité de developper un code \emph{portable}
+  \end{itemize}
+\medskip
+Réponse de \sigle{SUN} : la machine \emph{virtuelle} (JVM)
+  \begin{itemize}
+  \item Programmes \sigle{Java} développés pour la JVM
+  \item Comment les faire tourner sur une machine réelle ?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{La machine virtuelle}
+Via un programme qui \emph{émule} la \emph{machine virtuelle \sigle{Java}} (\sigle{JVM})  
+\medskip
+\begin{center}
+\includegraphics[scale=.8]{../img/java-jvm-jvm1} 
+\end{center} 
+\end{frame}
+
+\begin{frame}{La machine virtuelle}
+\sigle{Java} serait lent à interpréter (langage de haut niveau)
+\begin{itemize}
+\item Introduction d'un niveau intermédiaire : le \emph{\sigle{Bytecode}}
+  \begin{itemize}
+  \item Proche d'un langage d'assemblage
+  \item Plus rapide à interpréter
+  \item C'est en fait le langage de la \sigle{JVM} 
+  \end{itemize}
+\item \sigle{Java} est d'abord compilé en \sigle{Bytecode}
+\end{itemize}
+\bigskip
+$\Longrightarrow$ \emph{Approche mixte} compilation/interprétation
+\end{frame}
+
+\begin{frame}{La machine virtuelle}
+\begin{center}
+\includegraphics[scale=0.8]{../img/java-jvm-jvm2} 
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple: premier programme}
+Prenons un exemple \textit{(fichier \code{Hello.java})}
+\begin{Java}
+// Mon premier programme
+public class Hello {
+  public static void main(String[] args) {
+    System.out.println("Bonjour !");
+  }
+}
+\end{Java}
+\raisebox{2ex}{Compilons-le}\includegraphics[scale=.8]{../img/javac} \raisebox{2ex}{\scriptsize(extrait d'une console)}\\
+On obtient la version compilée (\code|Hello.class|)\\
+\raisebox{3ex}{Exécutons-la sur la machine virtuelle}\includegraphics[scale=.8]{../img/java}
+\end{frame}
+
+\subsection{Les outils de développement}
+
+\begin{frame}{Les outils de développement}
+\emph{\sigle{JRE}} : \textit{Java Runtime Environment}
+\begin{itemize}
+\item Ce qui est nécessaire à l'exécution
+\item Accompagne les navigateurs \sigle{Web} par ex.
+\end{itemize}
+\bigskip
+\emph{\sigle{JDK SE}} : \textit{Java Development Kit} (standard edition)
+\begin{itemize}
+\item Permet de developper en Java
+  \begin{itemize}
+  \item \emph{\sigle{javac}} : compilateur \sigle{Java} vers \sigle{bytecode}
+  \item \emph{\sigle{java}} : la machine virtuelle \sigle{Java} 
+  \item \emph{\sigle{javadoc}} : production automatique de documentation
+  \item \dots
+  \end{itemize}  
+\item Gratuit, fourni par \sout{\sigle{SUN}} \sigle{Oracle}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Les outils de développement}
+Les \textit{\emph{E}nvironnement de \emph{D}éveloppement \emph{I}ntégré} : 
+\emph{\sigle{Netbeans}}, \emph{\sigle{Eclipse}}, \dots
+\begin{itemize}
+\item Gratuits
+\item Avantages
+  \begin{itemize}
+  \item Éditeur, compilateur, débuggeur et aide intégrés dans un même outil
+  \item Génération automatisée de code 
+  \end{itemize}
+\item Inconvénient : on maitrise moins tout le processus (quand ça ne marche pas, on ne comprend pas pourquoi !)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Les outils de développement}
+Autre possibilité : les techniques brutes
+\begin{itemize}
+\item Un \emph{éditeur avec coloration syntaxique}
+\item Gestion manuelle des noms et emplacements des fichiers
+\item Compilation et exécution en ligne de commande
+\end{itemize}
+\bigskip
+\begin{center}
+\textit{Approche choisie à l'école pour vous faire \\comprendre ce qu'il y a derrière}
+\end{center}
+\end{frame}
+

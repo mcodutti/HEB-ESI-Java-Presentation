@@ -1,0 +1,239 @@
+% === Cours de Java
+% === Chapitre : Survol 
+
+\section{Algorithmes séquentiels (survol)}
+
+\leconwithabstracttoc{Nous voyons comment traduire les algorithmes séquentiels que vous écrivez au cours de Logique}
+
+\subsection{Structure générale d'un programme}
+
+\begin{frame}[fragile]{Structure générale du programme}
+\begin{Java}
+  public class NomClasse {
+    // Mettre ici les modules (on dit méthode en Java)
+  }
+\end{Java}
+\begin{itemize}
+\item Le nom commence par une majuscule
+\item Doit se trouver dans le fichier \code|NomClasse.java|
+\end{itemize}
+\bigskip
+\emph{Attention !} En \sigle{Java} : minuscule $\neq$ majuscule
+\par\medskip
+\emph{Exemple} : on ne peut pas écrire
+\begin{Java}
+  Public CLASS NomClasse {
+    
+  }
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{La méthode principale}
+\begin{Java}
+  public class NomClasse {
+    public static void main(String[] args) {
+      // Code de la méthode ici     
+    }
+  }
+\end{Java}
+\begin{itemize}
+\item \java|main| est le nom de la méthode principale
+\item C'est par là que commence le programme
+\item \`A écrire tel quel, on verra pourquoi
+\end{itemize}
+\end{frame}
+
+\subsection{Variables et assignation}
+
+\begin{frame}[fragile]{Les variables}
+Les types disponibles
+\begin{center}
+\begin{tabular}{r|l}
+En Logique & En  Java \\ \hline
+Entier & \java|int| \\ 
+Réel & \java|double| \\ 
+Chaine & \java|String| \\ 
+Caractère & \java|char| \\ 
+Booléen & \java|boolean| \\  
+\end{tabular} 
+\end{center}
+Exemple de déclaration
+\begin{Java}
+   int nb1;
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Les calculs}
+L'assignation se fait via le symbole \java|=|
+\begin{Java}
+   nb1 = 1;
+\end{Java}
+\bigskip
+Les calculs : on dispose de tous les opérateurs \textit{classiques}
+    \\\medskip
+    \begin{tabular}{r|l}
+    \java|+| & plus \\ 
+    \java|-| & moins \\ 
+    \java|*| & fois \\ 
+    \java|/| & au moins 1 réel $\Longrightarrow$ division \emph{réelle} \\
+             & 2 entiers $\Longrightarrow$ division \emph{entière} (\sigle{DIV} en \sigle{Logique})\\ 
+             
+    \java|%| & reste (\sigle{MOD} en \sigle{Logique})\\ 
+    \end{tabular} 
+\end{frame}
+
+\begin{frame}[fragile]{Exemple}
+\begin{Java}
+  public class Moyenne {
+    public static void main(String[] args) {
+
+      int nombre1;
+      int nombre2;
+      int moyenne;
+
+      nombre1 = 34345;
+      nombre2 = -3213213;
+      moyenne = (nombre1 + nombre2) / 2;    
+      System.out.println(moyenne); 
+    }
+  }
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple}
+\begin{Java}
+  public class Moyenne {
+    public static void main(String[] args) {
+
+      int nombre1 = 34345;
+      int nombre2 = -321321;
+      double moyenne;
+
+      // division réelle car un des 2 opérandes est réel
+      moyenne = (nombre1 + nombre2) / 2.0;    
+      System.out.println("La moyenne est " + moyenne); 
+    }
+  }
+\end{Java}
+\end{frame}
+
+\subsection{Lire au clavier}
+
+\begin{frame}[fragile]{Lire au clavier}
+Moins direct que l'affichage à l'écran
+  \begin{itemize}
+  \item Applications modernes (graphiques)
+  \item Lectures dans des champs de saisie
+  \item Parfois utile : test ou apprentissage
+  \end{itemize}
+\emph{Exemple}
+  \begin{Java}
+  import java.util.Scanner;
+  // ...
+  Scanner clavier = new Scanner(System.in);
+  // ...
+  nombre1 = clavier.nextInt();
+  \end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Lire au clavier - Exemple}
+\begin{Java}
+import java.util.Scanner;
+
+public class Test {
+  public static void main(String[] args) {
+      Scanner clavier = new Scanner(System.in);
+      double nombre1;
+      double nombre2;
+      double moyenne;
+
+      nombre1 = clavier.nextDouble();
+      nombre2 = clavier.nextDouble();
+      moyenne = (nombre1 + nombre2) / 2.0;
+      System.out.println(moyenne);    
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}{Lire au clavier}
+\begin{center}
+\begin{tabular}{r|l}
+Pour lire\dots & on écrit\dots \\ \hline
+un entier & \java|nextInt()| \\ 
+un réel & \java|nextDouble()| \\ 
+un booléen & \java|nextBoolean()| \\ 
+un mot & \java|next()|\\  
+une ligne & \java|nextLine()|\\  
+un caractère & \java|next().charAt(0)| \\ 
+\end{tabular} 
+\end{center}
+\end{frame}
+
+\subsection{Constantes}
+
+\begin{frame}[fragile]{Constante locale}
+Clause \java|final| {} $\Rightarrow$ constante
+\par\medskip
+Valeur donnée
+  \begin{itemize}
+  \item Soit à la déclaration 
+  \item Soit par assignation ultérieure
+  \end{itemize} 
+\begin{Java}
+  final int X = 1;
+  final int Y;
+  Y = 2*X;
+  X = 2; // Erreur : possède déjà une valeur
+  Y = 3; // Idem
+\end{Java}
+Pourquoi une constante au lieu d'un littéral ?
+\end{frame}
+
+\subsection{Conventions}
+
+\begin{frame}{Conventions de noms}
+Pour une variable :
+  \begin{itemize}
+  \item Tout mettre en \emph{minuscules}
+  \item Sauf les débuts de \textit{noms composés} en majuscule
+  \end{itemize} 
+\medskip
+Pour une constante :
+  \begin{itemize}
+  \item Tout mettre en \emph{majuscules}
+  \item Utiliser \java|_|  pour séparer les mots
+  \end{itemize}
+\medskip
+Dans tous les cas : \emph{être explicite}
+\\(sauf abréviations courantes)
+\end{frame}
+
+\begin{frame}[fragile]{Conventions de noms}
+\emph{Exemples}
+\begin{Java}
+  String nom;
+  int annéeEtude;
+  int nbEtudiants;
+  boolean partieFinie;
+  final double PI;
+  final int TAUX_TVA;   
+\end{Java}
+\end{frame}
+
+\subsection{Commentaires}
+
+\begin{frame}[fragile]{Le commentaire}
+  \begin{Java}
+  // Commentaire sur une ligne
+  /* Commentaire sur
+     plusieurs lignes */
+  \end{Java}
+\begin{itemize}
+\item Destiné aux humains
+\item Sans effet sur le programme
+\item Néanmoins crucial
+\end{itemize}
+\end{frame}
+
+

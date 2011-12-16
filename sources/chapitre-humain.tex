@@ -1,0 +1,152 @@
+\section{L'erreur est humaine}
+
+\leconwithabstract{Identifier, comprendre et corriger\\les erreurs d'un programme}
+
+\begin{frame}{La réalité de la programmation}
+Nous avons vu le processus \emph{idéal}
+  \begin{itemize} 
+  \item On édite / compile / exécute \dots et tout \textit{\og va bien\fg}
+  \end{itemize}
+\medskip
+Cas \emph{extrêmement rare}
+  \begin{itemize} 
+  \item Le programmeur est humain $\rightarrow$ faillible
+  \item Vous avez sûrement déjà tous été confrontés à un logiciel qui \textit{\og se plante\fg}
+  \end{itemize}
+\medskip
+Quels types d'erreurs rencontre-t-on ?
+\pause
+  \begin{itemize} 
+  \item Erreurs de \emph{compilation}
+  \item Erreurs d'\emph{exécution}
+    \begin{itemize} 
+    \item Le programme s'arrête
+    \item Le programme a un mauvais comportement
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Les erreurs de compilation}
+Le compilateur ne comprend pas ce qu'on a écrit
+\begin{itemize}
+\item \emph{Impossible} pour lui de le \emph{traduire} en \textit{bytecode}
+\item Messages d'erreurs pour nous aider à corriger 
+\end{itemize}
+\emph{Exemples} : versions modifiées de \textit{\og Hello World\fg}
+\begin{Java}
+public Class Hello {
+  public static void main(String[] args) {
+    System.out.println("Bonjour !");
+  }
+}
+\end{Java}
+%\vspace{-1ex}
+\includegraphics[scale=.7]{../img/erreur2}
+%\begin{Code}
+%> javac Hello.java 
+%Hello.java:1: class, interface, or enum expected
+%public Class Hello
+%       ^
+%\end{Code}
+\end{frame}
+
+\begin{frame}[fragile]{Les erreurs de compilation}
+\begin{Java}
+public class Hello {
+  public static void main(string[] args) {
+    System.out.println("Bonjour !");
+  }
+}
+\end{Java}
+\includegraphics[scale=.7]{../img/erreur3}
+%\begin{Code}
+%> javac Hello.java 
+%Hello.java:2: cannot find symbol
+%symbol  : class string
+%location: class Hello
+%  public static void main(string[] args)
+%                           ^
+%\end{Code}
+\end{frame}
+
+\begin{frame}{Les bonnes pratiques}
+Une grosse partie de la programmation consiste à \emph{détecter / corriger} les problèmes
+\begin{itemize}
+\item Plus tôt on détecte une erreur, plus vite elle est corrigée (le rapport peut être de 1 à 10)
+\end{itemize}
+\medskip
+Aptitude à travailler au laboratoire
+\begin{itemize}
+\item C'est un \emph{savoir-faire} plus qu'un savoir
+\item Suivre quelques \emph{pratiques} qui ont fait leur preuve
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Les bonnes pratiques}
+Application aux erreurs de compilation
+\begin{itemize}
+\item \emph{Compiler souvent} \\(pas uniquement \og à la fin \fg)
+  \begin{itemize}
+  \item Moins d'erreurs à corriger à la fois
+  \item Messages du compilateur plus clairs
+  \item Ne bâtir que sur du solide
+  \end{itemize}
+\item \emph{Lire / comprendre} les messages
+  \begin{itemize}
+  \item Idéalement, on sait déjà quel est le problème avant de retourner dans l'édition
+  \item Astuce : si beaucoup d'erreurs, commencer par les premières
+  \end{itemize}
+\item \emph{Retenir / reconnaitre} les erreurs fréquentes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Les erreurs d'exécution}
+La JVM ne \emph{sait pas exécuter} une instruction
+\begin{itemize}
+\item S'\emph{arrête} avec un message expliquant
+  \begin{itemize}
+  \item L'instruction qui pose problème
+  \item La \emph{nature du problème}
+  \end{itemize}
+\item Comme pour la compilation : \emph{lire} / \emph{comprendre} / \emph{retenir} / \emph{reconnaitre} les erreurs
+\item Afficher des \og traces\fg\ ou utiliser un \og débuggeur\fg\ peut aider à trouver le problème
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Les erreurs d'exécution}
+\emph{Exemple} : Une petite division
+\begin{Java}
+public class Test {
+  public static void main(String[] args) {
+    int numérateur = 1;
+    int dénominateur = 0;
+    System.out.println( numérateur / dénominateur );
+  }
+}
+\end{Java}
+\includegraphics[scale=.6]{../img/erreur4}
+%\begin{Code}
+%> javac Test.java
+%> java Test
+%Exception in thread "main" java.lang.ArithmeticException: / by zero
+%	at Test.main(Test.java:7)
+%\end{Code}
+\end{frame}
+
+\begin{frame}{Les erreurs de calcul}
+La réponse / le comportement n'est pas le bon
+\begin{itemize}
+\item Erreur dans notre \emph{logique} ou notre \emph{traduction}
+\item Erreurs les plus \emph{pernicieuses}
+  \begin{itemize}
+  \item Réflexe à croire que la réponse est bonne
+  \end{itemize}
+\item \emph{Tester} son programme 
+  \begin{itemize}
+  \item Vérifier les réponses
+  \item Penser aux cas \emph{limites}
+  \item Nous verrons des techniques adaptées \\(\sigle{JUnit} pour les tests unitaires)
+  \end{itemize}
+\end{itemize}
+\end{frame}
+

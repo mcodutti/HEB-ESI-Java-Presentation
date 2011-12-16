@@ -1,0 +1,581 @@
+% === Cours de Java
+% === Chapitre : Tableaux
+\section{Les tableaux}
+
+\leconwithtoc
+
+\subsection{Type}
+
+\begin{frame}[fragile]{Type}
+Un tableau contient un nombre \emph{déterminé} de composants (éléments) de \emph{même type}
+  \begin{itemize}
+  \item éléments de type \java|T| \\$\Rightarrow$ type du tableau = \java|T[]|
+  \item \emph{Exemples}
+    \begin{itemize}
+    \item \java|int[]| est le type \textit{tableau d'entiers}
+    \item \java|String[][]| est le type \textit{tableau à 2 dimensions de chaines de caractères}
+    \end{itemize}
+  \item La taille ne fait pas partie du type
+  \end{itemize}
+\end{frame}
+
+\subsection{Déclaration}
+
+\begin{frame}[fragile]{Déclaration}
+Déclarations valides
+    \begin{itemize}
+    \item \java|int[] entiers;|
+    \item \java|short[][] shortss;|
+    \end{itemize}
+\bigskip
+Exemples valides \emph{mais non recommandés} (archaïsme)
+    \begin{itemize}
+    \item \java|int entiers[];|
+    \item \java|short shortss[][];|
+    \end{itemize}
+\end{frame}
+
+\subsection{Création}
+
+\begin{frame}[fragile]{Création}
+  Voyons (une partie de) la grammaire pour la création d'un tableau :
+  \begin{grammaire}[fontsize=\footnotesize]
+  \nterm{ArrayCreationExpression} :
+       \term{new} \nterm{TypeName} \nterm{DimExprs} \nterm{Dims}\opt
+       \term{new} \nterm{TypeName} \nterm{Dims} \nterm{ArrayInitializer}  
+  \end{grammaire}
+  On voit donc qu'on peut créer un tableau :
+  \begin{itemize}
+  \item En donnant \emph{des} tailles
+  \item En donnant les valeurs
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+  Création en donnant des tailles
+  \begin{grammaire}[fontsize=\footnotesize]
+  \nterm{ArrayCreationExpression} :
+     \term{new} \nterm{TypeName} \nterm{DimExprs} \nterm{Dims}\opt
+
+  \nterm{DimExprs} :
+     \nterm{DimExpr}
+     \nterm{DimExprs} \nterm{DimExpr}
+
+  \nterm{DimExpr} :
+       \term{[} \nterm{Expression} \term{]}
+
+  \nterm{Dims} :
+       \term{[} \term{]}
+       \nterm{Dims} \term{[} \term{]}
+\end{grammaire}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+  \emph{Exemples} :
+  \begin{Java}
+  int[]   t1 = new int[3];
+  int[][] t2 = new int[3][2];
+  \end{Java}
+  \begin{Java}
+  int[] t1;
+  int[][] t2;
+  int nb = clavier.nextInt();
+  t1 = new int[nb];
+  t2 = new int[nb][nb];
+  \end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+Éléments initialisés à une \emph{valeur par défaut}
+  \begin{itemize}
+  \item Numérique : \java|0|
+  \item Booléen : \java|false|
+  \item Référence : \java|null| (\emph{référence vers \textit{rien}})
+  \end{itemize}
+\end{frame}
+
+\subsection{Représentation}
+
+\begin{frame}[fragile]{Représentation}
+  Un \textit{Tableau} est un type \emph{référence}
+  \begin{itemize}
+  \item \emph{Ex}: \java{int[] t;}
+  \begin{center}\includegraphics[scale=.5]{../img/java-tabl-repres2}\end{center}
+  \item \java{t = new int[3];}
+  \begin{center}\includegraphics[scale=.5]{../img/java-tabl-repres1}\end{center}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Représentation}
+  \emph{Exemple} : \java|int[][] t = new int[3][2];|
+  \begin{itemize}
+  \item Un tableau de 3 tableaux de 2 entiers
+  \bigskip
+  \begin{center}\includegraphics[scale=.4]{../img/java-tabl-dim2}\end{center}
+  \item Représentation interne $\not=$ vision classique
+    \\
+    \begin{small}
+    \begin{center}\begin{tabular}{|c|c|}\hline ~ ~ 0 ~ ~ & ~ ~ 0 ~ ~ \\ \hline ~ ~ 0 ~ ~ & ~ ~ 0 ~ ~ \\ 
+                                        \hline ~ ~ 0 ~ ~ & ~ ~ 0 ~ ~ \\ \hline\end{tabular}\end{center}
+    \end{small}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{Représentation}
+  Pour les tableaux à plusieurs dimensions
+  \begin{itemize}
+  \item Chaque élément d'un tableau à deux dimensions est un tableau indépendant
+  \item La taille ne fait pas partie du type
+  \item $\Rightarrow$ Chaque élément peut être d'une \emph{taille différente}
+  \end{itemize}
+  \medskip
+  \begin{center}\includegraphics[scale=.5]{../img/java-tabl-dim2b}\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+  On peut omettre les dernières tailles
+  \begin{itemize}
+  \item Le tableau est créé en partie
+  \item \emph{Exemple} :
+  \begin{Java}
+  int[][] t;
+  t = new int[3][];
+  \end{Java}
+  \begin{center}\includegraphics[scale=.5]{../img/java-tabl-new2}\end{center}
+  \item Le reste sera créé plus tard
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+  Création en donnant les valeurs
+  \begin{grammaire}[fontsize=\footnotesize]
+  \nterm{ArrayCreationExpression} :
+   \term{new} \nterm{TypeName} \nterm{Dims} \nterm{ArrayInitializer}  
+
+  \nterm{ArrayInitializer} :
+     \term{\{} \nterm{VariableInitializers}\opt \term{,}\opt \term{\}}
+
+  \nterm{VariableInitializers} :
+     \nterm{VariableInitializer}
+     \nterm{VariableInitializers} \term{,} \nterm{VariableInitializer}
+
+  \nterm{VariableInitializer} :
+     \nterm{Expression}
+     \nterm{ArrayInitializer}
+  \end{grammaire}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+\emph{Exemple} de format long
+  \begin{Java}
+  int[] t1 = new int[] {4,5,6};
+  int[] t2;
+  t2 = new int[] {4,5,6};
+  \end{Java}
+\medskip
+Écriture abrégée (uniquement à la déclaration)
+  \begin{Java}
+int[] t2 = {4,5,6}; // Écriture abrégée acceptée
+int[] t3;
+t3 = {4,5,6}; // Erreur à la compilation
+  \end{Java}
+\medskip
+\emph{Exercice} : Donnez la représentation mémoire
+  \begin{itemize}
+  \item \java|int[][] entierss = {{1,2},{3,4,5}};|
+  \item \java|int[][] entierss = {{1,2},null};|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+  \emph{Exercice} : Les créations suivantes sont-elles correctes ? Pourquoi ?
+  \begin{itemize}
+  \item \java|int[][] t = new int[2];|
+  \item \java|int[][] t = new int[] {1,2};|
+  \item \java|int[][] t = new int[] {{1},{2}};|
+  \item \java|int[][] t = new int[3][2] {1,2};|
+  \item \java|int[][] t = new int[3][2] {null,null};|
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+\emph{Exercice} : Lecture d'un vecteur.
+\\ Attention ! Ceci n'est pas correct. Pourquoi ?
+\begin{Java}
+  import java.util.Scanner;
+  public class LectureVecteur {
+     public static void main(String[] args) {
+        Scanner clavier = new Scanner(System.in);
+        int[] vecteur;    // le vecteur à lire
+        int   taille;     // taille du vecteur
+        taille = clavier.nextInt();
+        for (int i=0; i<taille; i=i+1)
+           vecteur[i] = clavier.nextInt();
+     }
+  }
+\end{Java}
+\end{frame}
+
+\subsection{Taille}
+
+\begin{frame}[fragile]{Taille}
+La taille doit être un \java|int|
+ \begin{itemize}
+  \item Jusqu'à 2 milliards d'éléments ;-)
+  \item Peut être \emph{nulle}
+    \begin{itemize}
+    \item ex : \java|int[][] t = new int[0][2];|
+    \item peut avoir un sens comme cas limite
+    \end{itemize}
+  \item Ne peut \emph{pas} être \emph{négative}
+    \begin{itemize}
+    \item sinon une exception est lancée
+    \item pas vérifié à la compilation même si constante
+    \end{itemize}
+  \item Est une expression générale
+    \begin{itemize}
+    \item ex : \java|int[] t2 = new int[clavier.nextInt()];|
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Taille}
+\emph{Rappel} : on connait la taille via \java|length|
+\par\medskip Si plusieurs dimensions
+    \begin{itemize}
+    \item Taille (potentiellement) différente d'un élément à l'autre
+    \item $\Rightarrow$ Spécifier l'élément
+    \item Exemple :
+      \begin{Java}
+  int[][]t = {{1,2},{2,3,4}};
+  System.out.println( "Nombre d'éléments = "
+      + (t[0].length + t[1].length) );
+      \end{Java}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Taille}
+\emph{Exemple} : Que va imprimer le code suivant?
+\begin{Java}
+  package be.heb.esi.lg1.tutorials.tableaux;
+
+  public class ParcoursLigneParLigne{
+     public static void main(String[] args){
+        String[][] tableau= {{"00","01","02","03","04"},
+                             {"10","11","12","13","14"}};
+        for(int i = 0; i < tableau.length; i = i + 1)
+           for(int j = 0; j < tableau.length; j = j + 1)
+              System.out.println(tableau[i][j]);
+     }
+  }
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Taille}
+\emph{Exemple} : Parcours d'un tableau d'entiers à deux dimensions ligne par ligne
+\begin{Java}
+  package be.heb.esi.lg1.tutorials.tableaux;
+
+  public class ParcoursLigneParLigne{
+     public static void main(String[] args){
+        String[][] tableau= {{"00","01","02","03","04"},
+                          {"10","11","12","13","14"}};
+        for(int i = 0; i < tableau.length; i = i + 1)
+           for(int j = 0; j < tableau[i].length; j = j + 1)
+              System.out.println(tableau[i][j]);
+     }
+  }
+\end{Java}
+\end{frame}
+
+\subsection{Parcours}
+
+\begin{frame}[fragile]{foreach}
+\emph{Rappel} : Le \emph{foreach} simplifie le parcours d'un vecteur
+\begin{itemize}
+\item[]
+  \begin{Java}
+  public static void afficher( int[] tab )  {
+    for( int val : tab ) {
+      System.out.print( val + " " );
+    }
+  }
+  \end{Java}
+\end{itemize}
+\medskip
+On peut l'utiliser pour une matrice
+\begin{itemize}
+\item version qui utilise le parcours d'un vecteur
+\begin{Java}
+  public static void afficher( int[][] mat )  {
+    for( int[] ligne : mat ) {
+      afficher( ligne );
+      System.out.println();
+    }
+  }
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{foreach}
+\begin{itemize}
+\item version qui refait tout
+\begin{Java}
+  public static void afficher( int[][] mat )  {
+    for( int[] ligne : mat ) {
+      for( int val : ligne ) {
+        System.out.print( val + " " );
+      }
+      System.out.println();
+    }
+  }
+\end{Java}
+ \item Peut-on utiliser le \emph{foreach} pour un parcours \emph{colonne par colonne} ?
+\end{itemize}
+\end{frame}
+
+\subsection{Assignation en bloc}
+
+\begin{frame}[fragile]{Assignation}
+  Un tableau est de type référence
+  \begin{itemize}
+  \item \emph{L'assignation} d'un tableau à un autre \emph{copie la référence} (et pas le tableau)
+  \item Exemple : \java|int[] t1 = {4,5,6}, t2 = t1;|
+  \medskip
+  \begin{center}\includegraphics[scale=.5]{../img/java-tabl-ass1}\end{center}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Assignation}
+  \emph{Exemple} : \java|int[] t1 = {4,5,6}, t2 = {1,2}; t2 = t1;|
+  \begin{center}\includegraphics[scale=.7]{../img/java-tabl-ass2}\end{center}
+  \begin{itemize}
+  \item L'ancien tableau n'est plus référencé
+  \item La place mémoire est récupérée (par le \textit{garbage collector})
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Accès aux éléments}
+Pour accéder à un élément on donne tous les indices
+      \\\emph{Exemple}
+      \begin{Java}
+  int[][][] t = new int[4][5][3];
+  t[0][2][1] = 1; // Faites un schéma mémoire !
+      \end{Java}
+\bigskip
+Cela a du sens de n'en spécifier que certains
+      \\\emph{Exemple}
+      \begin{Java}
+  int[] t = { 4,5,6 };
+  int[][] t2 = { {1,2,3}, {4,5} };
+  t2[1] = t; // Faites un schéma mémoire !
+      \end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+\emph{Exemple} : Autre écriture pour la création d'un tableau.
+\begin{Java}
+  int[][] t = new int[3][2];
+\end{Java}
+Pourrait s'écrire
+\begin{Java}
+  int[][] t;
+  t = new int[3][];
+  for (int i=0; i<3; i=i+1)
+     t[i] = new int[2];
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+\emph{Exemple} : Création d'un tableau triangulaire
+\begin{Java}
+  package be.heb.esi.lg1.tutorials.tableaux;
+
+  public class TableauTriangulaire{
+     public static void main(String[] args){
+        int[][] t;
+        t = new int[3][];
+        for (int i=0; i<3; i=i+1)
+           t[i] = new int[i+1];
+     }
+  }
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+\emph{Exemple} : Triangle de Pascal
+\begin{Java}
+  import java.util.Scanner;
+  public class TrianglePascal {
+     public static void main(String[] args) {
+        Scanner clavier = new Scanner(System.in);
+        int taille = clavier.nextInt();
+        int[][] pascal; // le triangle de Pascal
+        pascal = new int[taille][];
+        for (int i=0; i<taille; i=i+1) {
+           pascal[i] = new int[i+1];
+           pascal[i][0] = 1;
+           pascal[i][i] = 1;
+           for(int j=1; j<i; j=j+1)
+              pascal[i][j] = pascal[i-1][j-1]+pascal[i-1][j];
+        }
+     }
+  }
+\end{Java}
+\end{frame}
+
+\subsection{Erreurs et exceptions}
+
+\begin{frame}[fragile]{Erreurs et exceptions}
+Lors de l'accès à un élément
+\begin{itemize}
+\item Si l'indice n'est pas valide (par rapport à la taille du tableau), la \sigle{JVM} lance une exception (\emph{IndexOutOfBoundException})
+\item \emph{Exemple} :
+\begin{Java}
+  int[] entiers = {7,14,0};
+  int i1 = entiers[-1]; // erreur à l'exécution
+  int i2 = entiers[3]; // erreur à l'exécution
+  int i3 = entiers[0.0]; // erreur à la compilation
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Erreurs et exceptions}
+La \sigle{JVM} lance aussi une exception si le tableau est à \java|null| (\emph{NullPointerException})
+\begin{itemize}
+\item \emph{Exemple} :
+\begin{Java}
+  int[][] entierss = {{1,2},null};
+  int[] entiers = entierss[1]; // OK
+  int entier = entierss[1][0]; // erreur à l'exécution
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Erreurs et exceptions}
+Lors d'une assignation
+\begin{itemize}
+\item Comme dans toute assignation, il faut que les \emph{types correspondent}
+\item Exemple :
+\begin{Java}
+  int[] t1 = {4,5,6};
+  boolean[] t2 = t1; // erreur à la compilation
+\end{Java}
+\item \emph{Exemple} :
+\begin{Java}
+  int[][] t1 = {{4,5,6},{1,2}};
+  int[] t2 = t1[0]; // t2={4,5,6};
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\subsection{Tableau et méthode}
+
+\begin{frame}[fragile]{Méthode}
+Passer un tableau en paramètre
+\\= Passer une copie de la référence au tableau
+\begin{itemize}
+\item La méthode agit sur le tableau et pas une copie
+\end{itemize}
+\medskip
+\emph{Exemple} : Un tableau en argument
+\begin{itemize}
+\item[]
+\begin{Java}
+  public class TableauEnArgument {
+     public static void iniTableau(int[] tab) {
+        for(int i=0; i<tab.length; i++)
+           tab[i]=0;
+     }
+
+     public static void afficheTab(int[] tab) {
+        for(int i=0; i<tab.length; i++)
+           System.out.print(tab[i]+" ");
+     }
+  }
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Méthode}
+\emph{Exemple} : Utilisation
+\begin{itemize}
+\item[]
+\begin{Java}
+  public class Test {
+     public static void main(String[] args) {
+        int[] tableau = new int[]{8,4,3,9};
+        System.out.print("tableau avant: ");
+        TableauEnArgument.afficheTab(tableau);
+        TableauEnArgument.iniTableau(tableau);
+        System.out.print("\ntableau après: ");
+        TableauEnArgument.afficheTab(tableau);
+    }
+  }
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Méthode}
+\emph{Exemple} : Un tableau en retour
+\begin{itemize}
+\item[]
+\begin{Java}
+  public static int[] tableauEnRetour(int n) {
+     int[] tableau = new int[n];
+     for(int i=0;i<n;i++)
+        tableau[i]=i+1;
+     return tableau;
+  }
+\end{Java}
+\item Un appel de la méthode \emph{tableauEnRetour} fournira une référence à un tableau
+\item Il est possible de modifier les valeurs des éléments
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Méthode principale}
+La méthode \java|main| reçoit un tableau en argument
+\begin{Java}
+  public static void main(String[] args)
+\end{Java}
+\begin{itemize}
+\item Il s'agit d'\emph{arguments} fournis au programme
+\item \emph{Comment ?} via la ligne de commande
+\begin{Java}
+  java Test mes arguments
+\end{Java}
+\item Arguments séparés par un (des) espace(s)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Méthode principale}
+\emph{Exemple} :
+\begin{Java}
+  public class Miroir {
+    public static void main(String[] args) {
+      System.out.print(args.length + ": ");
+      for(int i=args.length-1; i>=0; i--)
+        System.out.print(args[i] + " ");
+    }
+  }
+\end{Java}
+\begin{Code}
+  > java Miroir Un message à l'envers
+  4: l'envers à message Un 
+\end{Code} 
+\begin{Java}
+  > java Miroir "Un message à l'envers"
+  1: Un message à l'envers 
+\end{Java} 
+\end{frame}
+
+\begin{frame}{Arrays}
+La classe \emph{Arrays} offre des outils pratiques
+\begin{itemize}
+\item \emph{equals} : teste l'égalité de tableaux
+\item \emph{fill} : remplit tout un tableau avec une même valeur
+\item \emph{toString} : retourne une chaine reprenant les éléments du tableau
+\item \emph{copyOf}, \emph{sort}, \dots
+\end{itemize}
+\end{frame}
+

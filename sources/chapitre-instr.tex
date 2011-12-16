@@ -1,0 +1,656 @@
+% === Cours de Java
+% === Chapitre : Les expressions
+
+\section{Instructions}
+
+\leconwithtoc
+
+\begin{frame}[fragile]{Les instructions}
+\begin{grammaire}
+ \nterm{Statement} :
+     \nterm{Block}					
+     \nterm{EmptyStatement}			
+     \nterm{LabeledStatement}
+     \nterm{BreakStatement}
+     \nterm{ContinueStatement}
+     \nterm{ExpressionStatement}
+     \nterm{IfThenStatement}
+     \nterm{IfThenElseStatement}
+     \nterm{SwitchStatement}
+     \nterm{WhileStatement}
+     \nterm{DoStatement}
+     \nterm{ForStatement}
+     \nterm{ReturnStatement}
+     \nterm{AssertStatement}
+     \nterm{SynchronizedStatement}
+     \nterm{ThrowStatement}
+     \nterm{TryStatement}
+\end{grammaire}
+\end{frame}
+
+\subsection{L'instruction vide}
+
+\begin{frame}[fragile]{L'instruction vide}
+Cette instruction ne fait rien et se déroule toujours bien 
+\begin{grammaire}
+  \nterm{EmptyStatement} :
+        \term{;}
+\end{grammaire}
+\end{frame}
+
+\subsection{La notion de bloc}
+
+\begin{frame}[fragile]{Le bloc}
+\begin{grammaire}
+  \nterm{Block} :
+      \term{\{} \nterm{BlockStatements}\opt \term{\}}
+
+  \nterm{BlockStatements} :
+      \nterm{BlockStatement}
+      \nterm{BlockStatement} \nterm{BlockStatements}
+
+  \nterm{BlockStatement} :
+      \nterm{LocalVariableDeclarationStatement}
+      \nterm{Statement}
+\end{grammaire}
+Généralement on déclare les variables en début de bloc
+\end{frame}
+
+\subsection{Le \og if-else \fg}
+
+\begin{frame}[fragile]{if, if-else}
+La syntaxe (légèrement simplifiée) : 
+\begin{grammaire}
+  \nterm{IfThenStatement} :
+        \term{if} \term{(} \nterm{Expression} \term{)} \nterm{Statement}
+
+   \nterm{IfThenElseStatement} :
+        \term{if} \term{(} \nterm{Expression} \term{)} \nterm{Statement} \term{else} \nterm{Statement}
+\end{grammaire}
+\begin{itemize}
+\item Peut être suivi par une instruction, pas forcément un bloc
+\item \emph{Expression} est de type \emph{booléen}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{if, if-else}
+\begin{Java}
+package be.heb.esi.java1;
+import java.util.Scanner;
+public class Test {
+   public static void main(String[] args) {
+      Scanner clavier = new Scanner(System.in);
+      int nombre1;
+
+      nombre1 = clavier.nextInt();
+      System.out.println(nombre1 + " est un nombre ");
+      if (nombre1 >= 0) 
+             System.out.println("positif");
+      else 
+             System.out.println("négatif");
+   }
+} 
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{if, if-else}
+Mais aussi
+\begin{Java}
+public static void afficheTableau (int[] tableau) {
+
+   if (tableau.length > 0) {
+      System.out.println ("Contenu du tableau : ");
+      for (int i=0; i<tableau.length; i++)
+          System.out.println( "en "+i+ " : " +tableau[i]);
+   }
+   else 
+      System.out.println("tableau vide");
+} 
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{if-else - dangling else}
+Qu'en est-il de :
+\begin{Java}
+      if (nombre1 >= 0) 
+      	  if (nombre1 == 0)
+             System.out.println("nul");
+      else 
+             System.out.println("?");
+\end{Java}
+\begin{itemize}
+\item Doit-on afficher \java{négatif} ou \java{positif} ?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{if-else - dangling else}
+L'interprétation correcte :
+\begin{Java}
+      if (nombre1 >= 0) 
+      	  if (nombre1 == 0)
+             System.out.println("nul");
+      	  else 
+             System.out.println("positif");
+\end{Java}
+\begin{itemize}
+\item Le \java{else} est rattaché au \java{if} le plus proche
+\item Comment le rattacher au \java{if} extérieur ?
+\end{itemize}
+\end{frame}
+  
+\begin{frame}[fragile]{if, if-else - exemples}
+Utilisation admise pour les erreurs
+\begin{Java}
+if (condErreur) 
+    throw new Exception ("justification");
+
+instructions
+\end{Java}
+\begin {itemize}
+\item Valider les paramètres en début de méthode 
+\item À isoler du code qui suit
+\end {itemize}
+\end{frame}
+
+\begin{frame}[fragile]{if-else - exemples}
+\begin{Java}
+public static void afficheTableau (int[] tableau) {
+
+   if (tableau==null)
+       throw new IllegalArgumentException("pas de tableau !");
+
+   if (tableau.length > 0) {
+      System.out.println ("Contenu du tableau : ");
+      for (int i=0; i<tableau.length; i++) {   
+          System.out.println( "en "+ i + " : " + tableau[i]);
+      }
+   }
+   else {
+      System.out.println("tableau vide");
+   }
+} 
+\end{Java}
+\end{frame}
+  
+\subsection{Le \og switch \fg}
+
+\begin{frame}[fragile]{switch}
+\java|switch| : proche du \emph{selon que} 
+\par\emph{Exemple} :
+  \begin{itemize}
+  \item En logique \\
+  \end{itemize}
+  \begin{Code}
+  SELON QUE (jour) VAUT 
+    0 : ECRIRE "Lundi" 
+    1 : ECRIRE "Mardi"  
+    2 : ECRIRE "Mercredi" 
+    3 : ECRIRE "Jeudi"
+    4 : ECRIRE "Vendredi" 
+    5 : ECRIRE "Samedi" 
+    6 : ECRIRE "Dimanche" 
+    autres : ECRIRE "Erreur"  
+  FIN SELON 
+  \end{Code} 
+\end{frame}
+  
+\begin{frame}[fragile]{switch}
+\begin{itemize}
+  \item En \sigle{Java} : 
+  \begin{Java}
+  switch (jour) {
+    case 0 : System.out.println("Lundi"); break;
+    case 1 : System.out.println("Mardi"); break;
+    case 2 : System.out.println("Mercredi"); break;
+    case 3 : System.out.println("Jeudi"); break;
+    case 4 : System.out.println("Vendredi"); break;
+    case 5 : System.out.println("Samedi"); break;
+    case 6 : System.out.println("Dimanche"); break;
+    default : System.out.println("Erreur"); 
+  }
+  \end{Java}
+\item Ici les accolades sont obligatoires
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{switch}
+\textbf{Remarques}
+\begin{itemize}
+\item L'expression à évaluer est de type limité : \java|char|, \java|byte|, \java|short|, \java|int| ou \java|String|
+\includegraphics[scale=.5]{../img/java7.jpeg}
+\item Les expressions constantes sont toutes différentes
+\item \java|break| pour terminer le \java|case|
+\item \java{default} peut être omis
+\item S'il apparait, il doit être unique\\
+ (on recommande de le mettre à la fin)
+\item Blocs admis mais pas recommandés
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{switch}
+\begin{itemize}
+\item Plusieurs \java|case| peuvent être associés 
+\begin{Java}
+switch(mois) {
+  case 1:
+  case 3:
+  case 5:
+  case 7:
+  case 8:
+  case 10:
+  case 12: System.out.println("31 jours"); break;
+  case 4:
+  case 6:
+  case 9:
+  case 11: System.out.println("30 jours"); break;
+  case 2:  System.out.println("28 jours"); break;
+  default: System.out.println("numéro de mois incorrect");
+}
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{selon que avec conditions}
+Le switch ne permet pas de traduire le selon-que \emph{avec condition} 
+\begin{Java}
+   if (âge < 5)
+        System.out.println ("hors catégorie");
+   else if (âge < 6) // 5 ans
+        System.out.println ("groupe poussins");
+   else if (âge < 9) // 6,7,8
+        System.out.println ("groupe benjamins");
+   else if (âge < 11) // 9,10
+        System.out.println ("groupe pupilles");
+   else		      // > 10
+        System.out.println ("hors catégorie");
+\end{Java}
+\begin {itemize}
+\item Remarquez l'indentation dans ce cas
+\end {itemize}
+\end{frame}
+
+\subsection{Le \og while \fg}
+
+\begin{frame}[fragile]{while}
+\begin{grammaire}
+\term{while} \term{(} \nterm{Expression} \term{)} \nterm{Statement}
+\end{grammaire}
+\begin{itemize}
+\item Instruction quelconque
+\item Expression booléenne
+\item L'expression booléenne est recalculée dans la boucle
+\item \emph{Ex} : recherche du premier élément non nul
+\begin{Java}
+   int pos = 0; 
+   while (pos < tableau.length &&  tableau[pos] == 0)
+       pos++;
+\end{Java}
+\end {itemize}
+\end{frame}
+
+\begin{frame}[fragile]{while - exemples}
+Remarquez l'ordre des opérandes
+\begin{Java}
+   int pos = 0; 
+   while (tableau[pos] == 0 && pos < tableau.length)
+       pos++;
+\end{Java}
+\begin {itemize}
+\item Provoque une \emph{ArrayIndexOutOfBoundsException} si aucun élément non
+nul
+\end {itemize}
+\end{frame}
+
+\begin{frame}[fragile]{while - exemples}
+Une autre écriture
+\begin{Java}
+   int pos = 0; 
+   boolean nonNulTrouvé = false;
+   while (! nonNulTrouvé && pos < tableau.length)
+
+       if (tableau[pos] != 0)
+           nonNulTrouvé = true;
+       else
+           pos++;
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{while - exemples}
+Dans certains cas, les accolades améliorent la lisibilité
+\begin{Java}
+   int pos = 0; 
+   boolean nonNulTrouvé = false;
+   while (! nonNulTrouvé && pos < tableau.length){
+
+       if (tableau[pos] != 0)
+           nonNulTrouvé = true;
+       else
+           pos++;
+
+   }
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{while - exemples}
+Qu'en est-il de : 
+\begin{Java}
+	cpt =0;
+	while (cpt < 100) ;
+	   cpt++;
+\end{Java}
+\begin{Java}
+	cpt =0;
+	while (cpt < 100) 
+	   cpt = cpt++;
+\end{Java}
+\end{frame}
+
+\subsection{Le \og do-while \fg}
+
+\begin{frame}[fragile]{do-while}
+\begin{multicols}{2}
+En logique
+\begin{Code}
+Faire
+    instructions
+Jusqu'à ce que condition
+\end{Code}
+En \sigle{Java} : 
+\begin{Java}
+  do 
+    instruction
+  while (condition);
+\end{Java} 
+\end{multicols}
+\emph{Attention !} C'est en fait un \emph{répéter .. TANT QUE}
+\end{frame}
+
+\subsection{Le \og for \fg}
+
+\begin{frame}[fragile]{for}
+Plus général que le <<pour>> de Logique
+\\\bigskip
+Contrôles de la boucle en tête de boucle pour une meilleure lisibilité
+  \begin{itemize}
+  \item l'initialisation
+  \item le test
+  \item l'incrémentation (au sens large)
+  \end{itemize} 
+\bigskip
+Utilisé en général quand le nombre d'itérations est connu
+\end{frame}
+
+\begin{frame}[fragile]{for}
+\begin{grammaire}
+  \nterm{BasicForStatement} :
+      \term{for} \term{(} \nterm{ForInit}\opt \term{;} \nterm{Expression}\opt \term{;} \nterm{ForUpdate}\opt \term{)}
+            \nterm{Statement}
+   
+  \nterm{EnhancedForStatement} :
+      \term{for} \term{(} \nterm{Type} \nterm{Identifier} \term{:} \nterm{Expression} \term{)} \nterm{Statement}
+ 
+  \nterm{ForInit} :
+      \nterm{StatementExpressionList}
+     \nterm{LocalVariableDeclaration}
+
+  \nterm{ForUpdate} :
+      \nterm{StatementExpressionList}
+   
+  \nterm{StatementExpressionList} :
+    \nterm{StatementExpression}
+    \nterm{StatementExpressionList} \term{,} \nterm{StatementExpression}
+\end{grammaire}
+\end{frame}
+
+\begin{frame}[fragile]{for}
+Que penser de ceci ? 
+\begin{Java}
+for( int i=0; ... 
+for( i=0, j=n; ...
+for( j=n, int i=0; ... 
+for( int i=0, j=n; ... 
+for( i=0, j=n-1; i<n; i++, j-- ) ...
+for( i=0, j=n-1; ; i++, j-- ) ...
+for( ; ; ) ...
+\end{Java}
+\end{frame}
+
+\begin{frame}{for - Ordre d'exécution}
+\begin{normalsize}
+\begin{enumerate}
+\item l'initialisation: \nterm{ForInit}
+\item l'évaluation du test: \nterm{Expression}
+\item si le test vaut true alors
+\begin{enumerate}
+\item le corps : \nterm{Statement}
+\item l'incrémentation : \nterm{ForUpdate}
+\item retour à l'étape 2
+\end{enumerate} 
+\item sinon, on passe à l'instruction suivant le for
+\end{enumerate}  
+\end{normalsize}
+\end{frame}
+
+\begin{frame}[fragile]{Lien entre for et while}
+Toute boucle \textit{for} peut s'écrire avec une boucle \textit{while} :
+\begin{multicols}{2}
+\begin{Java}
+for(ForInit;Expression;ForUpdate){
+  Statement
+} 
+\end{Java}
+\bigskip\medskip
+\begin{Java}
+  ForInit
+  while(Expression) {
+    Statement
+    ForUpdate
+  }
+\end{Java}
+\end{multicols}
+À un détail près : toute variable déclarée dans le <<ForInit>> n'existe plus en dehors du <<for>>.
+\end{frame}
+
+\begin{frame}[fragile]{for - Exemples}
+Exemples divers
+\begin{Java}
+for(;;) System.out.println("Je ne me fatigue pas !");
+\end{Java}
+\begin{Java}
+int[] tab = {1,2,3,4,5};
+int i,j;
+int n = tab.length;
+for(i=0,j=n-1; i<n/2; i++,--j) {
+    int t = tab[i];
+    tab[i] = tab[j];
+    tab[j] = t;
+}
+\end{Java} 
+\end{frame}
+
+\begin{frame}[fragile]{foreach}
+\begin{grammaire}
+  \nterm{ForStatement} :
+    \nterm{BasicForStatement} 
+    \nterm{EnhancedForStatement}
+
+  \nterm{EnhancedForStatement} :
+    \term{for} \term{(} \nterm{Type} \nterm{Identifier} \term{:} \nterm{Expression} \term{)} \nterm{Statement}
+\end{grammaire}
+\begin{itemize}
+\item Écriture simplifiée du \java|for|
+\item Pour parcourir un tableau 
+\\{\small(+ d'autres choses. cf. leçon sur les listes)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{foreach - exemples}
+\begin{Java}
+double[] tab = new double[10];
+...
+for( double valeur : tab ) {
+    System.out.println( valeur );
+}
+\end{Java}
+Écriture simplifiée pour
+\begin{Java}
+double[] tab = new double[10];
+...
+for( int i=0; i<tab.length; i++) {
+    double valeur = tab[i];
+    System.out.println( valeur );
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{foreach - exemples}
+\emph{Attention !} On a accès aux éléments mais pas à l'indice
+\begin{itemize}
+\item OK pour consulter
+\item mais \emph{pas pour modifier}
+\begin{Java}
+double[] tab = new double[10];
+...
+for( double valeur : tab ) {
+    valeur = 1.0; // aucune erreur mais...
+    // ne modifie pas le tableau !
+}
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\subsection{L'étiquette}
+
+\begin{frame}[fragile]{étiquette}
+Toute instruction peut recevoir une \emph{étiquette} (\textit{Label} en anglais)
+\begin{grammaire}
+  \nterm{LabeledStatement} :
+      \nterm{Identifier} \term{:} \nterm{Statement}
+\end{grammaire}
+\begin{itemize}
+\item Permet de nommer (étiqueter) une instruction
+\item N'est connue que dans l'instruction qui la suit
+\item Permettra de quitter brutalement (\java|break|) ou de réitérer (\java|continue|) l'instruction
+\end{itemize}
+\end{frame}
+
+\subsection{Le \og break \fg}
+
+\begin{frame}[fragile]{break}
+Pour \emph{arrêter brutalement une instruction}
+\begin{grammaire}
+  \nterm{BreakStatement} :
+      \term{break} \nterm{Identifier}\opt \term{;}
+\end{grammaire}
+\begin{itemize}
+\item Si pas d'étiquette $\rightarrow$ arrête la première instruction  \java|while|/\java|for|/\java|do|/\java|switch| englobante
+\item Si étiquette $\rightarrow$ arrête brutalement l'instruction étiquetée et passe à la suivante
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{break - exemples}
+\begin{Java}
+    int nb;
+    entrée : while(true) {
+        nb = clavier.nextInt();
+        if (nb>0) 
+            break entrée;
+        System.out.println("Mauvais nb. Recommencer.");
+    }    
+\end{Java}
+\medskip
+\begin{Java}
+    int nb;
+    while(true) {
+        nb = clavier.nextInt();
+        if (nb>0) break;
+        System.out.println("Mauvais nb. Recommencer.");
+    }    
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{break - exemples}
+\begin{Java}
+    int i= 1;
+    lab1 : {if(i==1) break lab1 ; System.out.println(2);}
+    System.out.println(3);      //affiche: 3
+\end{Java}
+\bigskip
+Comment comprendre ceci ?
+\begin{Java}
+    int i= 1;
+    lab1 : if(i==1) break lab1 ; System.out.println(2);
+    System.out.println(3);     
+\end{Java}
+\begin{Java}
+    int i= 1;
+    if(i==1) break ; System.out.println(2);
+    System.out.println(3);     
+\end{Java}
+\end{frame}
+
+\subsection{Le \og continue \fg}
+
+\begin{frame}[fragile]{continue}
+Pour une \emph{nouvelle itération d'une boucle}
+\begin{grammaire}
+  \nterm{ContinueStatement} :
+      \term{continue} \nterm{Identifier}\opt \term{;}
+\end{grammaire}
+\begin{itemize}
+\item Si pas d'étiquette $\rightarrow$ recommence la première instruction répétitive englobante
+\item Si étiquette $\rightarrow$ recommence la boucle étiquetée
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{continue - exemples}
+\begin{Java}
+  for (int i=0; i<10; i++)
+  {
+      if(i%2==0) continue;
+      System.out.println(i);
+  }
+\end{Java}
+\begin{Java}
+  bcli: for (int i=0; i<10; i++) {
+      bclj: for (int j=0; j<10; j++) {
+          if( (i*j)%2==0 ) continue bcli;
+          System.out.println(j);
+      }
+      System.out.println(i);
+  }
+\end{Java}
+\end{frame}
+
+\begin{frame}{break-continue}
+\`A utiliser avec parcimonie
+\par\bigskip Exemple tiré d'un code réel
+  \begin{itemize}
+  \item Que fait-il ?
+  \item Comment l'écrire plus proprement ?
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]{break - exemples}
+\begin{Java}
+  public static int inbuff(char[] meule, char[] aiguille) {
+    int i,j, t=-1, sizem=meule.length, sizea=aiguille.length;
+
+    for (i=0; i<=sizem-sizea; i++) {
+      for (j=0; j<sizea; j++) {
+        if (meule[i+j] != aiguille[j]) 
+            break;
+        t=j;
+      }
+      if (t==sizea-1) {
+        t=i;
+        break;
+      }
+      else
+        t=-1;
+    }
+    return t;
+  }
+\end{Java}
+\end{frame}
+

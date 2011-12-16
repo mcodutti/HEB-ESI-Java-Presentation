@@ -1,0 +1,414 @@
+% === Cours de Java
+% === Chapitre : Les expressions
+
+\section{Les expressions}
+
+\leconwithtoc
+
+\begin{frame}[fragile]{Définitions}
+\emph{Expression}: calcul faisant intervenir une ou plusieurs valeur(s) pour une opération déterminée
+\\\bigskip
+\emph{Exemple} : \java|1+2|
+  \begin{itemize}
+  \item \java|1| et \java|2| sont les opérandes
+  \item \java|+| est l'opérateur
+  \item l'expression est de type \java|int|
+  \item la valeur de l'expression est $3$
+  \end{itemize}
+\end{frame}
+
+\subsection{Les expressions entières}
+
+\begin{frame}[fragile]{Les expressions entières}
+\emph{Opérateurs}
+  \begin{itemize}
+  \item unaires : \java|+| et \java|-|
+  \item binaires : \java|+|, \java|-|,\java|*|, \\\java|/| (division entière) et \java|%| (modulo) %
+  \end{itemize}
+\medskip
+\emph{Opérandes} pouvant intervenir
+\begin{itemize}
+\item un \emph{littéral} : \java|1 + 2| vaut $3$
+\item une \emph{variable}
+\begin{itemize}
+\item si $i$ vaut 3, \java|i + 2| vaut $5$ 
+\item si $i$ vaut 3, \java|i + i| vaut  $6$ 
+\end{itemize} 
+\item une \emph{expression}
+\begin{itemize}
+\item si $i$ vaut 3, \java|(i + i) + 2| vaut $8$ 
+\end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Les expressions entières}
+Uniquement avec des opérandes d'un \emph{même} type entier
+\begin{itemize}
+\item Type de l'expression = celui de ses opérandes
+\item Exemples :
+  \begin{itemize}
+  \item \java|1 + 2| vaut $3$ de type \java|int| 
+  \item \java|1L + 2L| vaut $3$ de type \java|long| 
+  \item \java|3 / 2| vaut $1$ de type \java|int| 
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Priorité et associativité}
+Problème avec l'expression : \java|i + i * 2|
+  \begin{itemize}
+  \item Le compilateur va-t-il comprendre
+    \begin{itemize}
+    \item \java|(i+i) *2| ?
+    \item \java|i+ (i*2)| ?
+    \end{itemize} 
+  \end{itemize} 
+\bigskip
+La stratégie d'évaluation se base sur
+  \begin{itemize}
+  \item la \emph{priorité} d'un opérateur
+  \item l'\emph{associativité} des opérateurs de même priorité
+  \end{itemize} 
+\begin{center}
+\begin{tabular}{r|c|c}
+ priorité & opérateur & associativité \\ \hline
+grande & \java|-|, \java|+| unaires & $\Longleftarrow$ \\
+ & \java|*|, \java|/|, \java|%| & $\Longrightarrow$ \\
+faible & \java|-|, \java|+| binaires & $\Longrightarrow$ \\
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Tableau des priorités et associativités}
+\emph{Exercices} : comment comprendre
+  \begin{itemize}
+  \item \java|3 + 3 * 2 + 1| ?
+  \item \java|3 + 3 * 2 / - 4 + 5 % 8| ?
+  \end{itemize}  
+\bigskip
+\emph{Parenthèses} pour forcer la stratégie 
+  \begin{itemize}
+  \item Exemple : \java|(3 + 3) * (2 + 1)| $\rightarrow$ \java|6 * 3|  $\rightarrow$ \java|18|
+  \end{itemize}
+\bigskip
+Moralité: mieux vaut parenthéser complètement
+  \begin{itemize}
+  \item \emph{ordre explicite} de l'évaluation 
+  \item \emph{clarté} pour les autres utilisateurs
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}{Erreurs de calcul}
+La \emph{division par zéro} 
+\begin{itemize}
+\item Lance une \textit{exception} (\textit{ArithmeticException})
+\item Pour l'instant, \emph{arrête le programme} avec un message explicite
+\end{itemize} 
+\bigskip
+Le \emph{dépassement de capacité} 
+\begin{itemize}
+\item N'est \emph{pas détecté} par la machine virtuelle
+\item Le résultat est tout simplement faux
+\end{itemize} 
+\end{frame}
+
+\subsection{Les expressions flottantes}
+
+\begin{frame}[fragile]{Les expressions flottantes}
+Uniquement avec les opérandes d'un même type \emph{flottant}
+\begin{itemize}
+\item Type de l'expression = type des opérandes
+\item Opérateurs unaires : \java|+| et \java|-|
+\item Opérateurs binaires : \java|+|, \java|-|,\java|*|, \java|/|
+\item Le reste est identique aux entiers
+\end{itemize}
+\smallskip
+\emph{Exemples} : Donner la valeur et le type de 
+\begin{itemize}
+\item \java|1.0 + 2.3| 
+\item \java|1.0d - 2.3d|
+\item \java|7.0f / 3.5f|  
+\item \java|1. / 3.|
+\end{itemize} 
+\end{frame}
+
+\subsection{Les expressions caractères}
+
+\begin{frame}[fragile]{Les expressions caractères}
+\java|char| est un type numérique entier
+\begin{itemize}
+\item \emph{Aucun opérateur} spécifique 
+\item On pourrait effectuer des calculs mais non recommandé
+  \\\emph{Exemple} : \java|'a' + 'b'|
+\end{itemize}
+\end{frame}
+
+\subsection{Les chaines de caractères}
+
+\begin{frame}[fragile]{Les chaines de caractères}
+Un seul opérateur (binaire) disponible :
+  \begin{itemize}
+  \item \java|+| : concaténation de deux chaines
+  \item \emph{Ex} : \java|"Ja"| + \java|"va"| vaut \java|"Java"|
+  \end{itemize}
+\bigskip
+Conversion si un des 2 opérandes n'est pas une chaine.
+  \begin{itemize}
+  \item \emph{Ex} : \java|""+3.5| vaut \java|"3.5"|
+  \item \emph{Ex} : \java|"1"+2+3| vaut \java|"123"|
+  \item \emph{Ex} : \java|1+"2"+3| vaut \java|"123"|
+  \item \emph{Ex} : \java|1+2+"3"| vaut \java|"33"| !
+  \end{itemize}
+\end{frame}
+
+\subsection{Les expressions booléennes}
+
+\begin{frame}[fragile]{Les expressions booléennes}
+Opérateurs :
+\begin{itemize}
+\item unaire : \java|!| (non)
+\item binaires : \java|&&| (et) et \java{||} (ou)
+\end{itemize}
+\begin{center}
+\begin{tabular}{r|c|c}
+ priorité & opérateur & associativité \\ \hline
+grande & \java|-|, \java|+| unaires, \java|!| & $\Longleftarrow$ \\
+ & \java|*|, \java|/|, \java|%| & $\Longrightarrow$ \\
+ & \java|-|, \java|+| binaires & $\Longrightarrow$ \\
+ & \java|&&| & $\Longrightarrow$ \\
+faible & {\color{blue!70!black} \verb,||,} & $\Longrightarrow$ \\
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Les expressions booléennes}
+\java|&&| : table de vérité \\
+\medskip
+\begin{center}
+\begin{tabular}{c|c|c|} 
+(ET) & \java|true| & \java|false| \\ \hline
+\java|true| & \java|true| & \java|false| \\ \hline
+\java|false| & \java|false| & \java|false| \\ \hline
+\end{tabular} 
+\end{center}
+\medskip
+Particularité : si l'opérande de gauche est \emph{faux}, l'opérande droit \emph{ne sera pas évalué} et le résultat sera \java|false| 
+\end{frame}
+
+\begin{frame}[fragile]{Les expressions booléennes}
+\java{||} : table de vérité \\
+\begin{center}
+\begin{tabular}{c|c|c|} 
+(OU) & \java|true| & \java|false| \\ \hline
+\java|true| & \java|true| & \java|true| \\ \hline
+\java|false| & \java|true| & \java|false| \\ \hline
+\end{tabular} 
+\end{center}
+\medskip
+Particularité : si l'opérande de gauche est \emph{vrai}, l'opérande droit \emph{ne sera pas évalué} et le résultat sera \java|true| 
+\end{frame}
+
+\begin{frame}[fragile]{Exemples}
+Comment évaluer ?
+\begin{itemize}
+\item \java{true && false || true} 
+\item \java{false || false && ! true} 
+\item \java{true || false && true} 
+\item \java{false && (true || false)} 
+\item \java{!(true || false) && true} 
+\end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]{Résumé}
+Voici les règles qui résument tout ceci
+\begin{grammaire}
+\nterm{Expression} :
+    \nterm{ConditionalOrExpression}
+
+\nterm{ConditionalOrExpression} :
+    \nterm{ConditionalAndExpression}
+    \nterm{ConditionalOrExpression}  \term{||} \nterm{ConditionalAndExpression}
+
+\nterm{ConditionalAndExpression} :
+    \nterm{AdditiveExpression}
+    \nterm{ConditionalAndExpression} \term{&&} \nterm{AdditiveExpression}
+
+\nterm{AdditiveExpression} :
+    \nterm{MultiplicativeExpression}
+    \nterm{AdditiveExpression} \term{+} \nterm{MultiplicativeExpression}
+    \nterm{AdditiveExpression} \term{-} \nterm{MultiplicativeExpression}
+\end{grammaire} 
+\end{frame}
+
+\begin{frame}[fragile]{Résumé}
+\begin{grammaire}
+\nterm{MultiplicativeExpression} :
+    \nterm{UnaryExpression}
+    \nterm{MultiplicativeExpression} \term{*} \nterm{UnaryExpression}
+    \nterm{MultiplicativeExpression} \term{/} \nterm{UnaryExpression}
+    \nterm{MultiplicativeExpression} \term{%} \nterm{UnaryExpression}
+
+\nterm{UnaryExpression} :
+    \term{+} \nterm{UnaryExpression}
+    \term{-} \nterm{UnaryExpression}
+    \term{!} \nterm{UnaryExpression}
+    \nterm{Literal}
+    \term{(} \nterm{Expression} \term{)}
+    \nterm{Identifier}
+\end{grammaire} 
+\begin{itemize}
+\item On y voit la priorité et l'associativité des opérateurs
+\item Pas suffisant pour intégrer toutes les contraintes additionnelles (par exemple ?)
+\end{itemize} 
+\end{frame}
+
+\subsection{Les expressions relationnelles}
+
+\begin{frame}[fragile]{Les expressions relationnelles}
+Opérateurs de comparaison et d'égalité
+\begin{itemize}
+\item Opérandes doivent être de \emph{même type}
+\item Le \emph{résultat} est du type \emph{boolean}
+\end{itemize} 
+\bigskip
+Opérateurs de \emph{comparaison} : {\small \java|<|,\java|>|,\java|<=| et \java|>=|}
+  \begin{itemize}
+  \item Uniquement pour des \emph{types numériques} 
+  \item Exemple : \java|true < false| n'est pas accepté
+  \item Exemple : \java|"Absolu" < "Relatif"| non plus 
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]{L'égalité de valeurs}
+Opérateurs d'\emph{égalité} : \java|==| et \java|!=|
+  \begin{itemize}
+  \item S'appliquent à \emph{tous les types}
+  \item Exemple : \java|true == false| est \java|false|
+  \item Sens différent si type primitif ou référence
+  \end{itemize}
+\bigskip
+Type primitif : les \emph{valeurs} sont comparées
+\begin{center}
+\includegraphics[scale=.5]{../img/java-logi-egal1} 
+\end{center}
+On a : \java|a==c| mais \java|a!=b| et \java|b!=c|
+\end{frame}
+
+\begin{frame}[fragile]{Égalité de valeurs}
+Type référence : les \emph{références} sont comparées
+\begin{center}
+\includegraphics[scale=.5]{../img/java-logi-egal2} 
+\end{center}
+On a : \java|a!=b|, \java|a!=c| mais \java|a==d|
+\end{frame}
+
+\begin{frame}[fragile]{Particularité du type String}
+\begin{Java}
+{
+  String s1 = "Hello";
+  String s2 = "Hello";
+  String s3 = "Hel";
+  s3 = s3 + "lo";
+  System.out.println(s1==s2); // Vrai
+  System.out.println(s1==s3); // Faux
+}
+\end{Java}
+\begin{itemize}
+\item Réutilisation de l'espace mais pour les littéraux uniquement
+\item Pas si résultat d'un \emph{calcul} ou \emph{lecture} au clavier
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Egalité de valeur}
+Pour les types références, on peut aussi utiliser la méthode \java|equals| 
+\begin{itemize}
+\item Ne teste pas que les références sont identiques
+\item Mais bien que les \emph{valeurs} référencées sont égales
+\end{itemize}
+\begin{Java}
+{
+  String s1 = "Hello";
+  String s2 = "Hello";
+  String s3 = "Hel";
+  s3 = s3 + "lo";
+  System.out.println(s1.equals(s2)); // Vrai
+  System.out.println(s1.equals(s3)); // Vrai
+}
+\end{Java}
+\end{frame}
+
+\subsection{Les expressions conditionnelles}
+
+\begin{frame}[fragile]{L'expression conditionnelle}
+Équivalent du \emph{si-sinon} sous forme d'expression
+\begin{Java}
+  condition ? si valeur vrai : si valeur faux 
+\end{Java} 
+\begin{itemize}
+\item Parfois plus lisible mais ne pas abuser
+\item C'est une expression, elle a une valeur
+\end{itemize}
+\medskip
+\emph{Exemples}
+\begin{itemize}
+\item Quel type a l'expression : \java{heure < 12 ? "bonjour" : "bonsoir"}
+\item Que vaudra abs ? 
+\begin{Java}
+int n = -4; 
+int abs = n > 0 ? n : -n;
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tableau des priorités et associativités}
+(opérateurs déjà vus)
+\begin{small}
+\begin{center}
+\begin{tabular}{r|c|c}
+ priorité & opérateur & associativité \\ \hline
+grande & \java|-|, \java|+| unaires, \java|!| & $\Longleftarrow$ \\
+ & \java|*|, \java|/|, \java|%| & $\Longrightarrow$ \\
+ & \java|-|, \java|+| binaires & $\Longrightarrow$ \\
+ & \java|<|, \java|>|, \java|<=|, \java|>=| & $\Longrightarrow$ \\
+ & \java|==|, \java|!=| & $\Longrightarrow$ \\
+ & \java|&&| & $\Longrightarrow$ \\
+ & {\color{blue!70!black} \verb,||,} & $\Longrightarrow$ \\
+faible & {\color{blue!70!black} \verb,?:,} & $\Longleftarrow$ \\
+\end{tabular}
+\end{center}
+\end{small}
+\end{frame}
+
+\subsection{Un mot sur les conversions}
+
+\begin{frame}{Un mot sur les conversions}
+Peut-on mélanger les types ?
+\begin{itemize}
+\item Normalement pas
+\item Accepté si pas de perte d'information
+\item \emph{Conversion} effectuée \emph{automatiquement} par le compilateur
+\item Une leçon entière sera consacrée à ce sujet
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Un mot sur les conversions}
+Voyons les situations les plus fréquentes
+\begin{itemize}
+\item Calcul mélangeant les entiers et les réels
+  \begin{itemize}
+  \item Les entiers sont convertis en réels
+  \item \emph{Ex} : \java|3.2/2| vaut $1.6$ de type \java|double|
+  \end{itemize}
+\item Assigner un entier à un réel
+  \begin{itemize}
+  \item L'entier est converti en réel
+  \item \emph{Ex} : \java|double d = 1; // d vaut 1.0|
+  \end{itemize}
+\item Assigner un réel à un entier
+  \begin{itemize}
+  \item Refusé \dots\ sauf si demandé explicitement (\emph{casting})
+  \item \emph{Ex} : \java|int i = 1.2; // refusé|
+  \item \emph{Ex} : \java|int j = (int) 1.6; // j vaut 1|
+  \end{itemize}
+\end{itemize}
+\end{frame}

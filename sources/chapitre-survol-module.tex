@@ -1,0 +1,271 @@
+% === Cours de Java
+% === Chapitre : Survol 
+
+\section{Code modulaire (survol)}
+
+\leconwithabstracttoc{Nous voyons comment traduire les modules de votre cours de Logique}
+
+\subsection{Découper le code}
+
+\begin{frame}{Découper du code}
+\emph{Pourquoi ?}
+\begin{itemize}
+\item Pour le réutiliser 
+\item Pour scinder la difficulté
+\item Pour faciliter le déverminage
+\item Pour accroitre la lisibilité
+\item Pour diviser le travail
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{Découper du code}
+\emph{Comment ?}
+\begin{itemize}
+\item $\exists$ un \emph{nom qui décrit tout ce qu'il fait}
+\item Il résout un \emph{sous-problème} bien précis
+\item Il est \emph{fortement documenté}
+\item Il est le plus \emph{général possible}
+\item Il tient sur une page
+\end{itemize} 
+\medskip
+En \sigle{Java} on dit \emph{méthode} et pas \emph{module}
+\end{frame}
+
+\subsection{Appel}
+
+\begin{frame}{Appel d'une méthode}
+Une méthode est une \emph{boite noire}
+\begin{center}
+\includegraphics[scale=.6]{../img/methode}
+\end{center}
+Pour l'utiliser, on doit savoir :
+\begin{itemize}
+\item Son nom
+\item Quoi lui donner
+\item Ce qu'elle retourne
+\item Mais \emph{pas comment} elle fait
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Appel d'une méthode}
+À partir du code d'une \emph{autre classe} 
+  \begin{itemize}
+  \item \java|nomClasse.nomMéthode(...)|
+  \item \emph{Exemples} :
+    \begin{Java}
+double racine = Math.sqrt(4.0);
+double aléatoire = Math.random();
+int nb = -10;
+int absolu = Math.abs(nb);
+    \end{Java}
+  \end{itemize}
+Si on est dans la même classe
+  \begin{itemize}
+  \item On indique directement le nom de la méthode
+  \\ \textit{(des exemples suivront)}
+  \end{itemize}
+\end{frame}
+
+\subsection{Définition}
+
+\begin{frame}[fragile]{Définition d'une méthode}
+\begin{Java}
+public static typeRetour nomMéthode ( <<paramètre(s) éventuel(s)>> ) {  
+    // code de la méthode
+    return <<résultat>>;  // de type : typeRetour
+}
+\end{Java}
+\emph{Exemple} : la moyenne de 2 réels
+\begin{Java}
+public static double moyenne ( double nb1, double nb2 ) {  
+    double moyenne = (nb1 + nb2) / 2.0;
+    return moyenne;
+}
+\end{Java}
+\begin{itemize}
+\item Appel possible (si dans la même classe)
+\begin{Java}
+  double cote = moyenne(12.5, 17.5);
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Définition d'une méthode}
+\emph{Exemple} : la valeur absolue
+\begin{Java}
+public static int absolu ( int nb ) {  
+    int abs = nb;
+    if (nb<0) {
+        abs = -nb;
+    }
+    return abs;
+}
+\end{Java}
+\begin{itemize}
+\item Exemples d'appels
+\begin{Java}
+   int résultat = absolu(4);
+   int écart = -10;
+   int écartAbsolu = absolu(écart);
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Définition d'une méthode}
+Si pas de valeur de retour :
+\begin{itemize}
+\item On indique \java|void|
+\item Pas de \java|return|
+\end{itemize}
+\emph{Exemple} :
+\begin{Java}
+public static void présenter (String nomPgm) {
+   System.out.println("Programme "+nomPgm);
+} 
+\end{Java}
+\begin{itemize}
+\item Exemple d'appel
+\begin{Java}
+   présenter("moyenne de 2 nombres");
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Définition d'une méthode}
+On trouve aussi des méthodes sans paramètre
+\\\emph{Exemple} :
+\begin{Java}
+public static int lireEntier () {
+    Scanner clavier = new Scanner(System.in);
+    int nb;
+    System.out.println("Entrez un nombre entier!");
+    nb = clavier.nextInt();
+    return nb;
+}
+\end{Java}
+\begin{itemize}
+\item Exemple d'appel
+\begin{Java}
+   int nb = lireEntier();
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Commentaire d'une méthode}
+Il est essentiel de commenter chaque méthode
+\begin{itemize}
+\item Pour savoir pourquoi et comment l'utiliser
+\item Pour la comprendre et ainsi pouvoir la corriger et/ou la modifier
+\end{itemize}
+\emph{Exemple} : la valeur absolue
+\begin{Java}
+/**
+ * Calcul de la valeur absolue.
+ * @param nb le nombre dont on veut la valeur absolue.
+ * @return la valeur absolue de <code>nb</code>
+ */
+public static int absolu ( int nb ) {  
+...
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Commentaire d'une méthode}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+La documentation suit une notation précise
+\begin{itemize}
+\item Permet une production automatique de documents d'aide
+\item En respectant un style uniforme pour s'y retrouver facilement
+\end{itemize}
+\end{column}
+\begin{column}{0.52\textwidth}
+\includegraphics[scale=.7]{../img/module-javadoc}
+\end{column}
+\end{columns}
+\bigskip
+Plus de détails dans la leçon dédiée à la documentation du code
+\end{frame}
+
+\begin{frame}[fragile]{Un exemple complet}
+\begin{Java}[basicstyle=\scriptsize]
+package be.heb.esi.lg1.cours;
+import java.util.Scanner;
+
+public class MaxEntiers { 
+
+  /**
+   * Donne le maximum de 2 nombres.
+   * @param nb1 le premier nombre.
+   * @param nb2 le deuxième nombre.
+   * @return la valeur la plus grande entre <code>nb1</code> et <code>nb2</code>
+   */
+  public static int max ( int nb1, int nb2 ) { 
+       int max=0; 
+       if (nb1 > nb2) {
+           max = nb1;
+       } else {
+           max = nb2;
+       }
+       return max;
+  }
+\end{Java}
+\begin{flushright}
+{\tiny (\dots)}
+\end{flushright}
+\end{frame}
+
+\begin{frame}[fragile]{Un exemple complet}
+\begin{Java}[basicstyle=\scriptsize]
+  /**
+   * Lit un nombre entier. 
+   * Le nombre est lu sur l'entrée standard (le clavier).
+   * @return le nombre entier lu.
+   */
+  public static int lireEntier () {
+      Scanner clavier = new Scanner(System.in);
+      System.out.println("Entrez un nombre entier!");
+      return clavier.nextInt();
+  }
+ 
+  /**
+   * Affiche le maximum de 2 nombres entrés au clavier.
+   * @param args pas utilisé.
+   */
+  public static void main ( String[] args ) { 
+      int max;  // Le max des nombres lus
+      int nb1, nb2; // Chacun des nombres lus
+      nb1 = lireEntier();
+      nb2 = lireEntier();
+      max = max(nb1,nb2);
+      System.out.println("max = " + max);
+  }
+}
+\end{Java}
+\end{frame}
+
+\subsection{Paramètres}
+
+\begin{frame}{Passage de paramètres}
+En logique 3 passages de paramètres :
+  \begin{itemize}
+  \item en entrée, en sortie, en entrée-sortie
+  \end{itemize} 
+\par\bigskip
+En Java, uniquement \emph{par valeur}
+  \begin{itemize}
+  \item = la valeur est copiée dans le paramètre
+  \item $\simeq$ paramètre en entrée
+  \end{itemize} 
+\end{frame}
+
+\subsection{Conclusion}
+
+\begin{frame}{Conclusion}
+Insistons : Une \emph{méthode}
+\begin{itemize}
+\item \emph{fait une et une seule chose}
+\item possède un \emph{nom explicite}
+\item est \emph{fortement documentée}
+\end{itemize} 
+\end{frame}

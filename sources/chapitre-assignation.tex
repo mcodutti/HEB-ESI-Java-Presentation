@@ -1,0 +1,239 @@
+% === Cours de Java
+% === Chapitre : Les instructions expressions
+
+\section{Les assignations}
+
+\begin{frame}[c]
+\begin{block}{\center Le\c con \thesection}
+  {
+  \begin{center}
+  Les assignations\\(et autres \og expressions - instructions\fg)
+  \bigskip
+  \tableofcontents[sectionstyle=hide,subsectionstyle=show/show/hide]
+  \bigskip
+  \end{center}
+  }
+\end{block}
+\end{frame}
+
+\subsection{Les assignations}
+
+\begin{frame}[fragile]{L'assignation}
+(version légèrement simplifiée)
+\begin{itemize}
+\begin{grammaire}
+  \nterm{Assignment} :
+      \nterm{LeftHandSide} \term{=} \nterm{Expression}
+
+  \nterm{LeftHandSide} :
+      \nterm{Identifier}
+      \nterm{ArrayAccess}
+\end{grammaire}
+\item \emph{Exemples}
+\begin{Java}
+brol = 1
+brol[i]=j
+\end{Java}
+\item Tiens ! Pas de \java|;| à la fin ?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Les expressions instructions}
+En fait, l'assignation est une \emph{expression}
+  \begin{itemize}
+  \item qui peut devenir une \emph{instruction} ({\it statement})
+  \item par ajout d'un \java{;}
+  \item la valeur est perdue
+  \end{itemize}
+Une expression qui peut devenir une instruction s'appelle une \emph{\it statement expression} 
+\begin{grammaire}
+  \nterm{Statement} :                              \nterm{ExpressionStatement} :
+      \nterm{ExpressionStatement}                      \nterm{StatementExpression} \term{;}
+      (...)
+
+  \nterm{StatementExpression} :
+      \nterm{Assignment}
+      (...)
+\end{grammaire}
+\end{frame}
+
+\begin{frame}{L'assignation - expression}
+Une \emph{assignation} est d'abord une \emph{expression}
+\begin{itemize}
+\item Son type : le type de la variable
+\item Sa valeur : la valeur du \textit{left hand side}
+\item Peut donc intervenir comme élément d'une autre expression
+\item Priorité faible et associative de \textit{droite à gauche}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{L'assignation - expression}
+Ceci explique pourquoi on peut écrire
+\begin{Java}
+  i = j = k = l = 0;
+  i = (j = i+j) + 1;
+  f(i=1,j=0);
+  while( (i=i-1) != 0 ) {...}
+  while( ok=true ) {...}  // boucle infinie !
+\end{Java}
+Mais pas
+\begin{Java}
+  i = j = k = l = 0	  // erreur compilation
+  while( ok=true; ) {...} // idem
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Autres Assignations}
+Il existe d'autres \emph{opérateurs d'assignation}
+  \begin{grammaire}
+  \nterm{Assignment} :
+          \nterm{LeftHandSide}   \nterm{AssignmentOperator}   \nterm{Expression}
+
+  \nterm{AssignmentOperator} : one of \term{=} \term{*=} \term{/=} \term{%=} \term{+=} \term{-=}
+  \end{grammaire}
+\begin{itemize}
+\item \java|var += expr| équivaut à \java|var = var + expr|
+\item \emph{Ex} : \java|i+=1| équivaut à \java|i = i + 1|
+\item Que penser de ?
+\begin{Java}
+ i = 2; 
+ i = i = (i*=2) + 1;
+ (i+1) -= 2;
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Les expressions instructions}
+Existe-t-il d'autres \textit{expressions instructions} ? 
+\begin{grammaire}
+  \nterm{StatementExpression} :
+     \nterm{Assignment}
+     \nterm{PreIncrementExpression}
+     \nterm{PreDecrementExpression}
+     \nterm{PostIncrementExpression}
+     \nterm{PostDecrementExpression}
+     \nterm{MethodInvocation}
+
+     \nterm{ClassInstanceCreationExpression} (cf. OO)
+\end{grammaire}
+\end{frame}
+
+\subsection{Post/pré incrémentation/décrémentation}
+
+\begin{frame}[fragile]{Post/pré incrémentation/décrémentation}
+\java|++| permet d'incrémenter une variable
+  \begin{itemize}
+  \item Peut se placer avant ou après la variable
+  \item \java|i++;| $\equiv$ \java|++i;| $\equiv$\java|i+=1;| $\equiv$ \java|i=i+1;|
+  \end{itemize}
+\bigskip
+Il existe tout de même une différence
+  \begin{itemize}
+  \item \java|++i| : \java|i| est incrémenté \emph{avant} d'être utilisé
+  \item \java|i++| : \java|i| est incrémenté \emph{après} avoir été utilisé
+  \item Exemples
+  \begin{Java}
+    int i = 5;
+    i = i++;
+    i = ++i;
+    i = i++ + ++i;
+    i = (i++)++;    
+    i = 2++;        
+  \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Post/pré incrémentation/décrémentation}
+\java|--| fonctionne comme \java|++| mais décrémente
+  \begin{itemize}
+  \item Exemples
+  \begin{Java}
+    int i = 5;
+    i = i--;
+    i = i-- - ++i;
+  \end{Java}
+  \end{itemize}
+\bigskip
+Comment comprendre ceci ?
+\begin{itemize}
+  \item[]
+  \begin{Java}
+    i = i++  +  i;    
+    i = i-  --  i;    
+    i = i+++1;      
+    i = i--  - -- i; 
+    i = i+++++i;    
+  \end{Java}
+  \item Aide : penser au fonctionnement du compilateur 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tableau des priorités et associativités}
+\begin{center}
+\begin{footnotesize}
+\begin{tabular}{c|r|l|c}
+priorité & & & associativité \\ \hline
+forte & postfixes unaires & \java|(params)|, \java|.|, \java|expr++|, \java|expr--| & $\Longrightarrow$ \\ 
+       & préfixes unaires & \java|++expr|, \java|--expr|, \java|-|, \java|+|, \java|!|, \java|new| & $\Longleftarrow$ \\
+       & multiplicatif & \java|*|, \java|/|, \java|%| & $\Longrightarrow$  \\
+       & additif & \java|-|, \java|+|  & $\Longrightarrow$ \\
+       & relationnels & \java|<|, \java|>|, \java|<=|, \java|>=| & $\Longrightarrow$  \\
+       & égalité & \java|==|, \java|!=| & $\Longrightarrow$  \\
+       & et & \java|&&| & $\Longrightarrow$  \\
+       & ou & {\color{blue!70!black} \verb,||,} & $\Longrightarrow$  \\
+       & condition & \java|:?| & $\Longleftarrow$  \\
+faible  & assignations & \java|=|, \java|+=|, \java|-=|, \java|*=|, \java|/=|, \java|%=| & $\Longleftarrow$   \\
+\end{tabular}
+\end{footnotesize}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Ordre d'évaluation}
+Comment comprendre ceci ?
+\begin{itemize}
+\begin{Java}
+  i = 2;
+  i = (i=3) * i;
+  i = i * ++i;
+\end{Java}
+\item Problème dans beaucoup de langages
+\item En \sigle{Java}, \emph{évaluation garantie de gauche à droite} 
+\end{itemize}
+\bigskip
+Aussi pour les paramètres d'un appel de méthode
+\begin{Java}
+  i = 2;
+  f(i++,--i); // équivaut à f(2,2)
+  f(--i,i++); // équivaut à f(1,1)
+\end{Java}
+\end{frame}
+
+\subsection{Appel de méthode}
+
+\begin{frame}[fragile]{Appel de méthode}
+L'\emph{appel de méthode} est un autre cas d'expression-instruction
+\begin{itemize}
+\item Explique pourquoi ceci est valable
+\begin{Java}
+a = f(1);  
+f(1);      
+Math.sqrt(4);
+\end{Java}
+\item La valeur de retour est \emph{perdue} !
+\end{itemize}
+\end{frame}
+
+\subsection{Recommandation}
+
+\begin{frame}{Recommandation}
+\emph{Comment utiliser} les assignations (en tous genres) ?
+\\\medskip
+Afin d'assurer une bonne lisibilité du code :
+\begin{itemize}
+\item \emph{Jamais} comme une \emph{expression}
+\item Mais \emph{toujours} comme une \emph{instruction}
+\end{itemize}
+\end{frame}
+
+
+

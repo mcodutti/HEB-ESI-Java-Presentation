@@ -1,0 +1,205 @@
+\section{Les énumérations}
+\leconwithtoc
+
+\subsection{Le concept d'énumération}
+
+\begin{frame}{Présentation}
+\emph{Enumération} $\equiv$ ensemble fixe et petit de valeurs ayant un nom et sémantiquement liées
+\\\bigskip
+\emph{Exemples}
+  \begin{itemize}
+  \item Saisons : Eté, Automne, Hiver, Printemps
+  \item Couleurs carte : Coeur, Carreau, Pique, Trèfle
+  \item État civil : Célibataire, Marié, Divorcé, Veuf/Veuve
+  \item \dots
+  \end{itemize}
+\end{frame}
+
+\subsection{Implémentation traditionnelle}
+
+\begin{frame}[fragile]{Implémentation traditionnelle}
+Traditionnellement implémenté via des constantes entières
+\\\bigskip
+\emph{Exemple} :
+\begin{Java}
+    final int SAISON_ETE = 1;
+    final int SAISON_AUTOMNE = 2;
+    final int SAISON_HIVER = 3;
+    final int SAISON_PRINTEMPS = 4;
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Implémentation traditionnelle}
+Pose de nombreux problèmes
+\begin{itemize}
+\item Pas de type $\Longrightarrow$ déclaration peu explicite
+  \\\java|int saison;|
+\item Pas d'obligation d'utiliser les noms
+  \\\java|saison = 1;|  // Illisible mais valide
+\item Pas de vérification de la valeur
+  \\\java|saison = 5;|  // Pas de sens mais accepté
+\item Affichage non explicite
+  \\\java|System.out.println(saison);|  // Affiche un entier
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Un cas concret}
+Examinons la javadoc de \java|GregorianCalendar|
+\begin{itemize}
+\item Constantes définies : {\scriptsize \java|HOUR|, \java|MONTH|, \java|DAY_OF_MONTH|, \dots}
+\item Utilisées dans la méthode \java|get()|
+\begin{Java}
+  GregorianCalendar date = ...; 
+  date.get(GregorianCalendar.HOUR);   // Pour obtenir les heures
+  date.get(10);   // Idem ligne ci-dessus
+  date.get(100);   // Compilation ok mais erreur à l'execution !!!
+  date.get(Integer.MAX_VALUE);   // Idem !!!
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\subsection{L'énumération en Java}
+
+\begin{frame}[fragile]{Une vraie énumération}
+À partir de 1.5 : mot clé \java|enum|
+\begin{itemize}
+\item Définit un nouveau type de données
+\item \emph{Exemple} : {\small \java|enum Saison {ETE, AUTOMNE, HIVER, PRINTEMPS}|}
+\item Au même niveau que \java|class|
+\item Défini dans un fichier à part ou au sein d'une autre classe
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Une vraie énumération}
+Exemple d'utilisation
+\begin{Java}
+public class Test {
+  enum Saison {ETE, AUTOMNE, HIVER, PRINTEMPS} 
+  // Notez l'absence de ; !
+
+  public static void main(String args[]) {
+    Saison saison = Saison.ETE;
+    System.out.println(saison); // Ecrit ETE
+    saison = 1; // Erreur de compilation;
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Une vraie énumération}
+Variante :
+\begin{itemize}
+\item Un fichier \code|Saison.java| 
+\begin{Java}
+public enum Saison {ETE, AUTOMNE, HIVER, PRINTEMPS} 
+\end{Java}
+\item Et un programme qui l'utilise
+\begin{Java}
+public class Test {
+  public static void main(String args[]) {
+    Saison saison = Saison.ETE;
+    System.out.println(saison); // Écrit ETE
+    saison = 1; // Erreur de compilation;
+    if (saison == Saison.HIVER)
+      System.out.println("A gla gla !");
+  }
+}
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Test de la valeur}
+Le \code|switch| peut être utilisé avec une énumération 
+\\\medskip\emph{Exemple} :
+\begin{Java}
+// Fichier Titre.java
+enum Titre {MONSIEUR, MADAME, MADEMOISELLE}
+\end{Java}
+\begin{Java}
+void afficherNom( Titre titre, String nom ) {
+  switch(titre) {
+    // Remarquer l'absence du 'Titre.'
+    case MONSIEUR : System.out.println("M. "+nom); break;
+    case MADAME : System.out.println("Mme "+nom); break;
+    case MADEMOISELLE : System.out.println("Mlle "+nom); break;
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Itérer sur les valeurs}
+On peut obtenir un tableau de toutes les valeurs
+\\(idéal pour itérer) 
+\begin{itemize}
+\item \emph{Exemple} :
+\begin{Java}
+Saison[] saisons = Saison.values();
+for(int i=0; i<saisons.length; i++) {
+    System.out.println(saisons[i]);
+}
+\end{Java}
+\item Ou encore grâce au \emph{foreach}
+\begin{Java}
+for( Saison saison : Saison.values() ) {
+    System.out.println(saison);
+}
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\subsection{Attributs d'une énumération}
+
+\begin{frame}[fragile]{Attributs}
+On peut ajouter des \emph{attributs} à une énumération
+\begin{itemize}
+\item Très proche d'une classe
+\item \emph{Exemple} (fichier \code|Mois.java|) :
+\begin{Java}
+public enum Mois {
+  // Valeurs de l'enum 
+  // Comme un appel de constructeur.
+  JANVIER(31), FEVRIER(28), MARS(31); // \'e...
+  // Attribut
+  public final int NB_JOURS;
+  // Constructeur (pas public !)
+  private Mois(int nbJours) { NB_JOURS = nbJours; }
+}
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Attributs}
+Utilisation des attributs
+\begin{Java}
+public class Test {
+  public static void main(String args[]) {
+    for( Mois mois : Mois.values() ) {
+      System.out.println(mois + " : " + mois.NB_JOURS);
+    }
+  }
+}
+\end{Java}
+\end{frame}
+
+\subsection{Méthodes d'une énumération}
+
+\begin{frame}[fragile]{Méthodes}
+On peut aussi ajouter ses propres méthodes
+\begin{itemize}
+\item \emph{Exemple}
+\begin{Java}
+public enum Mois {
+    JANVIER(31), FEVRIER(28), MARS(31);
+    private int nbJours;
+    private Mois(int nbJours) {
+        this.nbJours = nbJours;
+    }
+    public int getNbJours() {
+        return nbJours;
+    }
+}
+\end{Java}
+\end{itemize}
+\end{frame}
+
+

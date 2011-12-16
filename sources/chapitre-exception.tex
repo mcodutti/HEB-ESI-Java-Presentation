@@ -1,0 +1,541 @@
+\section{Les exceptions}
+\leconwithtoc
+
+\subsection{Présentation}
+
+\begin{frame}{Présentation}
+Parfois, le programme se trouve face à une 
+\\\emph{situation anormale}
+\bigskip
+  \begin{itemize}
+  \item Peut être détectée par
+    \begin{itemize}
+    \item la \sigle{JVM} (ex: division par 0)
+    \item ou le code \sigle{Java} (ex: paramètre invalide)
+    \end{itemize}
+  \item Une exception est créée par le code qui a détecté le problème
+  \item L'exception est \emph{lancée}
+  \item Un autre bout de code peut \emph{attraper} l'exception
+    \begin{itemize}
+    \item normalement pour résoudre le problème
+    \end{itemize}
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]{Lancer une exception}
+Quand une situation anormale est détectée, il faut le signaler
+  \begin{itemize}
+  \item Créer un objet de type \java{Exception} (ou un fils)
+  \item Le lancer
+  \item La suite de la méthode n'est pas exécutée
+  \end{itemize}
+\bigskip\emph{Exemple}
+\begin{Java}
+void f(int nb) {
+  if (nb<0)
+       throw new IllegalArgumentException("Nombre négatif");
+  // La suite normale...
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Itinéraire d'une exception}
+Une exception remonte la <<pile d'appel>> jusqu'à ce qu'un bout de code dédié l'attrape.
+\\\bigskip
+\emph{Exemple} : \java{main} appelle \java{f} qui appelle \java{g}       
+\begin{itemize}
+\item[]
+  \begin{Java}
+  void g() { int nb = Integer.parseInt(chaine); }
+  \end{Java}
+\item \java{g} ne gère pas l'exception, elle passe à \java{f}
+\item Si \java{f} ne la gère pas, elle passe à \java{main}
+\item Si \java{main} ne la gère pas, elle passe à la \sigle{JVM}
+\item La \sigle{JVM} attrape tout, affiche un message complet et arrête le programme
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Attraper une exception}
+Si on veut attraper une exception
+\begin{itemize}
+\item On englobe la partie qui peut poser problème par \java{try}
+\item La partie \java{catch} contient la gestion de l'exception
+\end{itemize}
+\bigskip\emph{Exemple}
+\begin{Java}
+try {
+      nb = Integer.parseInt(chaine);
+} catch (NumberFormatException ex) {
+      // gestion de l'exception
+}
+\end{Java}
+  \begin{itemize}
+  \item La méthode \java|parseInt| (ou une méthode appelée par elle) contient un 
+  \java|throw new NumberFormatException(...)|
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]{Résumons}
+\vspace{-20pt}
+Déroulement quand \emph{tout va bien}
+\begin{columns}[T]
+\begin{column}{0.12\textwidth}
+\begin{Java}
+main() {
+  ...
+  f()
+  ...
+}
+  \end{Java}
+\end{column}
+\begin{column}{0.3\textwidth}
+\begin{Java}[escapechar=\%]
+f() {
+  ...
+  try {
+    ...
+    g()
+    ...
+  } catch(...) {
+    %\emph{... // Pas fait !}%
+  }
+  ...
+}
+\end{Java}
+\end{column}
+\begin{column}{0.23\textwidth}
+\begin{Java}
+g() {
+    ...
+    h()
+    ...
+}
+\end{Java}
+\end{column}
+\begin{column}{0.25\textwidth}
+\begin{Java}
+h() {
+  ...
+  if (test)
+      throw... 
+  ...
+}
+\end{Java}
+\end{column}
+\end{columns}
+\medskip
+Si le test est faux 
+\\$\Longrightarrow$ le code du <<catch>> (en brun) n'est pas exécuté
+\end{frame}
+
+\begin{frame}[fragile]{Résumons}
+\vspace{-20pt}
+Déroulement quand un \emph{problème} est détecté
+\begin{columns}[T]
+\begin{column}{0.12\textwidth}
+\begin{Java}
+main() {
+  ...
+  f()
+  ...
+}
+  \end{Java}
+\end{column}
+\begin{column}{0.3\textwidth}
+\begin{Java}[escapechar=\%]
+f() {
+  ...
+  try {
+    ...
+    g()
+    %\emph{... // Pas fait !}%
+  } catch(...) {
+    ... 
+  }
+  ...
+}
+\end{Java}
+\end{column}
+\begin{column}{0.23\textwidth}
+\begin{Java}[escapechar=\%]
+g() {
+ ...
+ h()
+ %\emph{... // Pas fait !}%
+}
+\end{Java}
+\end{column}
+\begin{column}{0.25\textwidth}
+\begin{Java}[escapechar=\%]
+h() {
+  ...
+  if (test)
+      throw... 
+  %\emph{... // Pas fait !}%
+}
+\end{Java}
+\end{column}
+\end{columns}
+\medskip
+Si le test est vrai 
+\\$\Longrightarrow$ les codes en brun ne sont pas exécutés
+\end{frame}
+
+\begin{frame}[fragile]{Une exception est un objet}
+\emph{Exemple}
+\begin{Java}
+  } catch (NumberFormatException ex) {
+\end{Java}
+  \begin{itemize}
+  \item On spécifie qu'on attrape tout objet de la classe \java|NumberFormatException|
+  \item Et qu'on va l'appeler \java|ex| dans le corps du \java|catch|
+  \item On pourra poser des questions à cet objet 
+    \begin{itemize}
+    \item Précisions sur le problème
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Hiérarchie des exceptions}
+Cette hiérarchie des exceptions explique pourquoi on peut écrire :
+  \begin{itemize}
+  \item[]
+    \begin{Java}
+    } catch (Exception ex) {
+    \end{Java}
+  \item \java{NumberFormatException} hérite de \java{Exception}
+  \item Mise en oeuvre du polymorphisme
+  \end{itemize}
+\bigskip
+\warning{À éviter car on attrape aussi d'\emph{autres} exceptions. (qu'on ne saura peut-être pas traiter)}
+\end{frame}
+
+\begin{frame}[fragile]{Attraper plusieurs exceptions}
+On peut attraper plusieurs types d'exceptions
+\\\bigskip\emph{Exemple}
+\begin{Java}
+try {
+      nb = Integer.parseInt(chaine);
+} catch (NumberFormatException ex) {
+      // La chaine ne contient pas un int
+} catch (Exception ex) {
+      // Autre problème
+}
+\end{Java}
+  \begin{itemize}
+  \item On exécute le premier \java{catch} qui est en adéquation avec l'exception
+lancée
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Attraper plusieurs exceptions}
+L'ordre à son importance
+\\\bigskip\emph{Exemple}
+\begin{Java}
+try {
+      nb = Integer.parseInt(chaine);
+} catch (Exception ex) {
+      // Autre probl\`eme
+} catch (NumberFormatException ex) {
+      // La chaine ne contient pas un int
+}
+\end{Java}
+  \begin{itemize}
+  \item En cas de \java{NumberFormatException} c'est la partie \java{Exception} 
+        qui est activée
+        \\ $\Rightarrow$ Interdit par le compilateur
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple complet}
+\begin{Java}
+public class Outil 
+{
+  public static void afficherLigne(int nb) {
+    if (nb<1 || nb >80)
+        throw new IllegalArgumentException("taille entre 1 et 80 !");
+    for( int i=1; i<=nb; i++) {
+        System.out.print('-');
+    }
+    System.out.println();
+  }
+
+  public static void usage() {
+    System.out.println("usage: java Test nb (1 \`a 80)");
+    System.exit(1);
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple complet}
+\begin{Java}
+public class Test 
+{
+  public static void main(String[] args) {
+    int nb = 0;
+    if (args.length != 1) Outil.usage();
+    try {
+        nb = Integer.parseInt(args[0]);
+    } catch (NumberFormatException ex) {
+        Outil.usage();
+    }
+    try {
+        Outil.afficherLigne( nb );
+    } catch (IllegalArgumentException ex) {
+        Outil.usage();
+    }
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple complet}
+Ou bien (code moins éclaté)
+\begin{Java}
+public class Test 
+{
+  public static void main(String[] args) {
+    if (args.length != 1) Outil.usage();
+    try {
+        int nb = Integer.parseInt(args[0]);
+        Outil.afficherLigne( nb );
+    } catch (NumberFormatException ex) {
+        Outil.usage();
+    } catch (IllegalArgumentException ex) {
+        Outil.usage();
+    }
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple complet}
+Ou encore (dangereux : on capture toutes les erreurs)
+\begin{Java}
+public class Test 
+{
+  public static void main(String[] args) {
+    if (args.length != 1) Outil.usage();
+    try {
+        int nb = Integer.parseInt(args[0]);
+        Outil.afficherLigne( nb );
+    } catch (Exception ex) {
+        Outil.usage();
+    }
+  }
+}
+\end{Java}
+\end{frame}
+
+
+\begin{frame}[fragile]{Exemple complet}
+\includegraphics[scale=.5]{../img/java7.jpeg}En Java 7, on peut combiner des exceptions 
+\begin{Java}
+public class Test 
+{
+  public static void main(String[] args) {
+    if (args.length != 1) Outil.usage();
+    try {
+        int nb = Integer.parseInt(args[0]);
+        Outil.afficherLigne( nb );
+    } catch (NumberFormatException | IllegalArgumentException ex) {
+        Outil.usage();
+    }
+  }
+}
+\end{Java}
+\end{frame}
+
+\subsection{Exceptions contrôlées}
+
+\begin{frame}[fragile]{Exceptions contrôlées}
+Philosophie de \sigle{Java} : obliger le programmeur à coder proprement
+\begin{itemize}
+\item $\Rightarrow$ Toute exception devrait être gérée
+\item Mais beaucoup d'instructions peuvent provoquer une exception 
+(ex: \java{ArrayOutOfBoundsException})
+\item On ne peut pas mettre des \java{try} partout
+\item $\Rightarrow$ Java différencie les exceptions
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Différentes sortes d'exceptions}
+\begin{center}
+\includegraphics[scale=.5]{../img/exceptions-throwable} 
+\\
+\begin{tiny}
+source: \code|http://java.sun.com/docs/books/tutorial/essential/exceptions/index.html|
+\end{tiny}
+\end{center}
+\java|java.lang.Throwable| : type commun à toutes les exceptions
+\end{frame}
+
+\begin{frame}[fragile]{Différentes sortes d'exceptions}
+\java|Exception|
+  \begin{itemize}
+  \item Toutes les exceptions \emph{contrôlées} par le compilateur
+  \item On doit \emph{explicitement} les gérer ou les laisser passer. Sauf pour\dots
+  \end{itemize} 
+\bigskip
+\java|RunTimeException|
+  \begin{itemize}
+  \item Sous-ensemble de \code{Exception}
+  \item Pas d'obligation de les traiter
+  \end{itemize} 
+\bigskip
+\java|Error| 
+  \begin{itemize}
+  \item Liées au dysfonctionnement de la machine virtuelle
+  \item Il est déconseillé de les traiter
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]{Exceptions contrôlées}
+Si une méthode \emph{peut} lancer une exception \emph{controlée}
+\begin{itemize}
+  \item Elle doit le déclarer dans la signature
+  \begin{Java}
+void f() throws IOException {
+  ...
+  if (...)
+    throw new IOException("...");
+  ...
+}
+  \end{Java}
+  \item \emph{Remarque} : ne pas confondre \java{throw} et \java{throws}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Exceptions contrôlées}
+Quand on appelle une méthode qui \emph{peut} lancer une exception \emph{controlée}
+  \begin{itemize}
+  \item On est \emph{obligé} de la gérer
+\begin{Java}
+void g() {
+  ...
+  try {
+    f();
+  } catch( IOException ex ) {
+    // gérer l'exception
+  }
+  ...
+}
+\end{Java}
+\item \emph{ou} de déclarer qu'on la lance 
+ \\(qu'on la laisse passer en fait)
+\begin{Java}
+void g() throws IOException {
+  ...
+  f();
+  ...
+}
+\end{Java}
+\item Tout cela est vérifié par le compilateur
+\end{itemize}
+\end{frame}
+
+\subsection{Créer ses exceptions}
+
+\begin{frame}[fragile]{Créer ses propres exceptions}
+Revient à créer une classe qui hérite de \java{Exception} \\(ou \code|RuntimeException|)
+\medskip
+\begin{Java}
+public class MyException extends Exception {
+    public MyException(String s) {
+        super(s);
+    }
+}
+\end{Java}
+\begin{Java}
+public class B {
+    public void leveException() throws MyException {
+        throw new MyException("ça coince");
+    }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple complet}
+\begin{Java}
+public class Groupe {    
+    private Etudiant[] étudiants;
+    private int nbétudiants;
+
+    public Groupe(int tailleGroupe) {
+        étudiants = new Etudiant[tailleGroupe];
+        nbétudiants = 0;
+    }
+    
+    public void ajouter(Etudiant étudiant) 
+                                 throws DépassementCapacitéException {
+        if (nbétudiants == étudiants.length)
+            throw new DépassementCapacitéException("Plus de place !");
+        étudiants[nbétudiants] = étudiant;
+        nbétudiants++;
+    }
+    // Les autres méthodes ici    
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple complet}
+\begin{Java}
+public class DépassementCapacitéException extends Exception {
+    public DépassementCapacitéException(String s) {
+        super(s);
+    }    
+}
+\end{Java}
+\bigskip
+\emph{Remarque} : Si on n'avait pas fait le test de dépassement de capacité
+  \begin{itemize}
+  \item \code|ArrayList| aurait lancé une \java|IndexOutOfBoundsException|
+  \item Pas clair pour l'utilisateur (qui n'a pas connaissance de l'implémentation)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{La clause <<finally>>}
+\begin{itemize}
+\item La clause \java{finally} est toujours exécutée
+\item À la fin du \java{try} ou après le \java{catch}
+  \begin{itemize}
+  \item Même en présence d'un \java|return|
+  \item ou si une exception est lancée dans le \java|catch|
+  \end{itemize}
+\item Permet d'indiquer un code qui doit toujours être exécuté
+\item Rarement utilisé (par ex: pour fermer une ressource externe comme un fichier)
+\end{itemize}
+\end{frame}
+
+%\begin{frame}[fragile]{La clause <<finaly>>}
+%\emph{Exemple}
+%\begin{Java}
+%public class A {
+%    public static void foo() {
+%        B b = new B();
+%        try {
+%            b.leveException();
+%        } catch (MyException e) {
+%            System.out.println("hum! some problems");
+%        } finally {
+%            System.out.println("fin de foo");
+%        }
+%    }
+%}
+%\end{Java}
+%\end{frame}
+
+%\begin{frame}[fragile]{Utiliser judicieusement les exceptions}
+%Cas le plus fréquent d'utilisation : vérifier les paramètres
+%\begin{Java}
+%void f(...) {
+%  if (...)
+%    throw new IllegalArgumentException("...");
+%}
+%\end{Java}
+%\bigskip
+%\warning{N'attraper une exception qui si on est \emph{capable} de la traiter.
+%Sinon, la laisser passer.}
+%\end{frame}
+

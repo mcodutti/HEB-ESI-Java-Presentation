@@ -1,0 +1,294 @@
+% === Cours de Java
+% === Chapitre : Les données
+
+\section{Les types et les littéraux}
+
+\leconwithtoc
+
+\subsection{Un langage typé}
+
+\begin{frame}{Les types}
+\emph{Toute donnée a un type}
+  \begin{itemize}
+  \item Cohérence sémantique
+  \item Allocation mémoire adaptée
+  \end{itemize}  
+\bigskip
+Quels types ?
+\begin{itemize}
+  \item \emph{primitifs prédéfinis} : 
+\begin{itemize}
+\item entier, réel, booléen (logique)
+\end{itemize}
+  \item \emph{références prédéfinis} :
+\begin{itemize}
+\item tableaux, String, \dots
+\end{itemize}
+  \item \emph{références définis par le programmeur}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Les types primitifs}
+\vspace{-25pt}
+\begin{center}
+\includegraphics[scale=.65]{../img/primitifs}
+\\\tiny{source : http://www3.ntu.edu.sg/home/ehchua/programming/java/J2\_Basics.html}
+\end{center}
+\vspace{-25pt}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{grammaire}
+\nterm{PrimitiveType} : one of
+    \nterm{NumericType}  \term{boolean}
+
+\nterm{NumericType} : one of
+    \nterm{IntegralType}  \nterm{FloatingPointType}
+\end{grammaire}
+\end{column}
+\begin{column}{0.4\textwidth}
+\begin{grammaire}
+\nterm{IntegralType} : one of
+    \term{byte}  \term{short}  \term{int}  \term{long}  \term{char}
+
+\nterm{FloatingPointType} : one of
+    \term{float}  \term{double}
+\end{grammaire}
+\end{column}
+\end{columns}
+\end{frame}
+
+\subsection{Les types entiers}
+
+\begin{frame}[fragile]{Les types numériques entiers}
+\java|byte|, \java|short|, \java|int| et \java|long| 
+(\java|char| sera vu à part) :
+\begin{itemize}
+\item Nombres signés (en complément à 2)
+\item Codés sur 8-bit, 16-bit, 32-bit et 64-bit
+\item Comprennent donc les valeurs 
+  \begin{itemize}
+  \item -128 à 127
+  \item -32768 à 32767
+  \item -2147483648 à 2147483647
+  \item -9223372036854775808 à 9223372036854775807
+  \end{itemize} 
+\item \emph{Modélisation} de la notion mathématique d'entier
+  \begin{itemize}
+  \item Capacité limitée 
+  \item permet de représenter un intervalle fini de $\mathbb{Z}$
+  \item \emph{\textit{out of range}} possible
+  \end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Les littéraux entiers}
+\emph{\textit{Littéral}} : représentation d'une valeur
+\\\smallskip
+Pour les entiers, différents formats sont possibles
+\begin{center}
+\includegraphics[scale=.35]{../img/java-data-entier}
+\end{center} 
+\begin{grammaire}
+\nterm{IntegerLiteral} : one of
+       \nterm{DecimalIntegerLiteral}    \nterm{HexIntegerLiteral}  
+       \nterm{OctalIntegerLiteral}        \nterm{BinaryIntegerLiteral}
+\end{grammaire}
+\end{frame}
+
+\begin{frame}[fragile]{Les littéraux entiers}
+Un \emph{\nterm{DecimalNumeral}} (numérique décimal)  
+\vspace{-10pt}
+\begin{columns}[T]
+\begin{column}{0.6\textwidth}
+\begin{grammaire}[fontsize=\footnotesize]
+\nterm{DecimalIntegerLiteral} :
+     \nterm{DecimalNumeral} \nterm{IntegerTypeSuffix}\opt
+\end{grammaire}
+\end{column}
+\begin{column}{0.4\textwidth}
+\begin{grammaire}[fontsize=\footnotesize]
+\nterm{IntegerTypeSuffix} : one of \term{l} \term{L}
+\end{grammaire}
+\end{column}
+\end{columns}
+  \begin{itemize}
+  \item \nterm{DecimalNumeral} : suite de chiffres
+  \item \java|_| permis pour la lisibilité \includegraphics[scale=.5]{../img/java7.jpeg} 
+  \item Le suffixe (\java|l| ou \java|L|) : distingue un \java|int| d'un \java|long|
+  \item Pas de \java|byte| ou \java|short| ? Écrire un \java|int|
+  \item Pas de \emph{littéral négatif} ? Utiliser le \java|-|
+  \item Exemples corrects : \java|0   1275   1_421   23L| 
+  \item Exemples incorrects : \java|12.3   1 000   1,000   1.0| 
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]{Les littéraux entiers}
+\emph{Octal}
+  \begin{itemize}
+  \item précédé de \java|0|
+  \item chiffres de 0 à 7
+  \end{itemize} 
+\emph{Héxadécimal}
+  \begin{itemize}
+  \item précédé de \java|0x| ou \java|0X|
+  \item chiffres + a,b,c,d,e,f (minuscules/majuscules)
+  \end{itemize} 
+\emph{Binaire}
+  \begin{itemize}
+  \item précédé de \java|0b| ou \java|0B|
+  \item chiffres 0 et 1
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]{Les littéraux entiers}
+\emph{Exemple} : Quelques littéraux corrects pour la valeur 100 de type \java|int| 
+\begin{itemize}
+\item \java|100|
+\item \java|1_0_0|
+\item \java|0144|
+\item \java|01_44|
+\item \java|0x64|
+\item \java|0b110_0100|
+\end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]{Le type numérique caractère}
+\java|char|
+\begin{itemize}
+\item Caractère Unicode
+\item Entier non signé sur 16 bits
+\item Assimilé à un entier (on peut faire des calculs !)
+\item Plusieurs notations  
+\begin{grammaire}[commandchars=|()]
+|nterm(CharacterLiteral) :
+    |term(') |nterm(SingleCharacter) |term(')
+    |term(') |nterm(EscapeSequence) |term(')
+\end{grammaire} 
+\item La plus simple : le \emph{caractère entre \textit{single quote}} 
+\begin{grammaire}[commandchars=|()]
+|nterm(SingleCharacter) :
+    any character but not |term(') or |nterm(\) or |nterm(LineTerminator)
+\end{grammaire} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Les littéraux caractères}
+Notations spéciales avec les séquences d'échappement (\textit{Escape Sequence})
+\begin{itemize}
+\item Pour les caractères non représentables simplement
+\\\medskip
+\begin{tabular}{r|llr|llr|l}
+\java|\n| & line feed       & \hspace{0.3cm} & \java|\t| & tabulation & \hspace{0.3cm} & \java|\'| & \code|'| \\
+\java|\r| & carriage return & \hspace{0.3cm} & \java|\b| & backspace  & \hspace{0.3cm} & \java|\"| & \code|"| \\
+          &                 & \hspace{0.3cm} &           &            & \hspace{0.3cm} & \java|\\| & \code|\| \\
+\end{tabular}
+\medskip
+\begin{itemize}
+\item Exemples : \java|'\n'| ,\java|'\\'| ,\java|'\''|
+\end{itemize}
+\item Pour utiliser le code Unicode
+\begin{itemize}
+\item Exemples : 
+  \begin{itemize}
+  \item \java|'\u0F40'| pour le \textit{KA} tibétain 
+  \item \java|'\u17E0'| pour le chiffre 0 Khmer 
+  \end{itemize}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\subsection{Les types flottants}
+
+\begin{frame}[fragile]{Les types à virgule flottante}
+\java|float|, \java|double| 
+\begin{itemize}
+\item Respectent la norme IEEE754
+\item Codés sur (respectivement) 32-bit, et 64-bit
+\item On utilisera plus souvent le type \java|double|
+\item \emph{Modélisation} de la notion mathématique
+  \begin{itemize}
+  \item Capacité limitée (\emph{\textit{out of range}} possible) 
+  \item Précision limitée
+    \begin{itemize}
+    \item $\longrightarrow$ \emph{imprécision} lors d'un calcul
+    \item ex : $10^{-30}$ est représentable et pourtant \\$(1+10^{-30})-1$ donnera $0$ et pas $10^{-30}$
+    \end{itemize}
+  \end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Les littéraux à virgule flottante}
+Notation assez souple
+\begin{grammaire}
+\nterm{FloatingPointLiteral} :
+      \nterm{Digits} \term{.} \nterm{Digits}\opt \nterm{ExponentPart}\opt \nterm{FloatTypeSuffix}\opt
+      \term{.} \nterm{Digits} \nterm{ExponentPart}\opt \nterm{FloatTypeSuffix}\opt
+      \nterm{Digits} \nterm{ExponentPart} \nterm{FloatTypeSuffix}\opt
+      \nterm{Digits} \nterm{ExponentPart}\opt \nterm{FloatTypeSuffix}
+
+\nterm{ExponentPart} :
+      \term{e} \nterm{signedInteger}
+      \term{E} \nterm{signedInteger}
+
+\nterm{FloatTypeSuffix} : one of
+      \term{f} \term{F} \term{d} \term{D}
+\end{grammaire}
+\end{frame}
+
+\begin{frame}[fragile]{Les littéraux à virgule flottante}
+\begin{small}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+partie entière & . & partie décimale & E & exposant & suffixe \\
+\hline
+\end{tabular}
+\end{small}
+\smallskip
+\begin{itemize}
+\item 4 parties optionnelles (mais pas ensemble)
+\begin{itemize}
+\item Cela doit rester sensé
+\item On ne peut pas le confondre avec un entier
+\end{itemize}
+\item En l'absence de suffixe : un double
+\item Exemples : \java|1.2E3|, \java|1.F|, \java|.1|, \java|1e-2d|, \java|1f|
+\item Contre-exemples : \java|1|, \java|.E1|, \java|E1|
+\end{itemize}
+\end{frame}
+
+\subsection{Les booléens}
+
+\begin{frame}{Le type booléen}
+\java|boolean|
+\begin{itemize}
+\item Appelé aussi \emph{logique}
+\item 2 valeurs : \java|true| (vrai) et \java|false| (faux)
+\end{itemize}
+\end{frame}
+
+\subsection{La chaine de caractères}
+
+\begin{frame}[fragile]{La chaine de caractères}
+\java|String|
+\begin{grammaire}[commandchars=|()]
+|nterm(StringLiteral) :
+      |term(") |nterm(StringCharacters)|opt |term(")
+|nterm(StringCharacters) :
+      |nterm(StringCharacter)
+      |nterm(StringCharacters) |nterm(StringCharacter)
+|nterm(StringCharacter) :
+      |nterm(InputCharacter) but not |term(") or |term(\)
+      |nterm(EscapeSequence)
+|nterm(InputCharacter) :
+      |nterm(UnicodeInputCharacter) but not |term(CR) or |term(LF)
+\end{grammaire}
+\begin{itemize}
+\item Exemples de \java|String| :
+\begin{itemize}
+\item \java|"Bonjour "|
+\item \java|"'Un peu de tout' : \"\n\\"|
+\end{itemize} 
+\item Attention : \java|char| $\neq$ \java|String|
+\end{itemize}
+\end{frame}
+

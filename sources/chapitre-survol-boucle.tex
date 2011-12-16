@@ -1,0 +1,161 @@
+% === Cours de Java
+% === Chapitre : Survol 
+
+\section{Les boucles (survol)}
+
+\leconwithabstract{Nous voyons comment traduire les algorithmes contenant des boucles que vous écrivez au cours de Logique}
+
+\begin{frame}[fragile]{Instructions répétitives}
+Le \emph{Tant que} : 
+\begin{Java}
+  while ( condition ) {
+    instructions
+  }
+\end{Java} 
+\bigskip
+\emph{Exemple} :
+\begin{Java}
+  int puissance = 1;
+  while ( puissance < 1000 ) {
+    System.out.println(puissance);
+    puissance = 2 * puissance;
+  }
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple} 
+\begin{Java}
+import java.util.Scanner;
+public class Exemple {
+  /**
+   * Affiche la somme d'entiers positifs entrés au clavier.
+   * S'arrête dès qu'une valeur nulle ou négative est donnée.
+   * @param args non utilisé
+   */
+  public static void main(String[] args) {
+      Scanner clavier = new Scanner(System.in);
+      int nb;
+      int somme = 0;
+      nb = clavier.nextInt();
+      while ( nb > 0 ) {
+         somme = somme + nb;
+         nb = clavier.nextInt();
+      }
+      System.out.println(somme);
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Instructions répétitives}
+Le \emph{Pour} : 
+\begin{Java}
+  for ( int i=début; i<=fin; i=i+pas ) {
+    instructions
+  }
+\end{Java} 
+\bigskip
+\emph{Exemple} :
+\begin{Java}
+  for ( int i=1; i<=10; i=i+1 ) {
+    System.out.println(i);
+  }
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple} 
+\begin{Java}
+public class Exemple {
+  /**
+   * Affiche la somme des nombres pairs entre 2 et 100.
+   * @param args non utilisé
+   */
+  public static void main(String[] args) {
+      int somme;
+
+      somme = 0;
+      for ( int i=2; i<=100; i=i+2 ) {
+         somme = somme + i;
+      }
+      System.out.println(somme);
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple} 
+\begin{Java}
+public class Exemple {
+  /**
+   * Affiche un compte à rebours à partir de 10.
+   * @param args non utilisé
+   */
+  public static void main(String[] args) {
+
+      for ( int i=10; i>=1; i=i-1 ) {
+         System.out.println(i);
+      }
+      System.out.println("Partez !");
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Instructions répétitives}
+\java|i++| est un raccourci pour \java|i=i+1|
+\\\bigskip
+\emph{Exemple} :
+\begin{Java}
+  for ( int i=1; i<=n; i++ ) {
+    System.out.println(i);
+  }
+\end{Java} 
+\end{frame}
+
+\begin{frame}[fragile]{Étude de cas} 
+\emph{Objectif} : lecture d'une donnée entière positive
+\begin{itemize}
+\item \emph{Étape 1} : lire un entier
+\end{itemize}
+\begin{Java}
+/**
+  * Lit un entier au clavier.
+  * Les valeurs non entières sont passées.
+  * @return l'entier lu.
+  */
+public static int lireEntier() {
+    Scanner clavier = new Scanner(System.in);
+    int nb;
+    // Tant que ce n'est pas un entier au clavier
+    while ( !clavier.hasNextInt() ) {
+        clavier.next(); // le lire, le passer
+    }
+    nb = clavier.nextInt();
+    return nb;
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Étude de cas} 
+\begin{itemize}
+\item \emph{Étape 2} : lire un entier positif
+\end{itemize}
+\begin{Java}
+/**
+  * Lit un entier au clavier.
+  * Les valeurs non entières, nulles ou négatives sont passées.
+  * @return l'entier lu.
+  */
+public static int lirePositif() {
+    int nb;
+    nb = lireEntier();
+    while (nb<=0) {
+      nb = lireEntier();
+    }
+    return nb;
+}
+\end{Java}
+\end{frame}
+
+
+

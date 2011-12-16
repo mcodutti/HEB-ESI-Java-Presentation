@@ -1,0 +1,286 @@
+% === Cours de Java
+
+\section{Les tableaux (survol)}
+
+\leconwithtoc
+
+\subsection{Présentation}
+
+\begin{frame}{Avertissement}
+\begin{center}
+Nous présentons ici une \emph{vue} très \emph{simplifiée} 
+\\des tableaux en Java afin de \emph{coller} 
+\\à votre cours de \emph{logique}.
+\bigskip
+\\Nous aurons l'occasion d'être plus précis 
+\\lors d'une prochaine leçon.
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Présentation}
+Nécessité de manipuler \emph{plusieurs variables similaires}
+\begin{itemize}
+\item \emph{Ex}: plusieurs cotes, plusieurs températures
+\item Accès à un des éléments via un \emph{indice} (\textit{position})
+\end{itemize}
+  \begin{center}
+  \includegraphics[scale=.35]{../img/tab-pres}
+  \end{center}
+\pause
+Pourquoi pas plusieurs variables ?
+  \begin{itemize}
+  \item Écriture \emph{compacte} et qui s'\emph{adapte} à la taille
+  \item \emph{Ex} : En logique, si \java|tab| est un tableau de $N$ entiers
+        \begin{Java}
+  pour i de 1 à N faire
+     écrire tab[i]
+  fin pour
+        \end{Java}
+  \end{itemize}
+\end{frame}
+
+\subsection{Type / Déclaration / Création}
+
+\begin{frame}[fragile]{Type et déclaration}
+Eléments de type \java|T| $\Rightarrow$ type du tableau = \java|T[]|
+\\\emph{Exemples}
+    \begin{itemize}
+    \item \java|int[]| est le type \textit{tableau d'entiers}
+    \item \java|String[]| est le type \textit{tableau de chaines de caractères}
+    \end{itemize}
+\medskip\pause
+En \sigle{Java} : uniquement des tableaux \emph{dynamiques}
+    \begin{itemize}
+    \item La taille ne fait pas partie du type
+    \item Déclaration et création sont séparées
+    \end{itemize}
+\medskip\pause
+La déclaration suit la syntaxe habituelle
+\\\emph{Exemples}
+    \begin{Java}
+    int[] cotes;
+    String[] noms;
+    \end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+Il faut encore \emph{créer} le tableau (via le mot clé \java|new|)
+\\\emph{Exemple} :
+    \begin{Java}
+    int[] t;
+    t = new int[3];
+    \end{Java}
+  \begin{center}
+  t \begin{tabular}{|c|c|c|}\hline  &   &  \\\hline\end{tabular}
+  (espace pour 3 entiers)
+  \end{center}
+\medskip\pause
+On peut aussi combiner déclaration/création
+  \\\emph{Exemple} :
+    \begin{itemize}
+    \item \java|int[] t = new int[3];|
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Création}
+On peut aussi créer le tableau en \emph{donnant ses valeurs}
+  \begin{itemize}
+  \item Dans ce cas, on ne spécifie pas la taille \\(elle est déduite)
+  \item \emph{Exemple} :
+    \begin{Java}
+    int[] entiers = {4,5,6};
+    \end{Java}
+  \medskip
+  entiers \begin{tabular}{|c|c|c|}\hline 4 & 5  & 6 \\\hline\end{tabular}
+  \end{itemize}
+\end{frame}
+
+\subsection{Accès}
+
+\begin{frame}[fragile]{Accès aux éléments}
+\emph{Définition} : taille = Nombre d'éléments
+\\\medskip
+En \sigle{Java} on ne choisit pas l'indice de départ : toujours 0
+  \begin{itemize}
+  \item $\longrightarrow$ Indices de \emph{0 à taille du tableau - 1}
+  \item Exemple :
+    \begin{Java}
+    int[] entiers = {7,14,0};
+    int entier = entiers[2]; // entier vaut 0
+    entiers[1] = 85;
+    entier = entiers[entier+1]; //entier vaut 85
+    \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Accès aux éléments}
+  \emph{Exemple} : Initialisation des composants d'un tableau d'entiers à la valeur de leur indice
+  \begin{Java}
+  package be.heb.esi.lg1.tutorials.tableaux;
+
+  public class InitialisationTableau {
+     public static void main(String[] args) {
+        int[] tableau = new int[10];
+        for(int i = 0; i < 10; i++) {
+           tableau[i] = i;
+        }
+     }
+  }
+  \end{Java}
+\end{frame}
+
+\subsection{Taille}
+
+\begin{frame}[fragile]{Taille}
+En \sigle{Java} : tout tableau connait sa \emph{taille}
+  \begin{itemize}
+  \item Via \java|nomTableau.length|
+  \item \emph{Exemple} :
+    \begin{Java}
+   int[] entiers = {4,5,6};
+   int taille = entiers.length;
+   System.out.println(taille); // écrit 3
+    \end{Java}
+  \item Permet d'écrire un code qui s'adapte mieux aux changements
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Taille}
+  \emph{Exemple} : Parcours des composants d'un tableau d'entiers suivant l'ordre ascendant des indices
+  \begin{Java}
+  package be.heb.esi.lg1.tutorials.tableaux;
+
+  public class SimpleParcoursAscendant {
+     public static void main(String[] args){
+        int[] tableau = {1,2,3,4,5,6,7,8,9,10};
+        for(int i = 0; i < tableau.length; i = i + 1) {
+           System.out.println(tableau[i]);
+        }
+     }
+  }
+  \end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Taille}
+  \emph{Exemple} : Parcours des composants d'un tableau d'entiers suivant l'ordre descendant des indices
+  \begin{Java}
+  package be.heb.esi.lg1.tutorials.tableaux;
+
+  public class SimpleParcoursDescendant {
+     public static void main(String[] args){
+        int[] tableau = {1,2,3,4,5,6,7,8,9,10};
+        for(int i = tableau.length - 1; i >= 0; i = i-1) {
+           System.out.println(tableau[i]);
+        }
+     }
+  }
+  \end{Java}
+\end{frame}
+
+\subsection{Tableau et méthode}
+
+\begin{frame}[fragile]{Tableau et méthode}
+Un tableau peut être un paramètre d'une méthode.
+\\\emph{Exemple} : Afficher un tableau 
+\begin{Java}
+   public static void afficher( int[] tab ) {
+      for(int i = 0; i<tab.length; i++) {
+         System.out.println(tab[i]);
+      }
+   }
+\end{Java}
+\begin{itemize}
+  \item L'appel pourrait être
+  \begin{Java}
+  int[] cotes = {12,8,10,14,9};
+  afficher( cotes );
+  \end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tableau et méthode}
+En \sigle{Java} : passage de paramètres par \emph{valeur}
+\begin{itemize}
+\item normalement $\equiv$ paramètre en entrée
+\item pour un tableau $\equiv$ paramètre en \emph{entrée-sortie}
+\end{itemize}
+\medskip
+{\small (lié à la réprésentation mémoire que nous verrons plus tard)}
+  \emph{Exemple} : Remplir un tableau 
+  \begin{Java}
+   public static void remplir( int[] tab, int val ) {
+      for(int i = 0; i<tab.length; i++) {
+         tab[i] = val;
+      }
+   }
+  \end{Java}
+  \begin{itemize}
+  \item L'appel pourrait être
+  \begin{Java}
+  int[] cotes = new int[16]; // Ne pas oublier de le créer
+  remplir( cotes, 20 );
+  \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tableau et méthode}
+  Un tableau peut être une valeur de retour
+  \\\emph{Exemple} : Créer un tableau avec valeur
+  \begin{Java}
+   public static int[] créer( int taille, int val ) {
+      int[] tab = new int[taille];
+      for(int i = 0; i<taille; i++) {
+         tab[i] = val;
+      }
+      return tab;
+   }
+  \end{Java}
+  \begin{itemize}
+  \item L'appel pourrait être
+  \begin{Java}
+  int[] cotes = créer(16, 20);
+  \end{Java}
+  \end{itemize}
+\end{frame}
+
+\subsection{Plusieurs dimensions}
+
+\begin{frame}[fragile]{Tableaux à plusieurs dimensions}
+Pour indiquer plusieurs dimensions, on multiple les \java{[]}
+\\\emph{Exemple} :
+\begin{Java}
+    int[][] tab = new int[3][4];
+    for( int i=0; i<3; i++) {
+      for( int j=0; j<4; j++) {
+          tab[i][j] = i*j*(i+j);
+      }
+    } 
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Tableaux à plusieurs dimensions}
+On peut demander le nb de colonnes comme le nb de lignes
+\\\emph{Exemple} : afficher un tableau reçu en paramètre
+\begin{Java}
+public static void afficher(int[][] tab) {
+    for( int i=0; i<tab.length; i++) {
+        for( int j=0; j<tab[0].length; j++) {
+            System.out.print(tab[i][j] + " ");
+        }
+        System.out.println();
+    }
+} 
+\end{Java}
+\end{frame}
+
+\subsection{Erreurs fréquentes}
+
+\begin{frame}[fragile]{Erreurs fréquentes}
+Lorsque vous manipulerez des tableaux vous pourrez tomber sur ces exceptions
+\begin{itemize}
+\item \java|NullPointerException| : si vous essayez d'accéder à un élément d'un tableau qui n'a pas été créé
+\\(le tableau vaut \java|null| dans ce cas)
+\item \java|ArrayIndexOutOfBoundsException| : si vous donnez un indice qui n'existe pas (ex: \java|tab[10]| quand il n'y a que 10 éléments dans le tableau)
+\end{itemize}
+\end{frame}
+

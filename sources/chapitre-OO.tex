@@ -1,0 +1,1094 @@
+%=== Cours de Java
+%=== Chapitre : OO
+
+\section{L'orienté objet}
+
+\begin{frame}
+\begin{block}{\center Leçon \thesection\ ---   \insertsection}
+  {
+  \begin{multicols}{2}
+  \tableofcontents[sectionstyle=hide,subsectionstyle=show/show/hide]
+  \end{multicols}
+  \bigskip
+  }
+\end{block}
+\end{frame}
+
+\begin{frame}{Avertissement}
+Pour qu'un langage soit \textit{orienté objet} il doit posséder 3 propriétés
+  \begin{itemize}
+  \item L' \emph{encapsulation}
+  \item L' \emph{héritage}
+  \item Le \emph{polymorphisme}
+  \end{itemize} 
+\bigskip
+Trop pour le cours de 1ère année
+  \begin{itemize}
+  \item Nous allons surtout voir l'encapsulation \\(comme au cours de logique)
+  \item Et effleurer le reste $\longrightarrow$ parfois imprécis
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Rappels}
+Voici ce que vous avez déjà vu en logique
+\begin{center}
+\includegraphics[scale=.6]{../img/oo-rappels}
+\end{center}
+\end{frame}
+
+\begin{frame}{Présentation de l'exemple}
+Illustrons ces concepts avec la notion d'\textit{étudiant à l'ESI}
+\begin{itemize}
+ \item Un étudiant
+    \begin{itemize}
+    \item possède un nom et un numéro unique
+    \item est inscrit dans une année d'étude
+    \item est doubleur ou pas
+    \item est un \textit{ancien} (a terminé) ou pas
+    \end{itemize}
+  \item Il peut réussir son année ou la rater
+  \end{itemize}
+\end{frame}
+
+\subsection{La classe}
+
+\begin{frame}{La classe}
+  \emph{Exemple}: Représentation graphique (UML) de la classe \textit{Etudiant}
+  \begin{center}
+  \begin{tabular}{cl}
+    {\small\fcolorbox{black}{bleu}{
+      \begin{tabular}{l}
+        ~~~~~~~~~Etudiant\\ 
+        \hline
+        - numéro : Entier\\
+        - nom : Chaine\\
+        - annéeEtude : Entier\\
+        - doubleur : Booléen\\
+        - ancien : Booléen\\
+        \hline
+        + aRéussi()\\
+        + aRaté()\\
+      \end{tabular}
+    }} &
+    {\small
+      \begin{tabular}{l}
+        \textbf{Nom de la classe} \\ 
+        \textbf{Attributs} \\
+        Le "-" indique qu'ils sont \textbf{privés}\\
+        Connus uniquement dans la classe\\
+        En \sigle{Java} on écrira \java|private|\\
+        \\
+        \textbf{Méthodes}\\
+        Le "+" car elles sont \textbf{publiques}\\
+        En \sigle{Java} on écrira \java|public|\\
+      \end{tabular}
+    } \\
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+\subsection{Les objets}
+
+\begin{frame}{Les objets}
+  \emph{Exemple} : Représentation graphique de 2 objets (instances) possibles :
+  \medskip
+  \begin{center}
+  \begin{tabular}{cc}
+  {\small\fcolorbox{black}{bleu}{
+    \begin{tabular}{l}
+      \underline{James Gosling}: Etudiant\\ 
+      \hline
+      - numéro = 34000\\
+      - nom = "James Gosling"\\
+      - annéeEtude = 1\\
+      - doubleur = faux\\
+      - ancien = faux\\
+      \hline
+      + aRéussi()\\
+      + aRaté()\\
+    \end{tabular}
+  }} &
+  {\small\fcolorbox{black}{bleu}{
+    \begin{tabular}{l}
+      \underline{Ada Lovelace}: Etudiant\\ 
+      \hline
+      - numéro = 33800\\
+      - nom = "Ada Lovelace"\\
+      - annéeEtude = 2\\
+      - doubleur = faux\\
+      - ancien = faux\\
+      \hline
+      + aRéussi()\\
+      + aRaté()\\
+    \end{tabular}
+  }} \\
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+\subsection{Les membres}
+
+\begin{frame}{Les membres}
+Chaque instance possède les mêmes attributs mais avec des \emph{valeurs différentes}
+\\\bigskip
+Les méthodes d'une instance agissent sur les attributs de cette instance 
+  \begin{itemize}
+   \item La méthode \textit{aRaté()} d'un étudiant va mettre \emph{son} attribut \textit{doubleur} à vrai
+   \item Que ferait la méthode \textit{aRéussi()} ?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{La classe en Java}
+  À ce stade la classe \texttt{Etudiant} peut s'écrire :
+  \begin{multicols}{2}  
+  \begin{Java}
+  public class Etudiant {
+
+    private int numéro; 
+    private String nom;
+    private int annéeEtude;
+    private boolean doubleur;
+    private boolean ancien; 
+
+    public void aRaté() {
+      doubleur = true;
+    }
+  \end{Java}
+  \begin{Java}
+
+    public void aRéussi() {
+      doubleur = false;
+      annéeEtude++;
+      if (annéeEtude == 4 ) {
+        ancien = true;
+      }
+    }
+
+  }  
+  \end{Java}
+  \end{multicols}
+\begin{itemize}
+\item Remarquez l'absence de \java{static} pour les méthodes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{OO or not OO ?}
+On utilisait déjà \java|class|. On faisait de l'objet ?
+\\\bigskip
+Oui et non ;)
+\begin{itemize}
+\item \sigle{Java} est un langage orienté objet
+\item Mais il permet une écriture non OO
+\item Via l'utilisation de \java|static|
+(qui a un sens plus large que nous détaillerons plus loin)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{OO or not OO ?}
+En gros, on a 2 sortes de classes : 
+\\\bigskip
+\begin{small}
+\begin{tabular}{l|l|l}
+\hline\hline
+& {\small \emph{approche non OO}} & {\small \emph{approche OO}} \\\hline
+But & regrouper des méthodes & définir un type de données \\
+Attribut & non (sauf constantes) & oui \\
+Instances & non & oui \\
+Utilisation via & le nom de la classe & une instance \\
+\java|static| & oui & non \\
+Fréquence & rare & fréquent \\
+Exemples & \java|Math| & \java|String|, \java|Scanner| \\
+\hline\hline
+\end{tabular}
+\end{small}
+\\\bigskip
+\textit{En pratique, on rencontrera des situations intermédiaires}
+\end{frame}
+
+\begin{frame}{Visibilité des membres}
+En \sigle{Java} : 4 visibilités
+\begin{description}
+  \item[public] : visible dans \textbf{toutes} les classes
+  \item[privé] : n'est accessible que de \textbf{la} classe 
+  \item[<<paqueté>>] : (pas de mot clé)  visible dans toutes les classes du \textit{package}
+  \item[protégé] : (pas vu en 1ère année)
+\end{description}
+\bigskip
+Rappel \emph{bonne pratique} :
+\\attributs privés / méthodes publiques
+\end{frame}
+
+\subsection{Constructeur}
+
+\begin{frame}[fragile]{Constructeur}
+\emph{Exemple} : Définition d'un constructeur
+  \begin{Java}
+  public Etudiant (int unNuméro, String unNom) {
+    numéro = unNuméro;
+    nom = unNom;
+    annéeEtude = 1;
+    doubleur = false;
+    ancien = false;
+  }
+  \end{Java}
+  Ressemble à une méthode mais
+  \begin{itemize}
+    \item Pas de type de retour déclaré
+    \item En pratique, retourne la référence de l'objet 
+    \item A le même nom que celui de la classe
+  \end{itemize}
+\end{frame}
+
+\subsection{Instanciation}
+
+\begin{frame}[fragile]{Instanciation}
+Pour instancier 
+\begin{itemize}
+\item On utilise l'opérateur \java|new|
+\item On fournit les paramètres au constructeur
+\end{itemize}
+\bigskip
+\emph{Exemple} : instanciation d'un étudiant
+\begin{itemize}
+\item[]
+\begin{Java}
+Etudiant ada = new Etudiant(33800, "Ada Lovelace");
+\end{Java}
+\end{itemize}
+\bigskip
+Une classe est un type \emph{référence} (comme les tableaux)
+\\$\longrightarrow$ Différence entre déclaration et création 
+\end{frame}
+
+\begin{frame}[fragile]{Instanciation}
+\emph{Exemple} : détaillons l'instanciation d'un étudiant
+\begin{Java}
+    Etudiant ada;  // référence créée sur la pile
+\end{Java}
+\begin{center}\includegraphics[scale=.5]{../img/java-oo-alloc1}\end{center}
+\begin{Java}
+    ada = new Etudiant(33800,"Ada Lovelace"); // objet créé sur le tas
+\end{Java}
+\begin{center}\includegraphics[scale=.5]{../img/java-oo-alloc2}\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Appel d'une méthode}
+Utilisation de la notation \textit{pointée} (opérateur \code{.})
+\\\bigskip
+\emph{Exemple}
+\begin{Java}
+public static void main(String[] args) {
+    Etudiant ada = new Etudiant(33800, "Ada Lovelace");
+    ada.aRéussi();
+}
+\end{Java}
+\bigskip
+Code que l'on peut trouver
+\begin{itemize}
+\item dans une autre classe
+\item dans la classe même
+\end{itemize}
+\end{frame}
+
+\subsection{Accesseurs}
+
+\begin{frame}[fragile]{Accesseurs}
+\emph{Accesseur} : méthode donnant la valeur d'un attribut 
+\\\bigskip
+\emph{Exemple} : pour notre classe étudiant
+\begin{Java}
+  public int getNuméro() {return numéro;}
+  public String getNom() {return nom;}
+  public int getAnnéeEtude() {return annéeEtude;}
+  public boolean isDoubleur() {return doubleur;}
+  public boolean isAncien() {return ancien;}
+\end{Java}
+\bigskip
+Par convention, l'accesseur de \java|attribut| est \java|getAttribut| 
+(\java|isAttribut| pour un booléen)
+\end{frame}
+
+\begin{frame}[fragile]{Appel d'une méthode}
+\emph{Exemple} : Utilisation des accesseurs
+\begin{Java}
+public static void main(String[] args) {
+    Etudiant ada = new Etudiant(33800, "Ada Lovelace");
+    System.out.println(ada.getAnnéeEtude()); // 1
+    ada.aRéussi();
+    System.out.println(ada.getAnnéeEtude()); // 2
+    System.out.println(ada.isDoubleur()); // false
+    ada.aRaté();
+    System.out.println(ada.getAnnéeEtude()); // 2
+    System.out.println(ada.isDoubleur()); // true
+}
+\end{Java}
+\end{frame}
+
+\subsection{Mutateurs}
+
+\begin{frame}[fragile]{Mutateurs}
+\emph{Mutateur} : sert à modifier un attribut 
+\\\bigskip
+\emph{Exemple} : un mutateur possible pour \textit{Etudiant}
+\begin{Java}
+  public void setNom(String unNom) {nom = unNom;}
+\end{Java}
+\bigskip
+Par convention, le mutateur de \java|attribut| est \java|setAttribut|
+\\\bigskip
+\emph{Exemple} : Appel d'un mutateur
+\begin{Java}
+  Etudiant ada = new Etudiant(33800,"Ada Lovelace");
+  System.out.println( ada.getNom() );
+  ada.setNom("James Gosling");
+  System.out.println( ada.getNom() );
+\end{Java}
+\end{frame}
+
+\begin{frame}{Mutateurs}
+\emph{Bonne pratique} : 
+\\Bien réfléchir avant de fournir un mutateur
+\begin{itemize} 
+\item Est-ce que le numéro peut changer ? Non !
+\item Est-ce que le nom peut changer ? Euh !
+\item Est-ce que l'année peut changer ? Oui ! 
+  \begin{itemize} 
+  \item Mais est-ce qu'il faut permettre de la changer directement ?
+  \item ou uniquement via des méthodes comme \java|aRéussi()| ? 
+  \\À voir au cas par cas
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tests de validité}
+Il est conseillé d'effectuer des \emph{tests de validité} sur les paramètres
+\begin{itemize}
+\item Constructeur : objet créé dans un état valide
+\item Mutateur : l'état reste valide
+\end{itemize}
+\emph{Exemple} :
+\begin{Java}
+  public void setnuméro(int unNuméro) {
+    if (unNuméro<=0) {
+      throw new IllegalArgumentException("Le numéro est négatif !");
+    }
+    numéro = unNuméro;
+  }
+\end{Java}
+\end{frame}
+
+%\begin{frame}[fragile]{Tests de validité}
+%\emph{Bonne pratique} :
+%\\Appeler les mutateurs dans le constructeur
+%\begin{itemize} 
+%  \item On évite ainsi de dupliquer les tests
+%  \item Exemple
+%\begin{Java}
+%  public Etudiant (int unNuméro, String unNom) {
+%    setnuméro(unNuméro);
+%    // la suite...
+%}
+%\end{Java}
+%\item Et si un test est nécessaire mais qu'on ne veut pas offrir de mutateur ? Définir le mutateur en privé
+%\end{itemize}
+%\end{frame}
+
+\subsection{Surcharge}
+
+\begin{frame}{Surcharge}
+\emph{Surcharge} (overloading) : possibilité de définir plusieurs méthodes/constructeurs
+\begin{itemize}
+\item De même nom
+\item Si signatures différentes
+\item Facilité pour l'utilisateur
+\end{itemize}
+\bigskip
+Très utile pour les constructeurs
+\begin{itemize}
+\item Plusieurs façons d'initialiser l'état
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Surcharge}
+\emph{Exemple} : Constructeurs pour \texttt{Etudiant}
+\begin{Java}
+  public Etudiant (int unNuméro, String unNom) {
+    numéro = unNuméro;
+    nom = unNom;
+    annéeEtude = 1;
+    doubleur = false;
+    ancien = false;
+  }
+
+  public Etudiant (int unNuméro, String unNom, int année, 
+                   boolean doubl, boolean anc) {
+    numéro = unNuméro;
+    nom = unNom;
+    annéeEtude = année;
+    doubleur = doubl;
+    ancien = anc;
+  }
+\end{Java}
+\end{frame}
+
+\subsection{this}
+
+\begin{frame}[fragile]{this()}
+Souvent, les constructeurs d'une même classe se ressemblent
+  \begin{itemize}
+  \item Cf. exemple précédent
+  \item Plus facile si un constructeur appelle l'autre
+  \item On utilise la notation \java|this()|
+  \item Exemple
+  \begin{Java}
+  public Etudiant (int numéro, String nom) {
+    this(numéro, nom, 1, false, false);
+  }
+  \end{Java}
+  \item Doit être la \emph{première instruction}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Le mot clé <<this>>}
+Le mot clé \java{this} est une référence à soi-même 
+\begin{itemize}
+\item Implicite lors d'une utilisation directe du membre
+\item \emph{Exemple}
+  \begin{Java}
+  public Etudiant( String nom ) {
+    setNom( nom );  // implicitement: this.setNom( nom );
+  }
+
+  public void setNom( String unNom ) {
+    nom = unNom;  // implicitement: this.nom = unNom;
+  }
+  \end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Le mot clé <<this>>}
+Règle : un paramètre/une variable locale \emph{masque} un attribut
+  \begin{itemize}
+  \item \java|this| permet d'accéder à l'attribut masqué 
+  \item \emph{Exemple}
+  \begin{Java}
+  public void setNom( String nom ) {
+    this.nom = nom;
+  }
+  \end{Java}
+  \item Certains l'utilisent systématiquement pour une meilleure lisibilité
+  \end{itemize}
+\end{frame}
+
+\subsection{static}
+
+\begin{frame}{Comprendre <<static>>}
+  \emph{\java{static}} s'applique aux membres (attributs + méthodes)
+  \begin{itemize}
+    \item N'est plus un membre de l'objet (instance de la classe) mais un membre de la classe
+    \item Est \emph{partagé} par toutes les instances
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Comprendre <<static>>}
+  \emph{Attribut} statique
+  \begin{itemize}
+    \item Existe en un seul exemplaire 
+    \item Est initialisé lors du chargement de la classe \\(une seule fois)
+    \item Utilisation courante : constantes
+  \\\emph{Exemple}
+  \begin{Java}
+  public Board {
+    public static final int NB_LIGNES = 8;
+    public static final int NB_COLONNES = 7;
+  }
+  \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Comprendre <<static>>}
+  \emph{Méthode} statique
+  \begin{itemize}
+    \item Elle ne possède ni ne peut modifier les attributs de l'objet
+    \item Utilisation courante : méthodes non objets
+  \\\emph{Exemple}
+  \begin{Java}
+  public class Outils {
+    public static int abs(int nb) {
+      return nb < 0 ? -nb : nb;
+    }
+  }
+  \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Comprendre <<static>>}
+  À l'extérieur de la classe, 
+  \begin{itemize}
+  \item on préfixe par le nom de la classe
+  \begin{Java}
+  int abs = Outils.abs(-3);
+  int lg = Board.NB_LIGNES;
+  double un = Math.log (Math.E);
+  \end{Java}
+  \item ou un objet de la classe (non recommandé)
+  \begin{Java}
+  int lg = monBoard.NB_LIGNES;
+  \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Comprendre <<static>>}
+  \java{import static} crée un raccourci pour l'accès aux membres statiques 
+  \\\bigskip\emph{Exemple}
+  \begin{Java}
+  import static java.lang.Math.log;
+  import static java.lang.Math.E;
+  public class Test {
+    public static void main( String[] args ) {
+      System.out.println( log(E) );
+    }
+  }
+  \end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Un mot sur les structures}
+En Logique, vous avez vu le concept de structure
+\begin{itemize}
+\item On peut imiter cette construction
+\item \emph{Exemple} : une structure Adresse
+\vspace{-0.5cm}
+\begin{multicols}{2}
+\begin{Code}
+structure Adresse composée de
+    rue : chaine
+    numéro : chaine
+    code : entier
+   localité : chaine
+fin structure
+\end{Code}
+\begin{Java}
+public class Adresse {
+    public String rue;
+    public String numéro;
+    public int    code;
+    public String localité;
+}
+\end{Java}
+\end{multicols}
+\vspace{-0.5cm}
+\item Mais, on préfère une classe normale qui permet de contrôler la valeur des champs
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Précision sur l'instanciation}
+Attributs initialisés à une \emph{valeur par défaut} \\(comme pour les tableaux)
+  \begin{itemize}
+  \item Numérique : \java|0|
+  \item Booléen : \java|false|
+  \item référence : \java|null| (référence vers \emph{rien})
+  \end{itemize}
+\bigskip
+Rarement ce qui est souhaité
+  \\$\longrightarrow$ toujours donner des valeurs explicites
+\end{frame}
+
+\begin{frame}{Précision sur les constructeurs}
+Il existe un \emph{constructeur par défaut}
+\begin{itemize}
+  \item sans paramètre 
+  \item ne fait rien
+  \item uniquement \emph{si pas de constructeur explicite}
+  \item Rarement une bonne idée 
+\end{itemize}
+$\longrightarrow$ toujours écrire explicitement un constructeur
+\end{frame}
+
+\subsection{Des objets comme attributs}
+
+\begin{frame}[fragile]{Des objets comme attributs}
+Une classe définit un type à part entière 
+\\$\longrightarrow$ peut être attribut d'une autre classe
+  \begin{itemize}
+  \item \emph{Ex} : \texttt{String} pour le nom d'un étudiant
+  \item \emph{Ex} : \texttt{Date} (de naissance) d'un étudiant
+  \end{itemize}
+\bigskip
+\pause
+\emph{Exemple} : Définissons le concept d'adresse
+\begin{Java}[basicstyle=\scriptsize]
+public class Adresse {
+  private String rue;
+  private String numéro;
+  private int codePostal;
+  private String localité;
+  
+  public Adresse (String uneRue, String unNuméro, 
+          int unCodePostal, String unelocalité) {
+    // ...
+  }
+  // + accesseurs 
+  // pas de mutateur ! Pourquoi ?
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Des objets comme attributs}
+\emph{Exemple} : Ajoutons une adresse à un étudiant
+\begin{Java}
+public class Etudiant {
+  private Adresse adresse;
+  
+  public Etudiant (int unNuméro, String unNom, Adresse uneAdresse) {
+    adresse = uneAdresse;
+    // ...
+  }
+
+  public Adresse getAdressse() {return adresse;}
+
+  public void setAdresse(Adresse uneAdresse) {
+    adresse = uneAdresse;
+  }
+  // ... 
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Des objets comme attributs}
+\emph{Exemple} : Créons un étudiant
+\begin{Java}
+ Adresse adresse = new Adresse("Rue Royale", "67", 1000, "Bruxelles");
+ Etudiant james = new Etudiant( 34000, "James Gosling", adresse );
+\end{Java}
+ou, en condensé
+\begin{Java}
+  Etudiant james = new Etudiant ( 
+                       34000, "James Gosling", 
+                       new Adresse("Rue Royale", "67", 1000, "Bruxelles") 
+           );
+\end{Java}
+\end{frame}
+
+\subsection{Objets et tableaux}
+
+\begin{frame}[fragile]{Des tableaux d'objets}
+Une classe définit un type de données 
+\\$\longrightarrow$ on peut définir des tableaux d'objets
+\\\bigskip
+\emph{Exemple} : un tableau d'étudiants \java|Etudiant[]|
+\begin{Java}
+// Affiche un tableau d'étudiants
+public static void afficher(Etudiant[] étudiants) {
+    System.out.println("Il y a " + étudiants.length + " étudiants");
+    for( Etudiant étudiant : étudiants ) {
+        System.out.println( étudiant );
+    }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Des tableaux d'objets}
+\begin{Java}
+// Faire réussir tous les étudiants
+public static void tournéeGénérale(Etudiant[] étudiants) {
+    // Faire un schéma pour comprendre que le foreach est correct
+    for( Etudiant étudiant : étudiants ) {
+        étudiant.aRéussi();
+    }
+}
+\end{Java}
+\begin{Java}
+  // Test
+  Etudiant[] groupe11 = {
+      new Etudiant("20000", "Tintin"),
+      new Etudiant("20001", "Milou"),
+      new Etudiant("20002", "Professeur Tournesol"),
+      new Etudiant("20003", "Capitaine Haddock");
+  };
+  afficher(groupe11);
+  tournéeGénérale(groupe11);
+  afficher(groupe11);
+\end{Java}
+\end{frame}
+
+\begin{frame}{Des tableaux \textbf{dans} les objets}
+Un tableau définit un type de données
+\\$\longrightarrow$ on peut le trouver comme attribut
+\\\bigskip
+\emph{Exemple} : Définissons, la classe Groupe (d'étudiants)
+\begin{itemize}
+\item La taille (maximale) du groupe sera donnée à la construction
+\item Une méthode permet d'ajouter un étudiant au groupe
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Des tableaux \textbf{dans} les objets}
+\begin{Java}
+public class Groupe {
+    private Etudiant[] étudiants;
+    private int nbEtudiants;
+
+    public Groupe(int taille) {
+        if (taille < 1)
+          throw new IllegalArgumentException("Pas de groupe vide");
+        étudiants = new Etudiant[taille]; // Faire un schéma !
+        nbEtudiants = 0;
+    } 
+
+    public void ajouter(Etudiant étudiant) {
+        if (nbEtudiants == étudiants.length)
+          throw new IllegalStateException("Plus de place !");
+        étudiants[nbEtudiants] = étudiant;
+        nbEtudiants++;
+    }
+    // ...
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Des tableaux \textbf{dans} les objets}
+\begin{Java}
+    public void afficher() {
+        System.out.println("Il y a " + nbEtudiants + " étudiants");
+        // Pourquoi pas un foreach ?
+        for( int i=0; i<nbEtudiants; i++ ) {
+            System.out.println( étudiants[i] );
+    }
+    
+    // On pourrait encore définir beaucoup de méthodes utiles
+}
+\end{Java}
+\begin{Java}
+  // Test
+  Groupe groupe11 = new Groupe(10);
+  groupe11.ajouter(new Etudiant("20000", "Tintin"));
+  groupe11.ajouter(new Etudiant("20001", "Milou"));
+  groupe11.ajouter(new Etudiant("20002", "Professeur Tournesol"));
+  groupe11.ajouter(new Etudiant("20003", "Capitaine Haddock"));
+  groupe11.afficher();
+\end{Java}
+\end{frame}
+
+\begin{frame}{Rappel}
+Pour qu'un langage soit \textit{orienté objet} il doit posséder 3 propriétés
+  \begin{itemize}
+  \item L' \emph{encapsulation}
+  \item L' \emph{héritage}
+  \item Le \emph{polymorphisme}
+  \end{itemize} 
+\bigskip
+Nous avons vu l'encapsulation; survolons le reste
+\end{frame}
+
+\begin{frame}{Héritage}
+\emph{Héritage} : Permet de définir une classe à partir d'une autre
+\begin{itemize}
+\item Un peu comme du \textit{copier-coller}
+\item On récupère ainsi tous les attributs et toutes les méthodes
+\item Terminologie
+  \begin{itemize}
+  \item Classe \emph{parent} : celle dont on hérite
+  \item Classe \emph{enfant} : celle qui hérite
+  \end{itemize} 
+\end{itemize} 
+\end{frame}
+
+\subsection{Héritage}
+
+\begin{frame}{Héritage}
+\begin{itemize}
+\item Graphiquement, on le note ainsi
+\begin{center}
+\includegraphics[scale=.5]{../img/oo-heritage}
+\end{center}
+\item L'héritage peut se lire dans la javadoc
+\item Par défaut, on hérite de la classe \java|Object| 
+\end{itemize} 
+\end{frame}
+
+\subsection{Object}
+
+\begin{frame}{Object}
+  Que trouve-t-on dans \java|Object| ? (cf. API)
+\medskip
+  \begin{itemize}
+  \item \java{String toString()}
+    \begin{itemize}
+    \item Représentation textuelle de (l'état de) l'objet
+    \item Surtout à des fins de \emph{déverminage}  
+    \item Appelée implicitement par \java|println|
+    \end{itemize}
+\medskip
+  \item \java{boolean equals(Object o)}
+    \begin{itemize}
+    \item Compare 2 objets
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Overriding}
+Java permet la réécriture (\emph{overriding}) d'une méthode dans une classe enfant
+\begin{itemize}
+  \item Le travail fait par la méthode dans la classe parent ne convient plus dans la classe enfant, je récris la méthode
+\end{itemize}
+\textbf{Remarque}
+\begin{itemize}
+  \item À ne pas confondre avec l'\emph{overloading} (la surcharge) d'une méthode
+\end{itemize}
+\end{frame}
+
+\subsection{Représentation textuelle}
+
+\begin{frame}[fragile]{Représentation textuelle}
+Par défaut, l'affichage d'un objet est peu clair
+\\(utilisation de la version de \java|toString| héritée d'\java|Object|)
+\\\bigskip
+\emph{Exemple} :
+  \begin{itemize}
+  \item[]
+  \begin{Java}
+  Etudiant ada = new Etudiant(33800, "Ada Lovelace");
+  System.out.println(ada);
+  \end{Java}
+  \item[]affiche
+  \item[]
+  \begin{Java}
+  be.heb.esi.java1.Etudiant@19189e
+  \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Représentation textuelle}
+On peut redéfinir la méthode \java|toString|
+\\\bigskip
+\emph{Exemple} :
+\begin{Java}
+  public String toString () {
+    String res = "(" + nom + ", " + numéro;
+    if (ancien) {
+        res = res + ", ancien";
+    } else {
+        res = res + ", " + annéeEtude;
+        if (doubleur) { 
+            res = res + ", doubleur";
+        }
+    }
+    res = res + ")";
+    return res;
+  }
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Représentation textuelle}
+L'affichage est à présent plus clair
+\\\bigskip
+\emph{Exemple} :
+  \begin{itemize}
+  \item[]
+  \begin{Java}
+  Etudiant ada = new Etudiant(33800, "Ada Lovelace");
+  System.out.println(ada);
+  ada.aRéussi(); 
+  System.out.println(ada);
+  \end{Java}
+  \item[] affiche
+  \item[]
+  \begin{Java}
+  (Lovelace,33800,1)
+  (Lovelace,33800,2)
+  \end{Java}
+  \end{itemize}
+\end{frame}
+
+\subsection{La méthode equals()}
+
+\begin{frame}[fragile]{La méthode equals()}
+Les objets sont des types références
+\\$\longrightarrow$ l'opérateur \java|==| teste si c'est le \emph{même} objet
+\\\bigskip
+\emph{Exemple}
+\begin{Java}
+  Etudiant ada = new Etudiant(33800, "Ada Lovelace");
+  Etudiant ada2 = new Etudiant(33800, "Ada Lovelace");
+  System.out.println( ada == ada2 );  // false
+\end{Java}
+\bigskip
+La méthode \java|equals| permet de tester
+\begin{itemize}
+\item que les 2 objets sont dans le \emph{même état}  
+\item même si c'est dupliqué en mémoire
+\end{itemize}
+\end{frame}
+
+\begin{frame}{La méthode equals()}
+La méthode par défaut dans \java|Object| se contente de comparer les références
+$\longrightarrow$ besoin de la récrire
+\begin{itemize}
+\item Il faut respecter la signature
+\item Doit répondre \og faux\fg\ si on compare à autre chose qu'un étudiant (ou \java|null|)
+\end{itemize}
+\medskip
+\emph{Exemple} : Redéfinissons l'égalité pour les étudiants
+\end{frame}
+
+\subsection{Polymorphisme}
+
+\begin{frame}[fragile]{Le polymorphisme}
+La signature de la méthode \java|equals| peut surprendre 
+\begin{Java}
+  public boolean equals(Object o) { // ...
+\end{Java}
+\begin{itemize}
+\item Elle attend un \java|Object| en paramètre
+\item On peut lui passer un \java|Etudiant|
+\item C'est grâce au polymorphisme
+\end{itemize}
+\medskip
+\emph{Polymorphisme} : Là où on attend un objet d'une classe \og parent\fg\ on peut donner un objet
+d'une classe \og enfant\fg\
+\end{frame}
+
+\begin{frame}[fragile]{Le polymorphisme}
+Si on peut recevoir n'importe quelle sorte d'objet, comment savoir ce qu'on reçoit vraiment ?
+\\\medskip
+Grâce à l'opérateur \java|instanceof|
+\begin{itemize}
+\item Dit si un objet appartient à une classe donnée \\(ou un de ses enfants)
+\item Par définition, \java|null| n'est instance de rien
+\end{itemize}
+\medskip
+Notre méthode \java|equals| devient
+\begin{Java}
+  public boolean equals(Object o) {
+    if ( ! (o instanceof Etudiant) ) return false;
+    // ...
+\end{Java}
+\end{frame}
+
+\begin{frame}{Le polymorphisme}
+Le \emph{casting}
+\begin{itemize}
+\item Nous savons que \java|o| est un étudiant \\(puisque nous faisons le test juste avant)
+\item Le compilateur, lui, ne le sait pas
+\item Le compilateur se base sur la déclaration et considère \java|o| comme un \java|Object|
+\item Il refuserait dès lors l'appel de méthodes propres à un \java|Etudiant|
+\item Le \emph{casting} \java|(Classe)| demande au compilateur de voir l'objet comme le type enfant
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{La méthode equals()}
+Au final, on a
+\begin{Java}
+  public boolean equals(Object o) {
+    if ( ! (o instanceof Etudiant) ) return false;
+    Etudiant autre = (Etudiant) o;
+    return this.numéro ==  autre.numéro 
+        && this.nom.equals(autre.nom)
+        && this.annéeEtude == autre.annéeEtude
+        && this.doubleur == autre.doubleur
+        && this.ancien == autre.ancien;
+  }
+\end{Java}
+\begin{Java}
+  Etudiant ada = new Etudiant(33800, "Ada Lovelace");
+  Etudiant ada2 = new Etudiant(33800, "Ada Lovelace");
+  System.out.println( ada == ada2 );  // false
+  System.out.println( ada.equals(ada2) ); // true
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{La méthode equals()}
+Précision sur la méthode \java|equals|
+\begin{itemize}
+\item Si un attribut sert d'identifiant, on peut comparer seulement celui-là
+\item \emph{Exemple} : un étudiant est identifié par son numéro
+(pas 2 étudiants de même numéro)
+\begin{Java}
+  public boolean equals(Object o) {
+    if ( ! (o instanceof Etudiant) ) return false;
+    Etudiant autre = (Etudiant) o;
+    return this.numéro ==  autre.numéro;
+  }
+\end{Java}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{La méthode hashCode()}
+La documentation de \java|equals| précise qu'il faut aussi redéfinir \java|hashCode|
+\begin{itemize}
+\item Méthode liée au \emph{hachage} (sera vu en 2ème)
+\item Prenons déjà la bonne habitude de la redéfinir aussi
+\item Facilité par la classe \java|Objects| (à ne pas confondre avec \java|Object|)
+\end{itemize}
+\medskip
+\java|Objects| : Classe offrant des méthodes statiques facilitant la manipulation des objets
+\end{frame}
+
+\begin{frame}[fragile]{La méthode hashCode()}
+La méthode \java|Objects.hashCode()| crée un code à partir des paramètres fournis
+\begin{itemize}
+\item Si un attribut sert d'identifiant, donner celui-là
+\item Sinon, donner un ensemble d'identifiants avec des valeurs fort différentes d'un objet à l'autre
+\end{itemize}
+\medskip
+\emph{Exemple} : Pour un étudiant
+\begin{Java}
+  public int hashCode() {
+    return Objects.hashCode(this.numéro);
+  }
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Plus sur Objects}
+Objects fournit aussi des méthodes facilitant les tests.
+\\\medskip
+\emph{Exemple} : Si on doit comparer 2 adresses de personnes mais que l'adresse est un attribut facultatif.
+\\\medskip
+Ceci n'est pas suffisant
+\begin{Java}
+  if (adresse.equals(autre.adresse) { //...
+\end{Java}
+On peut le rendre plus sûr en écrivant
+\begin{Java}
+  if (   adresse == autre.adresse // ok si les 2 sont null 
+      || adresse != null && adresse.equals(autre.adresse) { //...
+\end{Java}
+\java|Objetcs.equals| fait la même chose en plus court
+\begin{Java}
+  if ( Objects.equals(adresse, autre.adresse) ) { //...
+\end{Java} 
+\end{frame}
+
+\begin{frame}[fragile]{Une illustration du polymorphisme}
+Revenons un instant sur les exceptions
+\begin{itemize}
+\item On a vu qu'on peut attraper une exception en général
+  \begin{Java}
+  catch(Exception ex)
+  \end{Java}
+\item Mais aussi en spécifiant exactement l'exception
+  \begin{Java}
+  catch(IllegalArgumentException ex)
+  \end{Java}
+\item Comment ça fonctionne ?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Une illustration du polymorphisme}
+\begin{itemize}
+\item Une exception est un objet
+  \begin{Java}
+  throw new IllegalArgumentException("L'âge doit être positif !");
+  \end{Java}
+\item Grâce à l'héritage et au polymorphisme
+  \begin{center}
+  \includegraphics[scale=.4]{../img/oo-exception}
+  \end{center}
+  si on écrit \java|Exception| dans le \java|catch|
+  \begin{itemize}
+  \item on attrape \java|IllegalArgumentException|
+  \item mais aussi d'autres exceptions  $\Longrightarrow$ à éviter
+  \end{itemize}
+\end{itemize}
+\end{frame}
+

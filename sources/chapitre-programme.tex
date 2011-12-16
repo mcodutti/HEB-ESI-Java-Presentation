@@ -1,0 +1,131 @@
+% === Cours de Java
+% === Chapitre : Introduction
+\section{Programme et langage}
+\leconwithtoc
+
+\subsection{Concepts}
+
+\begin{frame}{Définitions}
+Pouvez-vous définir les concepts suivants :
+\begin{itemize}
+\item Un \emph{programme} ?
+\item \emph{Programmer} ?
+\item Un \emph{langage de programmation} ? 
+\item Différence entre \emph{langue} et \textit{langage} ?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Définitions}
+\begin{description}
+\item[Langage]{ 
+"Ensemble de caractères, de symboles et de règles permettant de les assembler, utilisé pour donner des \emph{instructions} à l'ordinateur" (Larousse) 
+}
+\bigskip
+\item[Programme]{ 
+"Séquence d'\emph{instructions} et de données enregistrées sur un support et susceptible d'être traitée par un ordinateur" (Larousse) 
+}
+\end{description}
+\end{frame}
+
+\begin{frame}{Cassons un mythe}
+\begin{center}
+\emph{\og\ Elle est bête cette machine, \\elle s'est encore plantée ! \fg}
+\end{center}
+\par\medskip
+Que penser de l'\textit{intelligence} d'un ordinateur ? 
+\pause
+\par\medskip
+Réponse de E. Dijkstra : 
+\begin{center}
+\emph{\og\ Se demander si un ordinateur peut penser, 
+c'est aussi intéressant que se demander si un sous-marin peut nager. \fg}
+\end{center}
+\end{frame}
+
+\begin{frame}{Un programme}
+La seule chose dont est capable un ordinateur est de réaliser extêmement rapidement des instructions élémentaires
+\par\bigskip
+Toute tâche qu'on veut lui confier doit donc être préalablement décrite comme une suite séquentielle d'instructions (un programme)
+\end{frame}
+
+\begin{frame}{Un programme}
+\emph{Ex:} Taille de quelques programmes
+  \begin{itemize}
+  \item Firefox : 2 millions de lignes de code
+  \item Windows XP : 40 millions de lignes de code
+  \item Mac OS X : 86 millions de lignes de code
+  \item Distribution Debian 4 : 283 millions de lignes de code
+  \end{itemize}
+{\small(source: \code|http://en.wikipedia.org/wiki/Source_lines_of_code|)}
+\end{frame}
+
+\subsection{Historique}
+
+\begin{frame}{Historique des langages}
+\begin{description}
+\item[Langage machine] : ensemble de 0 et de 1 
+\item[Assemblage] : abstraction des instructions 
+\item[Haut niveau (60')] : abstraction des expressions 
+\\(ex: \sigle{COBOL}, \sigle{FORTRAN}) 
+\item[Structuré (70')] : abstraction des structures de contrôle
+\\(ex: \sigle{Pascal}, \sigle{C}) 
+\item[Orienté objet (90')] : abstraction des données
+\\(ex: \sigle{Eiffel}, \sigle{Java}, \sigle{C++}) 
+\end{description}
+\end{frame}
+
+\begin{frame}{Historique des langages}
+On a aussi les langages : 
+  \begin{itemize}
+    \item logiques : \sigle{Prolog}, \dots
+    \item fonctionnels : \sigle{Lisp}, \sigle{Scheme}, \dots
+    \item orientés aspects : \sigle{AspectJ}, \dots
+  \end{itemize} 
+\bigskip
+\emph{Une classe de langages est adaptée à une classe de problèmes \dots\ et ces problèmes évoluent dans le temps \dots}
+\end{frame}
+
+\begin{frame}{Les langages orientés objets}
+Restés longtemps dans les laboratoires 
+  \begin{itemize}
+  \item Problèmes d'efficacité
+  \item Indigence des IDE
+  \item Rupture avec les méthodes d'analyses
+  \end{itemize} 
+\bigskip
+Ont explosé il y a une dizaine d'années \\(crise du logiciel)
+  \begin{itemize}
+  \item Lien avec UML
+  \item Écriture dans les termes du problème
+  \item Réutilisabilité
+  \end{itemize} 
+\end{frame}
+
+\subsection{Traduction}
+
+\begin{frame}{Le problème de la traduction}
+Un ordinateur ne comprend que le langage machine
+\begin{itemize}
+\item Et un autre langage (comme \sigle{Java}) ?
+\item Nécessité d'une \emph{traduction}
+\end{itemize}
+\begin{center}
+\begin{tabular}{c|c}
+\emph{Compilation} & \emph{Interprétation} \\ \hline
+\includegraphics[scale=.35]{../img/java-jvm-compil} &
+\includegraphics[scale=.35]{../img/java-jvm-interp} \\
+\textit{\small traduit d'une traite} & \textit{\small traduit morceau par morceau} \\
+\textit{\small avant l'exécution} & \textit{\small au moment de l'exécution} \\
+\end{tabular} 
+\end{center}
+\end{frame}
+
+\begin{frame}{Compilation vs interprétation}
+Quelle est la meilleure technique au niveau de :
+  \begin{itemize}
+  \item La facilité de distribution ?
+  \item La rapidité ?
+  \item La facilité de développement ?
+  \end{itemize} 
+\end{frame}
+

@@ -1,0 +1,362 @@
+% === Cours de Java
+
+\section{Tester le code}
+
+\leconwithtoc
+
+\subsection{Présentation}
+
+\begin{frame}{Présentation}
+Tous les programmes réels contiennent des \emph{bugs} (erreurs, défauts)
+\begin{itemize}
+\item Parfois même \emph{beaucoup}
+\item \emph{Inacceptable}
+  \begin{itemize}
+  \item \emph{Inconfort} pour l'utilisateur
+  \item \emph{Perte} de temps, d'argent, de données, de matériel
+  \item Voire \emph{danger} pour la vie humaine
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Présentation}
+Rappel des types d'erreurs
+\begin{itemize}
+\item À la \emph{compilation}
+\item À l'\emph{exécution}, le programme \emph{s'arrête}
+\item À l'\emph{exécution}, le programme fournit une \emph{mauvaise réponse}
+\end{itemize}
+\medskip
+On pourrait aussi parler d'autres défauts
+  \begin{itemize}
+  \item Trop \emph{lent}
+  \item Trop gourmand en \emph{mémoire}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Présentation}
+\begin{center}
+\emph{\og J'ai fait tourner le programme;\\il fonctionne très bien ! \fg}
+\end{center}
+\emph{Insuffisant !} Il compile et tourne dans les cas les plus courants. Mais :
+  \begin{itemize}
+  \item Cas particuliers
+  \item Comportement face à une défaillance de l'environnement
+  \item Comportement face à une utilisation non conforme
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Présentation}
+Pour produire un logiciel \emph{sans bug} il faut
+  \begin{itemize}
+  \item Suivre une \emph{méthodologie} éprouvée 
+    \begin{itemize}
+    \item Pour produire une première version avec peu de bugs \\(cf. \textit{Analyse})
+    \end{itemize}
+  \item \emph{Tester}, \emph{tester} et \dots \emph{ tester} encore !
+    \begin{itemize}
+    \item Pour détecter ceux qui restent
+    \item Besoin d'outils pour nous aider
+      \begin{itemize}
+      \item Le plus facile/rapide possible
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\subsection{Les tests}
+
+\begin{frame}[fragile]{Les tests}
+Plusieurs sortes de tests existent : unitaires, d'intégration, fonctionnels, non-régression, \dots
+\begin{itemize}
+\item Nous ne pouvons pas tout aborder ici
+\item Nous nous intéressons aux tests \emph{unitaires} 
+\end{itemize}
+\medskip
+\textit{Pour en savoir plus} : \code|http://fr.wikipedia.org/wiki/Test_(informatique)|
+\end{frame}
+
+\begin{frame}{Les tests}
+Tests \emph{unitaires} : test de \emph{chaque méthode} 
+  \begin{itemize}
+  \item Fait-elle ce qu'elle est censée faire ?
+  \item C'est défini par la \textit{spécification} (documentation)
+  \item Idée : Si chaque méthode est correcte \\$\longrightarrow$ le tout est correct
+  \item Pas forcément suffisant 
+\\(ex: ne teste pas la performance)
+\\$\longrightarrow$ d'autres types de tests existent
+\end{itemize}
+\end{frame}
+
+\subsection{Plan de tests}
+
+\begin{frame}{Plan de tests}
+Tester une méthode ne s'improvise pas
+\begin{itemize}
+\item Besoin d'un \emph{plan} reprenant les tests à effectuer
+  \begin{itemize}
+  \item Quelles \emph{valeurs de paramètres} ?
+  \item Quel est le \emph{résultat attendu} ?
+  \end{itemize}
+\item Préparé pendant que l'on code (ou même avant et éventuellement par une autre personne)
+\item Permet de s'assurer que l'on teste \emph{tous les cas}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Plan de tests}
+On ne peut pas tester toutes les valeurs possibles
+\begin{itemize}
+\item Choisir des valeurs \emph{représentatives}
+  \begin{itemize}
+  \item Cas général / particuliers
+  \item Valeurs limites
+  \end{itemize}
+\item Il faut imaginer les cas qui pourraient mettre en évidence un défaut de la méthode
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Plan de tests}
+On s'inspire des erreurs les plus fréquentes en programmation
+  \begin{itemize}
+  \item On commence/arrête trop tôt/tard une boucle
+  \item On initialise mal une variable
+  \item Dans un test, on se trompe entre $<$ et $\leq$
+  \item Dans un test, on se trompe entre $ET$ et $OU$
+  \item \dots
+  \end{itemize}
+C'est un savoir-faire $\Longrightarrow$ Importance de l'expérience
+\end{frame}
+
+\begin{frame}{Plan de tests - Exemple}
+\emph{Exemple} : Soit la méthode 
+\\\java|public static int max(int[] tab) {...}| 
+\\qui calcule la valeur maximale d'un tableau
+\begin{itemize}
+\item À quoi penser en plus du cas général ?
+  \begin{itemize}
+  \item Le maximum est la première/dernière valeur
+  \item Le tableau ne contient qu'une seule valeur
+  \item Le tableau ne contient que des nombres négatifs
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Plan de tests - Exemple}
+\begin{center}
+Plan de tests de la méthode \textit{max}
+\\\bigskip
+\begin{tabular}{|c|l|c|l|}
+\hline
+\# & tab & résultat & ce qui est testé\\
+\hline
+1 & $[1,3,0,2]$ & $3$ & cas général\\
+2 & $[1,-3,-4,-2]$ & $1$ & maximum au début\\
+3 & $[1,3,4,11]$ & $11$ & maximum à la fin\\
+4 & $[-1,-3,-4,-2]$ & $-1$ & que des négatifs\\
+5 & $[1]$ & $1$ & tableau de taille 1\\
+\hline
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}{Plan de tests}
+\emph{Quand} tester ? Le plus \emph{souvent} possible 
+\begin{itemize}
+\item Erreur plus facile à identifier/corriger
+\item Idéalement après chaque méthode écrite
+\end{itemize}
+\medskip
+Que tester ? \emph{Tout}
+\begin{itemize}
+\item Le nouveau code peut mettre en évidence un problème dans le code ancien (\emph{régression})
+\end{itemize}
+\end{frame}
+
+\subsection{JUnit}
+
+\begin{frame}{JUnit}
+\emph{Comment} tester ?
+\begin{itemize}
+\item Pas à la main : intenable
+\item Besoin d'un outil \emph{automatisé}
+\end{itemize}
+\medskip
+{\small \sigle{JUnit}} : outil pour automatiser les tests unitaires
+\begin{itemize}
+\item Le programmeur fournit les tests,
+\item \sigle{JUnit} \emph{exécute} tous les tests et
+\item établit un \emph{rapport} détaillant les problèmes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{JUnit}
+\begin{center}
+\includegraphics[scale=.5]{../img/junit} 
+\end{center} 
+\end{frame}
+
+\begin{frame}{JUnit - En pratique}
+La classe de test contient \emph{une méthode} de test \emph{par cas}
+  \begin{itemize}
+  \item Autonome (ne reçoit rien ne retourne rien)
+  \item Contient des \emph{affirmations}
+    \begin{itemize}
+    \item Appel de la méthode à tester
+    \item \emph{Comparaison} entre le résultat \emph{attendu} et le résultat \emph{obtenu}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{JUnit - En pratique}
+\emph{Exemple}
+\begin{Java}
+@Test
+public void max_cas1() {
+  int[] tab = {1,3,0,2};
+  assertEquals( 3, max(tab) );
+}
+\end{Java}
+{\normalsize
+\begin{itemize}
+\item Reconnu comme un test unitaire grâce à l'\emph{annotation} \java{@Test}
+\item Pas de \java|static|
+\item \java|assertEquals| vérifie que les 2 valeurs sont identiques
+\item Il y a aussi \java|assertTrue(val)|, \java|assertFalse(val)|, \dots
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}[fragile]{JUnit - En pratique}
+Comment \emph{lancer} les tests ?
+\begin{Java}
+java org.junit.runner.JUnitCore MaClasseTest
+\end{Java} %$
+\medskip
+Résultat ?
+\begin{itemize}
+\item Nb de (méthodes de) tests effectués / réussis
+\item Détail sur les tests ratés
+  \begin{itemize}
+  \item Nom du test
+  \item Résultat obtenu comparé au résultat attendu
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{JUnit - Exemple}
+\emph{Exemple} : soit le code suivant à tester
+\begin{Java}
+package be.heb.esi.java1;
+
+public class Outil {
+  public static int max(int[] tab) {
+    int max = 0;
+    for(int i=0; i<tab.length; i++) {
+      if (tab[i]>max) {
+        max = tab[i];
+      }
+    }
+    return max;
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{JUnit - Exemple}
+La classe de test donnerait
+\begin{Java}
+package be.heb.esi.java1;
+import org.junit.Test;  // Pour que @Test soit connu
+import static org.junit.Assert.*; // Pour assertEquals
+
+public class OutilTest {
+  @Test public void max_cas1() {
+    int [] tab = {1,3,0,2};
+    assertEquals( 3, Outil.max(tab) );
+  }
+
+  @Test public void max_cas4() {
+    int [] tab = {-1,-3,-4,-2};
+    assertEquals( -1, Outil.max(tab) );
+  }
+
+  // + plus les cas 2, 3 et 5
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{JUnit - Exemple}
+On peut compiler la classe de test et la donner au moteur de test
+\begin{Java}
+javac OutilTest.java
+java org.junit.runner.JUnitCore be.heb.esi.java1.OutilTest
+JUnit version 4.5
+..E
+Time: 0,02
+There was 1 failure:
+1) max_cas4(OutilTest)
+java.lang.AssertionError: expected:<-1> but was:<0>
+[...]
+FAILURES!!!
+Tests run: 2,  Failures: 1
+\end{Java} %$
+Une idée du problème ?
+\end{frame}
+
+\begin{frame}[fragile]{JUnit - Tester les exceptions}
+Imaginons une méthode \java|sqrt| pour calculer la racine carrée d'un entier
+\begin{itemize}
+\item Hypothèse : elle doit lancer une exception en cas de paramètre négatif
+\item Le code pourrait ressembler à ceci
+\begin{Java}
+public static int sqrt(int val) {
+    if (val<0) {
+        throw new IllegalArgumentException(
+            "Pas de racine carée pour un entier négatif");
+    }
+    // suite : calcul de la racine carrée
+}
+\end{Java}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{JUnit - Tester les exceptions}
+À priori c'est correctement écrit mais il faut le tester !
+\begin{Java}
+@Test(expected=IllegalArgumentException.class)
+public void sqrt_cas_négatif() {
+  sqrt(-1);
+}
+\end{Java}
+\begin{itemize}
+\item Le test est réussi si la méthode lance l'\emph{exception} indiquée
+\end{itemize}
+\end{frame}
+
+\subsection{Conclusion}
+
+\begin{frame}{Conclusion}
+\emph{\og Il faut vraiment tout tester ? \fg}
+\begin{itemize}
+\item Compromis entre le temps que l'on consacre aux tests et la probabilité de trouver une erreur
+\item Trop simple $\longrightarrow$ perte de temps
+\item Attention ! On commet vite une erreur même dans du code simple
+\item De plus, les tests unitaires aident à la <<refactorisation>> (cf. la leçon sur la lisibilité)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Conclusion}
+\begin{center}
+\textit{\og \emph{Any program feature without \\an automated test simply doesn't exist.}\fg}
+\\Kent Beck in \textit{Extreme Programming Explained}.
+\end{center}
+Pour aller plus loin :
+  \begin{itemize}
+  \item Le site de \sigle{JUnit} : \code|http://www.junit.org|
+  \item La Javadoc : \code|http://junit.sourceforge.net/javadoc|
+  \item Télécharger \sigle{JUnit} : \code|http://sourceforge.net/projects/junit/files/junit|
+  \end{itemize}
+\end{frame}
+
+
+

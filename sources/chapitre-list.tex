@@ -1,0 +1,384 @@
+% === Cours de Java
+% === Chapitre : Liste 
+
+\section{Les listes}
+
+\leconwithtoc
+
+\subsection{ArrayList}
+
+\begin{frame}{Présentation}
+En Logique, vous avez vu le concept de \textit{Liste}
+\\\bigskip
+\emph{Liste} : Séquence d'éléments (ordonnés mais pas nécessairement triés) auxquels on accède via leur \emph{position}
+\\\bigskip
+Ce concept est présent en \sigle{Java}
+\begin{itemize}
+  \item Pas dans le langage
+  \item Mais via l'API standard \\(classe \java|java.util.ArrayList|)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Déclaration / Création}
+\begin{Java}
+  ArrayList<String> liste = new ArrayList<String> ();
+\end{Java}
+\medskip
+\begin{itemize}
+\item On spécifie le type des éléments (via les \java|<>|)
+\item Crée une liste \emph{vide}
+\item Elle pourra évidemment grandir au besoin \\(pas de limite)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Déclaration / Création}
+Écriture viellie (\emph{non recommandée}) : \\Ne pas mettre les \java|<>|
+\begin{Java}
+  ArrayList liste = new ArrayList ();
+\end{Java}
+\medskip
+\includegraphics[scale=.5]{../img/java7.jpeg}En Java7, on peut ne pas spécifier le type des éléments à droite (déduit par le compilateur)
+\begin{Java}
+  ArrayList<String> liste = new ArrayList<>();
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Ajout d'éléments}
+\begin{tabular}{r|l}
+  \java|add(E)|      & ajoute en fin \\
+  \java|add(int, E)| & ajoute (insère) en position donnée \\
+\end{tabular}
+\medskip
+\begin{itemize}
+\item Le premier élément est en position \emph{0}
+\item Une insertion provoque un décalage des éléments suivants
+\end{itemize}
+\emph{Exemple} :
+\begin{Java}
+  ArrayList<String> dictionnaire = new ArrayList<String>(); 
+  dictionnaire.add("zèbre");
+  dictionnaire.add("éléphant");
+  dictionnaire.add(1, "girafe");
+  // contient : [ "zèbre", "girafe", "éléphant" ]
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Affichage}
+La méthode \java|toString| a été récrite pour afficher les éléments
+\\\bigskip
+\emph{Exemple} :
+\begin{Java}
+  ArrayList<String> dictionnaire = new ArrayList<String>(); 
+  dictionnaire.add("zèbre");
+  dictionnaire.add("éléphant");
+  dictionnaire.add(1, "girafe");
+  System.out.println( dictionnaire );
+  // affiche : [ "zèbre", "girafe", "éléphant" ]
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Taille de la liste}
+\begin{tabular}{r|l}
+  \java|size()|      & donne la taille \\
+  \java|isEmpty()|   & indique si c'est vide \\
+\end{tabular}
+\bigskip
+\\\emph{Exemple} :
+\begin{Java}
+  ArrayList<String> dictionnaire = new ArrayList<String>();
+  System.out.println( dictionnaire.size() );    // 0
+  System.out.println( dictionnaire.isEmpty() ); // true
+ dictionnaire.add("zèbre");
+ dictionnaire.add("éléphant");
+ dictionnaire.add(1, "girafe");
+  System.out.println( dictionnaire.size() );    // 3
+  System.out.println( dictionnaire.isEmpty() ); // false
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Accès aux éléments}
+\begin{tabular}{r|l}
+  \java|get(int)|    & demande un élément \\
+\end{tabular}
+\bigskip
+\begin{itemize}
+\item Permet notamment le parcours
+\end{itemize}
+\emph{Exemple} :
+\begin{Java}
+public static void monAffichage( ArrayList<String> liste ) {
+  for(int i=0; i<liste.size(); i++) {
+     System.out.println( i + ": " + liste.get(i) );
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Parcours}
+Parcours d'une liste via le \emph{foreach} :
+\\\bigskip
+\emph{Exemple} :
+\begin{Java}
+  for (String mot : dictionnaire){ 
+    System.out.println(mot);
+  }
+\end{Java}
+\begin{itemize}
+  \item La variable \texttt{mot} prend chaque valeur de la liste
+  \item La position de \texttt{mot} est inconnue : remplacement/suppression
+  impossibles
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Remplacement}
+\begin{tabular}{r|l}
+  \java|set(int, E)| & remplace l'élément en position donnée \\
+\end{tabular}
+\\\bigskip
+\emph{Exemple} :
+\begin{Java}
+public static void remplacer( ArrayList<String> dico ) {
+  String mot ; 
+  for (int i=0; i<dico.size(); i++ ) {
+     mot = dico.get(i);
+     if (mot.charAt(0) == 'a') {
+        dico.set(i,"remplacé");
+     }
+  }
+}
+\end{Java}
+\end{frame}
+
+\begin{frame}{Recherche}
+\begin{center}
+\begin{tabular}{r|l}
+  \java|boolean contains(E)| & indique si l'élément est présent  \\
+  \java|int indexOf(E)|   & donne l'indice de la 1ère occurence \\
+                          & de l'élément dans la liste\\
+\end{tabular}
+\end{center}
+\medskip 
+Recherche un élément de \emph{même valeur}
+\begin{itemize}
+\item Utilisation de la méthode \java|equals|
+\item Nécessité de la redéfinir pour nos propres classes
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Suppression}
+\begin{center}
+\begin{tabular}{r|l}
+  \java|remove(int)| & enlève l'élément en position donnée \\
+  \java|remove(E)|   & enlève un élément donné \\
+\end{tabular}
+\end{center}
+\medskip 
+\begin{itemize}
+\item Comme pour la recherche, se base sur la méthode \java|equals|
+\item Pas de méthode pour supprimer le dernier mais on peut écrire 
+\java|liste.remove( liste.size()-1 )|
+\end{itemize}
+\end{frame}
+
+\subsection{Wrapper}
+
+\begin{frame}{Wrapper}
+Seuls les objets sont permis dans les listes.
+\begin{itemize}
+\item Et pour les types primitifs (\java|int|, \java|boolean|, \dots) ?
+\item Existence de \textit{wrapper} (\textit{enveloppe})
+  \begin{itemize}
+  \item Englobe une valeur primitive dans un objet
+  \item Conversion automatique de l'un à l'autre
+  \end{itemize}
+\end{itemize}
+\begin{center}
+\begin{tabular}{r|l}
+  Type primitif & Enveloppe \\\hline
+  \java|int| & \java|Integer| \\
+  \java|boolean| & \java|Boolean| \\
+  \java|char| & \java|Character| \\
+  \dots & \dots \\
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Wrapper}
+\emph{Exemple} : Combien de conversions automatiques en tout ?
+\begin{Java}
+import java.util.ArrayList ;
+public class TestBox {
+  public static void main ( String[] args ) {
+    ArrayList<Integer>  liste = new ArrayList<Integer>() ;
+    liste.add(1) ; liste.add(14); liste.add(1) ;
+    int premier = liste.get(0);
+    liste.set(2, liste.get(2) + 1 );
+  }
+}
+\end{Java}
+\end{frame}
+
+\subsection{LinkedList}
+
+\begin{frame}{LinkedList}
+La classe \java|LinkedList| propose aussi le concept de \textit{Liste}
+\begin{itemize}
+\item On retrouve toutes les méthodes vues pour \java|ArrayList|
+\item Pouquoi plusieurs versions ?
+  \begin{itemize}
+  \item Font la même chose
+  \item \emph{mais} différences en terme de performances 
+  \end{itemize}
+\end{itemize}
+\pause
+\begin{small}
+\begin{center}
+\begin{tabular}{p{4cm}|p{6cm}}
+  \java|ArrayList| & \java|LinkedList| \\
+  \hline\hline
+  éléments stockés dans un tableau & éléments stockés dans une liste chainée (cf. Logique 2ème) \\
+  \hline
+  recommandé en général & parfois plus rapide \\
+  (ex: plus rapide pour accéder à un élément) & (ex: ajout en début)  \\
+\end{tabular}
+\end{center}
+\end{small}
+\end{frame}
+
+\subsection{Interface}
+
+\begin{frame}[fragile]{Le concept d'interface}
+Supposons qu'on veuille écrire une méthode qui affiche un élément sur deux
+  \begin{itemize}
+  \item d'une \java|ArrayList| de chaines
+  \begin{Java}
+  public static void afficher1Sur2(ArrayList<String> liste) {
+      for( int i=0; i<liste.size(); i+=2 ) {
+          System.out.println( liste.get(i) );
+      }
+  } 
+  \end{Java}
+  \item d'une \java|LinkedList| de chaines
+  \begin{Java}
+  public static void afficher1Sur2(LinkedList<String> liste) {
+      for( int i=0; i<liste.size(); i+=2 ) {
+          System.out.println( liste.get(i) );
+      }
+  } 
+  \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Le concept d'interface}
+Le code écrit est presque identique
+  \begin{itemize}
+  \item Seule la déclaration du paramètre change
+  \end{itemize}
+\bigskip
+On aimerait éviter de dupliquer le code
+  \begin{itemize}
+  \item Indiquer qu'on accepte une \java|ArrayList| \emph{ou} une \java|LinkedList|
+  \item Et même n'importe quelle classe qui définit le concept de liste
+  \item En fait, il nous suffit que les méthodes d'une liste existent
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Interface}
+\emph{Interface} : suite de déclarations de méthodes
+\\\medskip\emph{Exemple} :
+\begin{Java}
+  interface MonInterface {
+      void maMéthode1(int a);
+      boolean maMéthode2(char c);
+  } 
+\end{Java}
+\begin{itemize}
+\item Notez les \java|;|
+\item On donne l'entête mais pas le code
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Interface}
+\emph{Implémenter une interface} : Définir toutes les méthodes d'une interface
+\\\medskip\emph{Exemple} :
+\begin{Java}
+  public MaClasse implements MonInterface {
+      public void maMéthode1(int a) {// le corps de la méthode...}
+      boolean maMéthode2(char c) {// le corps de la méthode...}
+      // + d'autres méthodes si on veut
+  } 
+\end{Java}
+\begin{itemize}
+\item On déclare qu'on implémente l'interface
+\item Le compilateur vérifie qu'on fournit bien le code de chaque méthode
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Interface List}
+Il existe une interface \java|List|
+\begin{itemize}
+\item Définit toutes les méthodes déjà vues pour les listes
+\item Implémentée par \java|ArrayList| et \java|LinkedList|
+\item Se voit facilement dans la \textit{javadoc}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Interface et polymorphisme}
+Une interface définit un \textit{type}
+\begin{itemize}
+\item On peut donc utiliser une interface dans une déclaration (variable, paramètre, \dots)
+\item Là où une interface est attendue, on peut trouver n'importe quelle classe l'implémentant
+(polymorphisme)
+\end{itemize}
+\emph{Exemple} : 
+\begin{Java}
+  public static void afficher1Sur2( List<String> liste ) {
+    for (int i=0; i<liste.size(); i+=2) {
+      System.out.println( liste.get(i) );
+    }
+  }
+\end{Java}
+\end{frame}
+
+\begin{frame}[fragile]{Programmation par interface}
+\emph{Bon usage} : programmer le plus possible avec les interfaces (et pas l'implémentation)
+\begin{itemize}
+  \item Choix de l'implémentation uniquement lors de l'instanciation
+  \begin{Java}
+  List<String> maListe;
+  maListe = new ArrayList<String>();
+  \end{Java}
+  \item Assure que l'on ne va utiliser que les méthodes définies dans l'interface
+  \item Facilite le changement d'implémentation
+\end{itemize}
+\end{frame}
+
+\subsection{Collections}
+
+\begin{frame}{Collections}
+La classe \java{java.util.Collections} propose des services pour les listes
+\begin{center}
+\begin{tabular}{r|l}
+  \java|max ( List )| & donne le maximum d'une liste \\
+  \java|sort ( List )| & trie une liste \\
+  \java|reverse ( List )| & inverse une liste \\
+  \java|shuffle ( List )| & mélange une liste \\
+  \dots & \dots \\
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Collections}
+\emph{Exemple} : 
+\begin{Java}
+   List<String> animaux = new ArrayList<String>() ;  
+
+   animaux.add("âne");
+   animaux.add("zèbre");
+   animaux.add("alouette");
+
+   System.out.println (Collections.max(animaux) );
+\end{Java}
+affiche \textit{âne} (pourquoi pas \textit{zèbre} ) ?
+\end{frame}
+

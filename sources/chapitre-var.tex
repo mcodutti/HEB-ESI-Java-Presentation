@@ -1,0 +1,210 @@
+% === Cours de Java
+% === Chapitre : Les données
+
+\section{Variables locales}
+
+\leconwithtoc
+
+\subsection{Présentation}
+
+\begin{frame}{Présentation}
+Désignation générique d'un \emph{emplacement} de la \emph{mémoire vive}
+\begin{itemize}
+\item \emph{Possède un type}
+\item Ne peut contenir que des valeurs de ce type
+\item Allocation différente si type \\\emph{primitif} ou \emph{référence}
+\end{itemize}
+\end{frame}
+
+\subsection{Allocation mémoire}
+
+\begin{frame}{Allocation mémoire}
+Pour un type \emph{primitif}
+\begin{itemize}
+\item Indique la zone mémoire (sur la pile/{\it stack}) où se trouve la \emph{valeur}
+\end{itemize}
+\vspace{-1ex}
+\begin{center}
+\includegraphics[scale=.4]{../img/java-data-primitive} 
+\end{center}
+\pause
+Pour un type \emph{référence} (ex: \java|String|, tableau)
+\begin{itemize}
+\item La zone mémoire contient l'\emph{adresse} de la zone mémoire (sur le tas/{\it heap}) contenant la valeur (indirection)
+\end{itemize} 
+\begin{center}
+\includegraphics[scale=.4]{../img/java-data-reference} 
+\end{center}
+\end{frame}
+
+\subsection{Déclaration}
+
+\begin{frame}[fragile]{Déclaration}
+Déclaration locale à un \emph{bloc}
+\begin{grammaire}
+\nterm{Block} :
+    \term{\{} \nterm{BlockStatements}\opt \term{\}}
+
+\nterm{BlockStatements} :
+    \nterm{BlockStatement}
+    \nterm{BlockStatements}  \nterm{BlockStatement}
+
+\nterm{BlockStatement} :
+    \nterm{LocalVariableDeclarationStatement}
+    \nterm{Statement}
+\end{grammaire}
+Peut-on mélanger déclarations et instructions ?
+\end{frame}
+
+\begin{frame}[fragile]{Déclaration}
+\par {\small (règles légèrement simplifiées)}
+\begin{grammaire}
+\nterm{LocalVariableDeclarationStatement} :
+    \term{final}\opt \nterm{Type} \nterm{VariableDeclarators} \term{;}
+
+\nterm{VariableDeclarators} :
+    \nterm{VariableDeclarator}
+    \nterm{VariableDeclarators} \term{,} \nterm{VariableDeclarator}
+
+\nterm{VariableDeclarator} :
+    \nterm{Identifier}
+    \nterm{Identifier} \term{=} \nterm{Expression}
+\end{grammaire}
+\begin{itemize}
+\item \emph{Exemples} :
+\begin{itemize}
+\item \java|int i;|
+\item \java|String nom, prénom;|
+\item \java|boolean ok=true, fini;|
+\item \java|char lettre, chiffre='1';| 
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\subsection{Conventions sur les noms}
+
+\begin{frame}{Nom d'une variable}
+Quel nom peut-on choisir ? Différence entre
+  \begin{itemize}
+  \item Ce qui est permis par \sigle{Java}
+  \item Les conventions supplémentaires
+  \end{itemize}
+\bigskip
+Règles \emph{imposées} par la grammaire
+\begin{itemize}
+\item Longueur illimitée
+\item Composé de \textit{lettres}, de \textit{chiffres}, \java|$| et \java|_| %$
+\\(internationalisation)
+\item Ne commence pas par un chiffre
+\item $\neq$ \nterm{keyword} ou \nterm{litteral}
+\item Ex valides : \java|nom|, \java|Nom|, \java|Nom23|, \java|Unpeu2touT|%$
+\item Ex invalides : \java|2main|, \java|le total|, \java|for|, \java|true|, \java|12|
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Nom d'une variable}
+Conventions \emph{supplémentaires}
+\begin{itemize}
+\item Utilisées dans le monde entier
+\begin{itemize}
+\item Eviter \java|$| et \java|_| %$
+\item Commence par une minuscule
+\item Plusieurs mots accollés $\Rightarrow$ les suivants commencent par une majuscule ({\it mixedcase})
+\item Noms explicites (sauf abréviations courantes)
+\item Articles omis
+\end{itemize} 
+\item Autres recommandations de \sout{\sigle{Sun}} \sigle{Oracle}
+\begin{itemize}
+\item Déclarer en début de bloc
+\item Une déclaration par ligne
+\end{itemize} 
+\end{itemize}
+\end{frame}
+
+\subsection{Valeur initiale}
+
+\begin{frame}[fragile]{Valeur initiale}
+On peut indiquer une \emph{valeur initiale} 
+\\(par \emph{défaut}, \emph{aucune} valeur n'est assignée)
+\begin{itemize}
+\item N'importe quelle expression calculable à cet endroit là (à l'exécution)
+\item Exemple
+\begin{Java}
+int poidsKilo = 20; // Un poids en kilos
+int poidsGramme = 1000*poidsKilo; // L'équivalent en grammes
+\end{Java}  
+\item Exemple
+\begin{Java}
+int poidsKilo; // Un poids en kilos
+int poidsGramme = 1000*poidsKilo; // erreur à la COMPILATION
+\end{Java}  
+\end{itemize} 
+\end{frame}
+
+\subsection{Le concept de <<portée>>}
+
+\begin{frame}{Scope (portée) d'une variable locale}
+Définition : Le \emph{\textit{scope}} (\emph{portée}) d'une variable indique la portion du programme où elle \textit{existe}
+\par\medskip
+Le \textit{scope} d'une variable locale est
+\begin{itemize}
+\item le \textit{block} de sa déclaration (entre \java|\{\}|)
+\item dès sa propre initialisation
+\end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]{Scope (portée) d'une variable locale}
+\emph{Exemples} : bon ou pas ?
+\begin{Java}
+{
+   int x = y; 
+   int y = 1;
+}
+\end{Java}
+\begin{Java}
+{
+   int x;
+   int y = x; 
+}
+\end{Java}
+\begin{Java}
+{
+  int x = 1, y = x; 
+}
+\end{Java}
+\end{frame}
+
+\subsection{Constantes}
+
+\begin{frame}[fragile]{Constante}
+Clause \java|final| $\Rightarrow$ constante
+\begin{itemize}
+\item Valeur donnée
+\begin{itemize}
+\item Soit à la déclaration 
+\item Soit par assignation ultérieure
+\end{itemize} 
+\begin{Java}
+  final int X = 1;
+  final int Y;
+  Y = 2*X;
+  X = 2; // Erreur : possède déjà une valeur
+  Y = 3; // Idem
+\end{Java}
+\item Pourquoi une constante au lieu d'un littéral ?
+\end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]{Constante}
+Convention de nom différente
+\begin{itemize}
+\item Tout mettre en \emph{majuscules}
+\item Utiliser \java|_|  pour séparer les mots
+\end{itemize} 
+\emph{Exemples}
+\begin{Java}
+  final double PI = 3.1415;
+  final int TAUX_TVA = 21;
+\end{Java}
+\end{frame}
+

@@ -1,0 +1,172 @@
+% === Cours de Java
+% === Chapitre : La grammaire
+\section{La notion de grammaire}
+
+\leconwithtoc
+
+\subsection{La notion de grammaire}
+
+\begin{frame}{Le besoin d'une référence}
+Un langage de programmation doit pouvoir
+  \begin{itemize}
+  \item \emph{être décrit} auprès des programmeurs
+  \item faire l'objet d'une \emph{compilation rigoureuse}
+  \end{itemize} 
+\medskip\pause
+Il faut un \emph{document de référence}
+  \begin{itemize}
+  \item Pour Java : \emph{The Java Language Specification}
+    \begin{itemize}
+    \item Contient beaucoup de texte (en \emph{Anglais})
+    \item Ce qui est parfois \emph{incomplet} / \emph{ambigu}
+    \end{itemize} 
+  \end{itemize}
+\medskip\pause
+Nécessité d'utiliser un \emph{formalisme} précis
+  \begin{itemize}
+  \item En Logique : LDA
+  \item En Analyse : UML
+  \item En Langage : une \emph{grammaire} 
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}{La notion de grammaire}
+Une grammaire est une description \emph{finie} de l'\emph{infinité} des programmes corrects
+\begin{center}
+programme $\equiv$ phrase $\supset$ mots $\supset$ caractères
+\end{center} 
+\begin{itemize}
+\item Chaque \emph{mot} (on dit \emph{token} en informatique) doit être légal
+  \begin{itemize}
+  \item déterminé par une \emph{grammaire lexicale}
+  \end{itemize} 
+\item \emph{Séquence de mots} doit être légale
+  \begin{itemize}
+  \item déterminé par une \emph{grammaire syntaxique}
+  \end{itemize}
+\item La \emph{sémantique} ne peut pas être décrite aussi rigoureusement 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{La notion de grammaire}
+Parallèle avec une \emph{langue naturelle}
+\\(dictionnaire, grammaire)
+\\\bigskip\emph{Exemples}
+  \begin{itemize}
+  \item \textit{<<El tahc tse rion>>} 
+  \item \textit{<<Le est chat noir>>}
+  \item \textit{<<Le chat est noir>>}
+  \item \textit{<<Le parapluie mange l'ascenceur>>}
+  \end{itemize} 
+\end{frame}
+
+\subsection{Comment fonctionne une grammaire ?}
+
+\begin{frame}{Comment fonctionne une grammaire ?}
+Une grammaire est composée de
+\begin{itemize}
+\item l'ensemble des tokens pouvant apparaitre tels quels (\textit{symboles \emph{terminaux}})
+\item l'ensemble des \emph{règles de production}
+  \begin{itemize}
+  \item nom de la règle (\textit{symbole \emph{non terminal}})
+  \item séquences de symboles produits par la règle 
+  \end{itemize}
+\item une règle de production de \emph{départ} 
+\end{itemize}
+\begin{center}
+Est \emph{valide} ce qui peut être \emph{produit} par la grammaire
+\end{center}
+\end{frame}
+
+\begin{frame}{Comment fonctionne une grammaire ?}
+Pour la grammaire \emph{syntaxique}
+  \begin{itemize}
+  \item les symboles terminaux sont les mots
+  \item les règles construisent la phrase 
+  \end{itemize}
+\bigskip
+Pour la grammaire \emph{lexicale}
+  \begin{itemize}
+  \item les symboles terminaux sont les caractères
+  \item les règles construisent le mot 
+  \end{itemize}
+\bigskip
+Pourquoi ne pas utiliser un dictionnaire pour les mots ?
+\end{frame}
+
+\begin{frame}[fragile]{Exemple : le langage MU}
+Inventons un nouveau langage : le \emph{langage MU}
+\begin{itemize}
+\item Nous devons indiquer de manière précise quelle phrase est valide dans notre langage
+\item Cela se fait en donnant sa grammaire
+\pause
+  \begin{itemize}
+  \item Les 3 symboles terminaux: \texttt{M},\texttt{U},\texttt{I}
+  \item Les 3 règles de production
+  \begin{small}
+\begin{verbatim}
+  start:
+       debut MU fin
+
+  debut:                   fin:
+       debut I                I fin
+       I                      I 
+\end{verbatim}
+  \end{small}
+  \item La règle de départ : \texttt{start}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Exemple : le langage MU}
+Quelques \emph{phrases correctes} (qu'on peut \textit{produire}) 
+  \begin{itemize}
+  \item \texttt{IMUI}
+  \item \texttt{IIMUI}
+  \item \texttt{IMUIIIIIIIIIIIIIIIIIIIIIIIII}
+  \item \dots à l'infini
+  \end{itemize} 
+\medskip \pause
+Quelques \emph{phrases incorrectes} (impossibles à \textit{produire}) 
+  \begin{itemize}
+  \item \texttt{MU}
+  \item \texttt{MUI}
+  \item \texttt{MUIMU}
+  \item \dots à l'infini
+  \end{itemize} \end{frame}
+
+\begin{frame}[fragile]{Exemple}
+Voici un autre exemple
+\begin{itemize}
+\item Le symbole terminal: \texttt{A}
+\item Les 2 règles de production
+\begin{verbatim}
+  liste:
+       element
+       element liste
+  element:
+       A  
+\end{verbatim}
+\item La règle de départ : \texttt{liste}
+\end{itemize}
+\bigskip
+Quel est le langage produit par cette grammaire ?
+\end{frame}
+
+\subsection{Notations de la grammaire \sigle{Java}}
+
+\begin{frame}[fragile]{Notations de la grammaire \sigle{Java}}
+Une règle de la grammaire syntaxique java:
+\begin{grammaire}
+\nterm{ReturnStatement} :
+     \term{return} Expression\opt;
+\end{grammaire}
+\begin{itemize}
+\item Imaginez des exemples d'instruction \og return\fg\ valides
+\end{itemize}
+\bigskip
+La \emph{grammaire complète} de \sigle{Java} 
+peut être consultée dans le livre
+\textit{\og The Java Language Specification\fg}
+\end{frame}
