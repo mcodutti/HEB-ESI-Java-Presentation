@@ -234,7 +234,7 @@ Rappel \emph{bonne pratique} :
   Ressemble à une méthode mais
   \begin{itemize}
     \item Pas de type de retour déclaré
-    \item En pratique, retourne la référence de l'objet 
+%    \item En pratique, retourne la référence de l'objet 
     \item A le même nom que celui de la classe
   \end{itemize}
 \end{frame}
@@ -247,28 +247,31 @@ Pour instancier
 \item On utilise l'opérateur \java|new|
 \item On fournit les paramètres au constructeur
 \end{itemize}
-\bigskip
+\medskip
 \emph{Exemple} : instanciation d'un étudiant
 \begin{itemize}
 \item[]
 \begin{Java}
 Etudiant ada = new Etudiant(33800, "Ada Lovelace");
 \end{Java}
+\item Crée un nouvel objet \java|Etudiant|
+\item Appelle le constructeur pour l'initialiser
 \end{itemize}
-\bigskip
-Une classe est un type \emph{référence} (comme les tableaux)
-\\$\longrightarrow$ Différence entre déclaration et création 
 \end{frame}
 
 \begin{frame}[fragile]{Instanciation}
-\emph{Exemple} : détaillons l'instanciation d'un étudiant
+Une classe est un type \emph{référence} (comme les tableaux)
+\medskip
+\\\emph{Exemple} :
 \begin{Java}
     Etudiant ada;  // référence créée sur la pile
 \end{Java}
-\begin{center}\includegraphics[scale=.5]{../img/java-oo-alloc1}\end{center}
+\vspace{-10pt}
+\begin{center}\includegraphics[scale=.4]{../img/java-oo-alloc1}\end{center}
 \begin{Java}
     ada = new Etudiant(33800,"Ada Lovelace"); // objet créé sur le tas
 \end{Java}
+\vspace{-10pt}
 \begin{center}\includegraphics[scale=.5]{../img/java-oo-alloc2}\end{center}
 \end{frame}
 
