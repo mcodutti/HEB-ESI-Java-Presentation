@@ -14,15 +14,16 @@
     }
     #container {
       margin: 0 auto;
-      width: 700px;
+      width: 800px;
     }
-    h1 { font-size: 3.8em; color: #3e114f; margin-bottom: 3px; }
+    h1 { font-size: 3em; color: #3e114f; margin-bottom: 3px; text-align:center}
     h1 .small { font-size: 0.4em; }
     h1 a { text-decoration: none }
     h2 { font-size: 1.5em; color: #3e114f; }
     h3 { text-align: center; color: #3e114f; }
     a { color: #3e114f; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+    .description { font-size: 1.4em; margin-bottom: 0px; margin-top: 10px; font-style: italic; text-align:center}
+    .contact { font-size: 1em; margin-bottom: 30px; margin-top: 0px; font-style: italic; text-align:center}
     .download { float: right; }
     pre { background: #000; color: #fff; padding: 15px;}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
@@ -31,56 +32,42 @@
 </head>
 
 <body>
-  <a href="https://github.com/mcodutti/HEB-ESI-Java-Presentation"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-
   <div id="container">
-
-    <div class="download">
-      <a href="https://github.com/mcodutti/HEB-ESI-Java-Presentation/zipball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
-      <a href="https://github.com/mcodutti/HEB-ESI-Java-Presentation/tarball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="https://github.com/mcodutti/HEB-ESI-Java-Presentation">HEB-ESI-Java-Presentation</a>
-      <span class="small">by <a href="https://github.com/mcodutti">mcodutti</a></span></h1>
-
-    <div class="description">
-      Cours de Java de 1ère année à l'ESI, Bruxelles
-    </div>
-
+    <h1><a href="https://github.com/mcodutti/HEB-ESI-Java-Presentation">HEB-ESI-Java-Presentation</a></h1>
+    <div class="description">Cours de Java de 1ère année à l'ESI, Bruxelles</div>
+    <div class="contact">Contact: Marco Codutti (mcodutti@heb.be)</div>
     
+      <h2>Télécharger</h2>
+      Les notes de cours publiées :
+      <ul>
+      <li><a href="download/HEB-ESI-Java-Presentation-2011-12-Q1.pdf">PDF du cours</a> (année 2011-2012, quadrimestre 1)</li>
+      </ul>
+      Les leçons suivantes sont en phase de relecture avant publication aux élèves :
+      <ul>
+      <li><a href="relecture/java1-presentation-chapitre-OO.pdf">Orienté objet</a></li>
+      <li><a href="relecture/java1-presentation-chapitre-list.pdf">Les listes</a></li>
+      <li><a href="relecture/java1-presentation-chapitre-exception.pdf">Les exceptions</a></li>
+      <li><a href="relecture/java1-presentation-chapitre-conversion.pdf">Les conversions</a></li>
+      <li><a href="relecture/java1-presentation-chapitre-enum.pdf">Les énumérations</a></li>
+      </ul>
+      Les sources sont sur GitHub : <a href="https://github.com/mcodutti/HEB-ESI-Java-Presentation">mcodutti/HEB-ESI-Java-Presentation</a>
 
-    
-
-    
-
-    
-
-    
-      <h2>Authors</h2>
-      <p>Marco Codutti (mcodutti@heb.be)<br/>      </p>
-    
-
-    
-      <h2>Contact</h2>
-      <p>Marco Codutti (marco.codutti@skynet.be)<br/>      </p>
-    
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="https://github.com/mcodutti/HEB-ESI-Java-Presentation/zipball/master">zip</a> or
-      <a href="https://github.com/mcodutti/HEB-ESI-Java-Presentation/tarball/master">tar formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/mcodutti/HEB-ESI-Java-Presentation</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="https://github.com/mcodutti/HEB-ESI-Java-Presentation">mcodutti/HEB-ESI-Java-Presentation</a>
-    </div>
+      <h2>Contribuer en tant que relecteur</h2>
+<p>
+Vous pouvez lire les leçons en cours de relecture et faire vos remarques en ouvrant une issue sur 
+<a href="https://github.com/mcodutti/HEB-ESI-Java-Presentation/issues">GitHub</a>.
+<br/>
+<i>(vous pouvez ouvrir une seule issue pour toutes vos remarques sur une même leçon)</i>.
+</p>
+      <h2>Contribuer en tant que collaborateur</h2>
+<p>
+Si vous êtes un collaborateur du projet. Pour un changement :
+<ul>
+<li><b>mineur</b> (genre typo): effectuer directement la modification et l'indiquer dans les commentaires lors du commit.</li>
+<li><b>court</b> : ouvrir une issue pour décrire le changement voulu. Si c'est bien accueilli par le groupe, effectuer le changement en indiquant le numéro d'issue dans les commentaires du commit</li>
+<li><b>conséquent</b> : ouvrir une issue pour décrire le projet. Si c'est bien accueilli par le groupe, effectuer le changement dans une branche séparée puis (... à définir : pull request ?)</li>
+</ul>
+</p>
 
   </div>
 
