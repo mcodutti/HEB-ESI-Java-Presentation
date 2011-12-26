@@ -32,7 +32,7 @@ Ce concept est présent en \sigle{Java}
 \end{frame}
 
 \begin{frame}[fragile]{Déclaration / Création}
-Écriture viellie (\emph{non recommandée}) : \\Ne pas mettre les \java|<>|
+Écriture vieillie (\emph{non recommandée}) : \\Ne pas mettre les \java|<>|
 \begin{Java}
   ArrayList liste = new ArrayList ();
 \end{Java}
@@ -287,7 +287,7 @@ On aimerait éviter de dupliquer le code
 \emph{Interface} : suite de déclarations de méthodes
 \\\medskip\emph{Exemple} :
 \begin{Java}
-  interface MonInterface {
+  public interface MonInterface {
       void maMéthode1(int a);
       boolean maMéthode2(char c);
   } 
@@ -302,9 +302,9 @@ On aimerait éviter de dupliquer le code
 \emph{Implémenter une interface} : Définir toutes les méthodes d'une interface
 \\\medskip\emph{Exemple} :
 \begin{Java}
-  public MaClasse implements MonInterface {
+  public class MaClasse implements MonInterface {
       public void maMéthode1(int a) {// le corps de la méthode...}
-      boolean maMéthode2(char c) {// le corps de la méthode...}
+      public boolean maMéthode2(char c) {// le corps de la méthode...}
       // + d'autres méthodes si on veut
   } 
 \end{Java}
