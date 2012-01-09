@@ -46,7 +46,7 @@ Une exception remonte la <<pile d'appel>> jusqu'à ce qu'un bout de code dédié l'
 \begin{itemize}
 \item[]
   \begin{Java}
-  void g() { int nb = Integer.parseInt(chaine); }
+  void g() { int nb = Integer.parseInt("Douze"); }
   \end{Java}
 \item \java{g} ne gère pas l'exception, elle passe à \java{f}
 \item Si \java{f} ne la gère pas, elle passe à \java{main}
@@ -192,6 +192,7 @@ Si le test est vrai
   \item On pourra poser des questions à cet objet 
     \begin{itemize}
     \item Précisions sur le problème
+    \item \emph{exemple} : \java|ex.getMessage()|
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -235,7 +236,7 @@ L'ordre à son importance
 try {
       nb = Integer.parseInt(chaine);
 } catch (Exception ex) {
-      // Autre probl\`eme
+      // Autre problème
 } catch (NumberFormatException ex) {
       // La chaine ne contient pas un int
 }
@@ -261,7 +262,7 @@ public class Outil
   }
 
   public static void usage() {
-    System.out.println("usage: java Test nb (1 \`a 80)");
+    System.out.println("usage: java Test nb (1 à 80)");
     System.exit(1);
   }
 }
@@ -354,7 +355,7 @@ Philosophie de \sigle{Java} : obliger le programmeur à coder proprement
 \begin{itemize}
 \item $\Rightarrow$ Toute exception devrait être gérée
 \item Mais beaucoup d'instructions peuvent provoquer une exception 
-(ex: \java{ArrayOutOfBoundsException})
+(ex: \java{ArrayIndexOutOfBoundsException})
 \item On ne peut pas mettre des \java{try} partout
 \item $\Rightarrow$ Java différencie les exceptions
 \end{itemize}
@@ -378,7 +379,7 @@ source: \code|http://java.sun.com/docs/books/tutorial/essential/exceptions/index
   \item On doit \emph{explicitement} les gérer ou les laisser passer. Sauf pour\dots
   \end{itemize} 
 \bigskip
-\java|RunTimeException|
+\java|RuntimeException|
   \begin{itemize}
   \item Sous-ensemble de \code{Exception}
   \item Pas d'obligation de les traiter
@@ -392,7 +393,7 @@ source: \code|http://java.sun.com/docs/books/tutorial/essential/exceptions/index
 \end{frame}
 
 \begin{frame}[fragile]{Exceptions contrôlées}
-Si une méthode \emph{peut} lancer une exception \emph{controlée}
+Si une méthode \emph{peut} lancer une exception \emph{contrôlée}
 \begin{itemize}
   \item Elle doit le déclarer dans la signature
   \begin{Java}
@@ -408,7 +409,7 @@ void f() throws IOException {
 \end{frame}
 
 \begin{frame}[fragile,allowframebreaks]{Exceptions contrôlées}
-Quand on appelle une méthode qui \emph{peut} lancer une exception \emph{controlée}
+Quand on appelle une méthode qui \emph{peut} lancer une exception \emph{contrôlée}
   \begin{itemize}
   \item On est \emph{obligé} de la gérer
 \begin{Java}
@@ -439,41 +440,64 @@ void g() throws IOException {
 
 \begin{frame}[fragile]{Créer ses propres exceptions}
 Revient à créer une classe qui hérite de \java{Exception} \\(ou \code|RuntimeException|)
-\medskip
+\smallskip
+\\\emph{Exemple} :
 \begin{Java}
-public class MyException extends Exception {
-    public MyException(String s) {
+public class NombreNégatifException extends Exception {
+    public NombreNégatifException(String s) {
         super(s);
     }
 }
 \end{Java}
+\begin{itemize}
+\item \java|extends Exception| indique que la classe hérite de \java|Exception|
+\item \java|super(s)| est lié à l'héritage.\\On appelle le constructeur du parent
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Créer ses propres exceptions}
+\emph{Exemple} : Lancer et capturer une exception propre
 \begin{Java}
-public class B {
-    public void leveException() throws MyException {
-        throw new MyException("ça coince");
+public class Test {
+    public void afficherLignes(int nb) throws NombreNégatifException {
+        if (nb<0)
+            throw new NombreNégatifException("ça coince");
+        // la suite normale...
+    }
+
+    public static void main(String[] args) {
+        Test test = new Test();
+        try {
+            test.afficherLignes(args[0]);
+        } catch (NombreNégatifException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }
 \end{Java}
 \end{frame}
 
 \begin{frame}[fragile]{Exemple complet}
-\begin{Java}
+\begin{Java}[basicstyle=\scriptsize]
 public class Groupe {    
+
     private Etudiant[] étudiants;
-    private int nbétudiants;
+    private int nbEtudiants;
 
     public Groupe(int tailleGroupe) {
         étudiants = new Etudiant[tailleGroupe];
-        nbétudiants = 0;
+        nbEtudiants = 0;
     }
     
     public void ajouter(Etudiant étudiant) 
                                  throws DépassementCapacitéException {
-        if (nbétudiants == étudiants.length)
+        if (nbEtudiants == étudiants.length)
             throw new DépassementCapacitéException("Plus de place !");
-        étudiants[nbétudiants] = étudiant;
-        nbétudiants++;
+
+        étudiants[nbEtudiants] = étudiant;
+        nbEtudiants++;
     }
+
     // Les autres méthodes ici    
 }
 \end{Java}
@@ -490,7 +514,7 @@ public class DépassementCapacitéException extends Exception {
 \bigskip
 \emph{Remarque} : Si on n'avait pas fait le test de dépassement de capacité
   \begin{itemize}
-  \item \code|ArrayList| aurait lancé une \java|IndexOutOfBoundsException|
+  \item \java|ajouter| aurait lancé une \java|IndexOutOfBoundsException|
   \item Pas clair pour l'utilisateur (qui n'a pas connaissance de l'implémentation)
   \end{itemize}
 \end{frame}
