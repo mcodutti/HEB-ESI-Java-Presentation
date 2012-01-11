@@ -9,8 +9,8 @@
 \emph{Exemples}
   \begin{itemize}
   \item Saisons : Eté, Automne, Hiver, Printemps
-  \item Couleurs carte : Coeur, Carreau, Pique, Trèfle
-  \item État civil : Célibataire, Marié, Divorcé, Veuf/Veuve
+  \item Couleurs carte : C\oe ur, Carreau, Pique, Trèfle
+  \item États civils : Célibataire, Marié, Divorcé, Veuf
   \item \dots
   \end{itemize}
 \end{frame}
@@ -52,7 +52,7 @@ Examinons la javadoc de \java|GregorianCalendar|
   GregorianCalendar date = ...; 
   date.get(GregorianCalendar.HOUR);   // Pour obtenir les heures
   date.get(10);   // Idem ligne ci-dessus
-  date.get(100);   // Compilation ok mais erreur à l'execution !!!
+  date.get(100);   // Compilation ok mais erreur à l'exécution !!!
   date.get(Integer.MAX_VALUE);   // Idem !!!
 \end{Java}
 \end{itemize}
@@ -61,7 +61,7 @@ Examinons la javadoc de \java|GregorianCalendar|
 \subsection{L'énumération en Java}
 
 \begin{frame}[fragile]{Une vraie énumération}
-À partir de 1.5 : mot clé \java|enum|
+Une meilleure solution : le mot clé \java|enum|
 \begin{itemize}
 \item Définit un nouveau type de données
 \item \emph{Exemple} : {\small \java|enum Saison {ETE, AUTOMNE, HIVER, PRINTEMPS}|}
@@ -79,8 +79,8 @@ public class Test {
 
   public static void main(String args[]) {
     Saison saison = Saison.ETE;
-    System.out.println(saison); // Ecrit ETE
-    saison = 1; // Erreur de compilation;
+    System.out.println(saison); // Affiche ETE
+    saison = 1; // Erreur de compilation
   }
 }
 \end{Java}
@@ -98,8 +98,8 @@ public enum Saison {ETE, AUTOMNE, HIVER, PRINTEMPS}
 public class Test {
   public static void main(String args[]) {
     Saison saison = Saison.ETE;
-    System.out.println(saison); // Écrit ETE
-    saison = 1; // Erreur de compilation;
+    System.out.println(saison); // Affiche ETE
+    saison = 1; // Erreur de compilation
     if (saison == Saison.HIVER)
       System.out.println("A gla gla !");
   }
@@ -113,12 +113,12 @@ Le \code|switch| peut être utilisé avec une énumération
 \\\medskip\emph{Exemple} :
 \begin{Java}
 // Fichier Titre.java
-enum Titre {MONSIEUR, MADAME, MADEMOISELLE}
+public enum Titre {MONSIEUR, MADAME, MADEMOISELLE}
 \end{Java}
 \begin{Java}
 void afficherNom( Titre titre, String nom ) {
   switch(titre) {
-    // Remarquer l'absence du 'Titre.'
+    // Remarquer l'absence du 'Titre.' dans les 'case'
     case MONSIEUR : System.out.println("M. "+nom); break;
     case MADAME : System.out.println("Mme "+nom); break;
     case MADEMOISELLE : System.out.println("Mlle "+nom); break;
@@ -158,7 +158,7 @@ On peut ajouter des \emph{attributs} à une énumération
 public enum Mois {
   // Valeurs de l'enum 
   // Comme un appel de constructeur.
-  JANVIER(31), FEVRIER(28), MARS(31); // \'e...
+  JANVIER(31), FEVRIER(28), MARS(31); // ...
   // Attribut
   public final int NB_JOURS;
   // Constructeur (pas public !)
@@ -189,7 +189,7 @@ On peut aussi ajouter ses propres méthodes
 \item \emph{Exemple}
 \begin{Java}
 public enum Mois {
-    JANVIER(31), FEVRIER(28), MARS(31);
+    JANVIER(31), FEVRIER(28), MARS(31); //...
     private int nbJours;
     private Mois(int nbJours) {
         this.nbJours = nbJours;
