@@ -145,7 +145,7 @@ c++;    //  c vaut 'b'
 \leconwithtocinside
 
 \begin{frame}[fragile]{Conversion lors d'une assignation}
-Que se passe-t'il lors d'une \emph{assignation} ?
+Que se passe-t-il lors d'une \emph{assignation} ?
 \begin{itemize}
 \item Adapte le type de l'expression au type de la variable
 \item Opérateurs : \java|=|, \java|+=|, \java|-=|, \java|*=|, \java|/=|, \java|%=|
@@ -158,6 +158,8 @@ Que se passe-t'il lors d'une \emph{assignation} ?
 Conversion arrondissante de type primitif
 \\(\textit{narrowing primitive conversion})
 \begin{center}
+\begin{itemize}
+\item schéma général
 \begin{tabular}{lllllll}
 \java|double| & & & & & &\\
 \hfill$\hookrightarrow$ & \java|float| & & & & &\\
@@ -166,14 +168,16 @@ Conversion arrondissante de type primitif
 & & & \hfill$\hookrightarrow$ & \java|short| & $\longleftrightarrow$ & \java|char|\\
 & & & & \hfill$\hookrightarrow$ & \java|byte| & $\swarrow\nearrow$ \\
 \end{tabular}
-\begin{itemize}
 \item \`A chaque étape : \emph{perte de précision} possible
 \end{itemize}
 \end{center}
 \end{frame}
 
 \begin{frame}[fragile]{Conversion lors d'une assignation}
-Conversion arrondissante \emph{si et seulement si}
+Dans le cadre d'une assignation
+\begin{itemize}
+\item Elles ne sont pas toutes permises
+\item \emph{si et seulement si}
 \begin{itemize}
 \item La variable est de type \java|byte|, \java|short|, ou \java|char|
 \item L'expression est 
@@ -181,6 +185,7 @@ Conversion arrondissante \emph{si et seulement si}
 \item constante 
 \item de type \java|byte|, \java|short|, \java|char| ou \java|int|
 \item sa valeur est représentable dans le type de la variable
+\end{itemize}
 \end{itemize}
 \end{itemize}
 \medskip
@@ -197,6 +202,11 @@ short s2 = 1+2;
 byte b1 = 123245; 
 byte b2 = s1+1; 
 byte b3 = 21L; 
+\end{Java}
+\begin{Java}
+char a ='a';
+a += 1;
+a = a+1; 
 \end{Java}
 \end{frame}
 
@@ -237,13 +247,13 @@ Difficulté liée à la \emph{surcharge}
 \item S'il existe plusieurs méthodes avec le même nom, il peut y avoir plusieurs candidates pour un appel
 \item \emph{Exemple}
 \begin{Java}
-public static int f(long op1, long op2) {...}
-public static int f(int op1, int op2) {...}
+public static int max(long op1, long op2) {...}
+public static int max(int op1, int op2) {...}
 \end{Java}
 Quelle méthode est choisie avec cet appel ?
 \begin{Java}
-short s1=1, s2=2:
-f(s1,s2);
+short s1=1, s2=2;
+max(s1,s2);
 \end{Java}
 \end{itemize} 
 \end{frame}
@@ -272,15 +282,15 @@ Cas particulier
 \item Parfois, il n'y a pas de méthode plus spécifique. 
 \item \emph{Exemple}
 \begin{Java}
-public static int f( int op1, long op2 ) {...}
-public static int f( long op1, int op2 ) {...}
+public static int max( int op1, long op2 ) {...}
+public static int max( long op1, int op2 ) {...}
 \end{Java}
 Accepté mais certains appels seront ambigus
 \\(erreur à la compilation)
 \begin{itemize}
-\item \java|f(1,2L)| // 1ère méthode
-\item \java|f(1L,2)| // 2ème méthode
-\item \java|f(1,2)|  // ambigu
+\item \java|max(1,2L)| // 1ère méthode
+\item \java|max(1L,2)| // 2ème méthode
+\item \java|max(1,2)|  // ambigu
 \end{itemize}
 \end{itemize} 
 \end{frame}
@@ -410,7 +420,7 @@ Quelles sont les conversions permises ?
 Remarques sur les conversions \emph{arrondisantes}
 \begin{itemize}
 \item aucune contrainte
-\item si entier vers entier 
+\item si d'un type entier vers un autre type entier 
   \begin{itemize}
   \item on prend les octets de poids faible
   \item $\Longrightarrow$ valeur convertie peut être fort différente
@@ -435,6 +445,24 @@ $\Longrightarrow$ b =
 \end{center}
 \end{frame}
 
+\begin{frame}[fragile]{Le \textit{casting}}
+Ne \emph{peut pas} être utilisé pour
+\medskip
+\begin{itemize}
+\item Convertir en chaîne
+  \begin{itemize}
+  \item \java|(String) monEntier| \emph{interdit}
+  \item Écrire \java|""+monEntier| à la place
+  \end{itemize}
+\medskip
+\item Convertir une chaîne qui contient un numérique
+  \begin{itemize}
+  \item \java|(int) "12"| \emph{interdit}
+  \item Écrire \java|Integer.parseInt("12")| à la place
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]{Exemples de \textit{casting}}
 \begin{Java}
 int entier = (int) 5; 
@@ -444,6 +472,7 @@ int entier = (int) 12000000000000000000000l;
 int entier = (int) 1200000000000L;  // Accepté mais...
 double réel = (double) 12; 
 String mot = (String) 12; // erreur à la compilation 
+int entier = (int) "12";  // erreur à la compilation 
 String mot = (String) "mot"; 
 boolean b = (boolean) 1;  // erreur à la compilation 
 int entier = (byte) 500-400;   
