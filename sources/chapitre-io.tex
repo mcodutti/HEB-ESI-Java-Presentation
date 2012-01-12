@@ -30,7 +30,7 @@ En \sigle{java}, on peut coder l'information de 2 façons
 \bigskip\emph{Exercice} : Soit l'entier $16$
     \begin{itemize}
     \item Donner les représentations <<binaire>> et <<texte>>
-    \item Quelle sont les tailles de ces représentations ? 
+    \item Quelles sont les tailles de ces représentations ? 
     \item Voyez-vous des avantages/inconvénients à ces représentations ?
     \end{itemize}
 \end{frame}
@@ -76,6 +76,8 @@ D'autres classes spécialisées vont permettre de lire/écrire
 Presque tout se trouve dans le package \java|java.io|
 \end{frame}
 
+% Ce n'est, a mon sens pas la meilleure image, mais je n'en ai pas d'autres
+% --pbt
 \begin{frame}{Vue d'ensemble}
 \begin{center}
 \includegraphics[scale=.45]{../img/java-io-schema}
@@ -88,6 +90,7 @@ Presque tout se trouve dans le package \java|java.io|
 \begin{frame}[fragile]{Lecture dans un fichier binaire}
 \emph{Exemple} : Lire le contenu d'un fichier binaire 
 \begin{Java}
+int b;
 try {
     FileInputStream in = new FileInputStream("nomFichier");
     b = in.read();    
@@ -132,7 +135,7 @@ try {
   \item La lecture de la valeur $-1$ indique la fin du fichier
   \end{itemize}
 \bigskip
-Comprenez-vous pourquoi la méthode de lecture retourne un \java|int| et pas un \java|byte| ?
+\emph{Remarque} La méthode de lecture retourne un \java|int| et pas un \java|byte| 
 \end{frame}
 
 \begin{frame}[fragile]{Lecture dans un fichier binaire}
@@ -293,35 +296,45 @@ public static void copier( String nameIn, String nameOut)
 \end{Java}
 \end{frame}
 
-\subsection{Manipulation des fichiers}
-\leconwithtocinside
 
-\begin{frame}[fragile]{Manipulation des fichiers}
-La classe \java|File| permet de manipuler les fichiers du système de fichiers
-\\\bigskip\emph{Exemple}
+\subsection{Entrées sorties bufférisées}
+\leconwithtocinside 
+
+\begin{frame}[fragile]{Entrées sorties bufférisées}
+Dans les exemples  vus, les lectures / écritures sont directement prises en
+charge par l'OS
+	\begin{itemize}
+	\item risque d'entrainer des lenteurs
+	\item Java propose de \emph{buffériser} ses flux (\textit{buffered stream})
+		\begin{itemize}
+		\item le \textit{stream} lit dans un \textit{buffer}, lorsque le \textit{buffer} est
+		vide l'API native est appelée pour une lecture remplissant le buffer
+		\item fonctionnement identique pour une écriture
+		\end{itemize}
+	\item ce type de flux est appelé \emph{flux englobant} 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Entrées sorties bufférisées}
+Il existe 4 \textit{buffered stream}; 
+\java|BufferedInputStream|, 
+\java|BufferedOutputStream|, 
+\java|BufferedReader| et 
+\java|BufferedWriter|. 
+\bigskip
+On pourrait, par exemple, écrire 
 \begin{Java}
-  public static void deleteBig(String nom) {
-      File fichier = new File(nom);
-      if (fichier.exists() && fichier.length()>1000000L) {
-          fichier.delete();
-      }
-  }
+BufferedReader inputStream = new BufferedReader(
+    new FileReader("inout.txt"));
+
+BufferedWriter outputStream = new BufferedWriter(
+    new FileWriter("output.txt"));
 \end{Java}
+\bigskip
+\emph{Remarque} On force la vidange du flux via \java|flush|
 \end{frame}
 
-\begin{frame}[fragile]{Manipulation des fichiers}
-Les classes de type \java{FileXXX} peuvent être construites à partir d'un \java|File|
-\\\bigskip\emph{Exemple}
-  \begin{Java}
-    File fichierIn = new File("data.txt");
-    if (fichierIn.exists()) {
-        FileInputStream in = new FileInputStream(fichierIn);
-        //...
-    } else {
-        // gérer le problème si possible
-    }
-  \end{Java}
-\end{frame}
+
 
 \subsection{Données primitives}
 \leconwithtocinside
@@ -475,6 +488,16 @@ En fait, le package \java|java.io| ne fonctionne pas uniquement avec des fichier
     \item \dots
     \end{itemize}
   \end{itemize}
+\end{frame}
+
+\begin{frame}{La notion de <<flux>>}
+\includegraphics[scale=.45]{../img/java-io-ins}
+\begin{flushright}
+\includegraphics[scale=.45]{../img/java-io-ins2} 
+\end{flushright}
+\begin{center}
+{\scriptsize Source Oracle}
+\end{center}
 \end{frame}
 
 \begin{frame}{Les flux standards}
@@ -701,6 +724,39 @@ La notion de <<locale>>
   \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]{La classe <<Console>>}
+Avec un seul objet de type \java|Console|, il est possible de \emph{lire} et
+\emph{écrire} ... dans la console
+	\begin{itemize}
+	\item obtenir une console
+		\begin{Java}
+		Console console = System.console();
+		if (console == null) {
+		    System.out.println("Sorry ...");
+		    System.exit(1);
+		}
+		\end{Java}
+	\item lecture 
+		\begin{Java}
+		String name = console.readLine("Enter name:");
+		\end{Java}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{La classe <<Console>>}
+	\begin{itemize}
+	\item écriture formatée
+		\begin{Java}
+		console.format("Your name is %s", name);
+		\end{Java}
+	\item lire un mot de passe
+		\begin{Java}
+		char[] password = console.readPassword("Enter your password: ");
+		// some work
+		Arrays.fill(password, ' ');
+		\end{Java}
+	\end{itemize}
+\end{frame}
 
 \subsection{Lire/Écrire des objets}
 \leconwithtocinside
