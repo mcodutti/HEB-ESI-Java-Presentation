@@ -20,6 +20,8 @@ Ce concept est présent en \sigle{Java}
 \end{frame}
 
 \begin{frame}[fragile]{Déclaration / Création}
+La classe \java|ArrayList|
+\medskip
 \begin{Java}
   ArrayList<String> liste = new ArrayList<String> ();
 \end{Java}
@@ -37,7 +39,7 @@ Ce concept est présent en \sigle{Java}
   ArrayList liste = new ArrayList ();
 \end{Java}
 \medskip
-\includegraphics[scale=.5]{../img/java7.jpeg}En Java7, on peut ne pas spécifier le type des éléments à droite (déduit par le compilateur)
+\includegraphics[scale=.5]{../img/java7.jpeg}En Java7, on peut ne plus spécifier le type des éléments à droite (déduit par le compilateur)
 \begin{Java}
   ArrayList<String> liste = new ArrayList<>();
 \end{Java}
@@ -125,8 +127,7 @@ Parcours d'une liste via le \emph{foreach} :
 \end{Java}
 \begin{itemize}
   \item La variable \texttt{mot} prend chaque valeur de la liste
-  \item La position de \texttt{mot} est inconnue : remplacement/suppression
-  impossibles
+  \item La position de \texttt{mot} est inconnue : remplacements et suppressions impossibles
 \end{itemize}
 \end{frame}
 
@@ -346,7 +347,7 @@ Une interface définit un \textit{type}
   \item Choix de l'implémentation uniquement lors de l'instanciation
   \begin{Java}
   List<String> maListe;
-  maListe = new ArrayList<String>();
+  maListe = new ArrayList<String>(); // Java 7 : new ArrayList<>();
   \end{Java}
   \item Assure que l'on ne va utiliser que les méthodes définies dans l'interface
   \item Facilite le changement d'implémentation
