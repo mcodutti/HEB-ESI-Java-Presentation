@@ -371,7 +371,7 @@ Il est conseillé d'effectuer des \emph{tests de validité} sur les paramètres
 \end{itemize}
 \emph{Exemple} :
 \begin{Java}
-  public void setnuméro(int unNuméro) {
+  public void setNuméro(int unNuméro) {
     if (unNuméro<=0) {
       throw new IllegalArgumentException("Le numéro est négatif !");
     }
@@ -458,12 +458,17 @@ Le mot clé \java{this} est une référence à soi-même
 \item Implicite lors d'une utilisation directe du membre
 \item \emph{Exemple}
   \begin{Java}
-  public Etudiant( String nom ) {
-    setNom( nom );  // implicitement: this.setNom( nom );
-  }
-
   public void setNom( String unNom ) {
     nom = unNom;  // implicitement: this.nom = unNom;
+  }
+
+  public void aRéussi() {
+    féliciter(); // implicitement : this.féliciter();
+    // ...
+  }
+
+  public void féliciter() {
+    // ...
   }
   \end{Java}
 \end{itemize}
