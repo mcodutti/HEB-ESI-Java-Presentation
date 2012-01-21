@@ -532,6 +532,22 @@ public class DépassementCapacitéException extends Exception {
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]{Le try avec ressource}
+\includegraphics[scale=.5]{../img/java7.jpeg} Java 7
+\begin{itemize}
+\item Permet de s'assurer qu'une ressource sera bien libérée
+\\(un fichier par exemple)
+\item Plus facile et plus sûr que via la clause \java|finally|
+\item Plus d'info dans la leçon sur les entrées-sorties
+\item \emph{Exemple}
+\begin{Java}
+    try (InputStream fis = new FileInputStream(source)) {
+        // traitement du fichier
+    }   // ...
+\end{Java}
+\end{itemize}
+\end{frame}
+
 %\begin{frame}[fragile]{La clause <<finaly>>}
 %\emph{Exemple}
 %\begin{Java}
