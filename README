@@ -25,7 +25,7 @@ La structure des fichiers LaTeX est la suivante.
 
 Pour la version couleur :
 	java1-presentation.tex
-		java1-presentation-comman.tex
+		java1-presentation-common.tex
 			java.sty
 			toc.tex
 			chapter*.tex
