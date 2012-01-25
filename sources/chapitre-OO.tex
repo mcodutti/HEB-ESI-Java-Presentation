@@ -687,9 +687,13 @@ Une classe définit un type de données
 \begin{Java}
 // Affiche un tableau d'étudiants
 public static void afficher(Etudiant[] étudiants) {
+    int année;
     System.out.println("Il y a " + étudiants.length + " étudiants");
     for( Etudiant étudiant : étudiants ) {
-        System.out.println( étudiant );
+        System.out.print( étudiant.getNuméro() 
+                 + ", " + étudiant.getNom() 
+                 + ", " + étudiant.getAnnée() 
+                 );
     }
 }
 \end{Java}
@@ -708,10 +712,10 @@ public static void tournéeGénérale(Etudiant[] étudiants) {
 \begin{Java}
   // Test
   Etudiant[] groupe11 = {
-      new Etudiant("20000", "Tintin"),
-      new Etudiant("20001", "Milou"),
-      new Etudiant("20002", "Professeur Tournesol"),
-      new Etudiant("20003", "Capitaine Haddock");
+      new Etudiant(20000, "Tintin"),
+      new Etudiant(20001, "Milou"),
+      new Etudiant(20002, "Professeur Tournesol"),
+      new Etudiant(20003, "Capitaine Haddock");
   };
   afficher(groupe11);
   tournéeGénérale(groupe11);
@@ -731,7 +735,7 @@ Un tableau définit un type de données
 \end{frame}
 
 \begin{frame}[fragile]{Des tableaux \textbf{dans} les objets}
-\begin{Java}
+\begin{Java}[basicstyle=\scriptsize]
 public class Groupe {
     private Etudiant[] étudiants;
     private int nbEtudiants;
@@ -749,29 +753,33 @@ public class Groupe {
         étudiants[nbEtudiants] = étudiant;
         nbEtudiants++;
     }
+
     // ...
 \end{Java}
 \end{frame}
 
 \begin{frame}[fragile]{Des tableaux \textbf{dans} les objets}
-\begin{Java}
+\begin{Java}[basicstyle=\scriptsize]
     public void afficher() {
         System.out.println("Il y a " + nbEtudiants + " étudiants");
         // Pourquoi pas un foreach ?
         for( int i=0; i<nbEtudiants; i++ ) {
-            System.out.println( étudiants[i] );
+            System.out.print( étudiant.getNuméro() 
+                     + ", " + étudiant.getNom() 
+                     + ", " + étudiant.getAnnée() 
+                     );
+        }
     }
-    
     // On pourrait encore définir beaucoup de méthodes utiles
 }
 \end{Java}
-\begin{Java}
+\begin{Java}[basicstyle=\scriptsize]
   // Test
   Groupe groupe11 = new Groupe(10);
-  groupe11.ajouter(new Etudiant("20000", "Tintin"));
-  groupe11.ajouter(new Etudiant("20001", "Milou"));
-  groupe11.ajouter(new Etudiant("20002", "Professeur Tournesol"));
-  groupe11.ajouter(new Etudiant("20003", "Capitaine Haddock"));
+  groupe11.ajouter(new Etudiant(20000, "Tintin"));
+  groupe11.ajouter(new Etudiant(20001, "Milou"));
+  groupe11.ajouter(new Etudiant(20002, "Professeur Tournesol"));
+  groupe11.ajouter(new Etudiant(20003, "Capitaine Haddock"));
   groupe11.afficher();
 \end{Java}
 \end{frame}
