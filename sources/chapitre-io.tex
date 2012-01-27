@@ -255,7 +255,7 @@ Mêmes principes que pour les fichiers binaires mais avec des classes adaptées
 \medskip
 \item \java|FileWriter| pour écrire un fichier texte
   \begin{itemize}
-  \item \java|void write(int c)| écrit le caractère c
+  \item \java|void write(int c)| écrit le caractère stocké dans c
   \\(Seuls les 2 octets de poids faible sont écrits)
   \end{itemize}
 \end{itemize}
@@ -416,14 +416,14 @@ Pas de valeur sentinelle; génère une \java|EOFException| si tentative de lecture
 Commençons par l'écriture sur fichier texte
 \\\bigskip \emph{Exemple}
 \begin{Java}
-PrintWriter out = new PrintWriter(new FileOutputStream("result.dat"));
+PrintWriter out = new PrintWriter(new FileWriter("result.dat"));
 out.println(10);
 out.print("Hello");
 out.close();
 \end{Java}
 \bigskip \emph{Remarques}
 \begin{itemize}
-\item \java|PrintWriter| se base sur \java|FileOutputStream|
+\item \java|PrintWriter| est un flux englobant
 \item \java|print| et \java|println| fonctionnent comme vous les connaissez
 \end{itemize}
 \end{frame}
@@ -439,7 +439,8 @@ On a déjà abordé la classe \java|Scanner|
   import java.util.Scanner ; 
   ...
   Scanner clavier = new Scanner(System.in);
-  int somme=0, nb;
+  int somme=0;
+  int nb;
   while (clavier.hasNextInt()) {
       somme += clavier.nextInt();
   } 
@@ -455,7 +456,8 @@ La classe \java|Scanner| fonctionne aussi avec un fichier texte
   import java.util.Scanner ; 
   ...
   Scanner fileIn = new Scanner( new FileReader( "mesData" ) );
-  int somme=0, nb;
+  int somme=0;
+  int nb;
   while (fileIn.hasNextInt()) {
       somme += fileIn.nextInt();
   } 
