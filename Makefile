@@ -128,8 +128,3 @@ $(PDF-PRINT) : $(SUPPORT) $(TEX-CHAPITRES) $(TEX-PRINT) $(TEX-COMMON)
 	rubber $(RUBBEROPT) $(TEX-PRINT)
 	pdfnup -q --nup 2x4 --no-landscape --frame true --outfile $@ $(BUILD)/$(NOM-PRINT).pdf
 
-# En "mode travail", c'est bien de générer le doc complet sans les chapitres
-pbt : $(SUPPORT) $(TEX-CHAPITRES) $(TEX-COMPLET) $(TEX-COMMON)
-	@echo "====Màj du document couleur complet"
-	rubber $(RUBBEROPT) $(TEX-COMPLET)
-	mv $(BUILD)/$(NOM-COMPLET).pdf $@
