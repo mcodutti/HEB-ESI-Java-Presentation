@@ -5,19 +5,25 @@
 \leconwithtocinside
 
 \begin{frame}[fragile]{Présentation}
-\begin{itemize}
-\item \textbf{Préalable} NIO.2, comme présenté, concerne le JDK 7 (et suivants)
-\end{itemize}
+\textbf{Préalable} NIO.2, comme présenté, concerne le JDK 7 (et suivants)
 \end{frame}
 
-\subsection{La classe <>}
+\subsection{La classe <<Path>>}
 \leconwithtocinside 
 
 \begin{frame}[fragile]{La classe <<Path>>}
 \begin{itemize}
-\item Un fichier est identifié par son chemin à travers le \textit{filesystem}, son nom complètement qualifié (FQN - \textit{Fully Qualified Name}), son \textit{\textbf{Path}}
-\item Par exemple \texttt{/home/alice/java/Hello.java} 
-ou \verb|C:\Users\alice\java\Hello.java|
+\item Un \emph{fichier} est identifié par 
+	\begin{itemize}
+		\item son chemin à travers le \textit{filesystem}, 
+		\item son nom complètement qualifié (FQN - \textit{Fully Qualified Name}), 
+		\item son \textit{\textbf{Path}}
+	\end{itemize}
+\item Par exemple 
+	\begin{itemize}
+		\item \texttt{/home/alice/java/Hello.java} ou 
+		\item \verb|C:\Users\alice\java\Hello.java|
+	\end{itemize}
 \item Rappels
 \begin{itemize}
 \item le séparateur (\textit{delimiter}) est différent en fonction du \textit{filesystem}
@@ -30,45 +36,41 @@ ou \verb|C:\Users\alice\java\Hello.java|
 
 \begin{frame}[fragile]{La classe <<Path>>}
 \begin{itemize}
-\item La classe \texttt{Path} en java représente un 
+\item La classe \emph{\texttt{Path}} en java représente un 
 chemin (\textit{path}) et permet de le manipuler
-\begin{itemize}
-\item créer un \textit{path}
-\item utiliser l'information contenue dans un \textit{path}
-\item convertir un \textit{path}
-\item comparer deux \textit{path}
-\item ...
-\end{itemize}
-\item \textbf{Remarque}: Le fichier que le chemin représente peut ne pas exister
-\item La classe \texttt{\textbf{Paths}}, 
+	\begin{itemize}
+		\item créer un \textit{path}
+		\item utiliser l'information contenue dans un \textit{path}
+		\item convertir un \textit{path}
+		\item comparer deux \textit{path}
+		\item ...
+	\end{itemize}
+\item La classe \texttt{\emph{Paths}}, 
 est une classe utilitaire premettant de manipuler un \textit{path} 
-(une instance de la classe \texttt{Path})
+\bigskip
+\item \textbf{Remarque}: Le fichier que le chemin représente peut ne pas exister
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{La classe <<Path>>}
 \begin{itemize}
 \item Créer un \textit{path}
-\begin{itemize}
-\item \begin{lstlisting}{} 
-Path path1 = Paths.get("/tmp/foo");
-Path path2 = Paths.get(System.getProperty("user.home"),
-    "logs", "foo.log");
-\end{lstlisting} 
-\end{itemize}
-\item Utiliser les informations contenues dans un \textit{path}
-\begin{itemize}
-\item Soit la déclaration (dans un contexte linux)
-\begin{lstlisting}{} 
-Path path = Paths.get("/home/alice/foo");
-\end{lstlisting} 
-\begin{itemize}
-\item \texttt{toString} $\longrightarrow$ /home/alice/foo
-\item \texttt{getFileName} $\longrightarrow$ foo
-\item \texttt{getParent} $\longrightarrow$ /home/alice
-\item \texttt{getRoot} $\longrightarrow$ /
-\end{itemize}
-\end{itemize}
+	\begin{Java}
+	Path path1 = Paths.get("/tmp/foo");
+	Path path2 = Paths.get(System.getProperty("user.home"),
+	    "logs", "foo.log");
+	\end{Java} 
+\item Utiliser les informations contenues dans un \textit{path} \\
+{\small (Soit la déclaration (dans un contexte linux))}
+		\begin{Java} 
+		Path path = Paths.get("/home/alice/foo");
+		\end{Java} 
+		\begin{itemize}
+			\item \texttt{toString} $\longrightarrow$ /home/alice/foo
+			\item \texttt{getFileName} $\longrightarrow$ foo
+			\item \texttt{getParent} $\longrightarrow$ /home/alice
+			\item \texttt{getRoot} $\longrightarrow$ /
+		\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -78,17 +80,17 @@ Path path = Paths.get("/home/alice/foo");
 \begin{itemize}
 \item \textbf{\texttt{toUri()}} \\ 
 vers une uri (\textit{uniform resource identifier})
-\begin{lstlisting}{} 
+\begin{Java} 
 Path path = Paths.get("/var/log/syslog");
 System.out.println(path.toUri());
-\end{lstlisting} 
+\end{Java} 
 $\longrightarrow$ file:///var/log/syslog
 \item \textbf{\texttt{toAbsolutePath()}} \\ 
 vers un chemin absolu (si \texttt{pwd $\rightarrow$ /home/alice})
-\begin{lstlisting}{} 
+\begin{Java} 
 Path path =  Paths.get("file");
 System.out.println(path.toAbsolutePath());
-\end{lstlisting} 
+\end{Java} 
 $\longrightarrow$ /home/alice/file
 \end{itemize}
 \end{itemize}
@@ -98,25 +100,23 @@ $\longrightarrow$ /home/alice/file
 \begin{itemize}
 \item Convertir un \textit{path} (suite)
 \begin{itemize}
-\item \textbf{\texttt{toRealPath()}} \\ 
+\item \textbf{\texttt{toRealPath()}}  
 vers un chemin <<réel>>
 \begin{itemize}
 \item si le \textit{path} est un \textbf{chemin absolu}, ne change pas
 \item si le \textit{path} est un \textbf{chemin relatif}, il  est converti en chemin absolu
 \item si c'est un \textbf{lien}, il est remplacé par le chemin vers lequel le lien pointe
 \end{itemize}
-\item \begin{lstlisting}{} 	
-Path path = Paths.get(args[0]);
-Path fqnPath = null;
+\item \begin{Java} 	
+Path path = Paths.get(args[0]), fqnPath = null;
 try {
     fqnPath = path.toRealPath();
 } catch (IOException e) {
-    System.err.println("Error: " + e.getMessage());
-    System.exit(1);
+	// ...
 }
 System.out.println("Old path: " + path);
 System.out.println("New path: " + fqnPath);
-\end{lstlisting} 
+\end{Java} 
 {\small (extrait de la classe \texttt{RealPath.java})}
 \end{itemize}
 \end{itemize}
@@ -129,11 +129,11 @@ System.out.println("New path: " + fqnPath);
 \item \textbf{\texttt{toRealPath}} (suite)
 \begin{itemize}
 \item Soit la situation suivante
-\begin{lstlisting}{} 
+\begin{Java} 
 $ls -l /elsewhere
 -rw-r--r-- 1   bob bob  592 Jan 13 16:56 file
 lrwxrwxrwx 1   bob bob  13 Jan 13 16:57 link -> file
-\end{lstlisting} 
+\end{Java} 
 \item \texttt{java RealPath file} $\longrightarrow$ /elsewhere/file
 \item \texttt{java RealPath /elsewhere/file} $\longrightarrow$ /eslewhere/file
 \item \texttt{java RealPath link} $\longrightarrow$ /elsewhere/file
@@ -146,11 +146,9 @@ lrwxrwxrwx 1   bob bob  13 Jan 13 16:57 link -> file
 \begin{itemize}
 \item Convertir un \textit{path} (suite)
 \begin{itemize}
-\item \textbf{\texttt{resolve(Path)}}
-\begin{itemize}
-\item permet de créer un chemin sur base de deux chemins incomplets
-\end{itemize}
-\item \begin{lstlisting}{} 
+\item \textbf{\texttt{resolve(Path)}} \\
+permet de créer un chemin sur base de deux chemins incomplets
+\begin{Java} 
 Path path = null;
 try {
     path = Paths.get(".").toRealPath();
@@ -160,7 +158,7 @@ try {
 }
 System.out.println("Path: " + path);		
 System.out.println("Path: " + path.resolve("file"));			
-\end{lstlisting} 
+\end{Java} 
 \texttt{java ResolvePath} $\longrightarrow$  \\ 
     Path: /elsewhere \\ 
     Path: /elsewhere/file
@@ -175,11 +173,11 @@ System.out.println("Path: " + path.resolve("file"));
 \item est en fait une \textit{interface}
 \item propose une méthode \texttt{equals(Object)}
 \item ajoute des méthodes
-\begin{itemize}
-\item \texttt{startWidth(Path)} et \texttt{startWidth(String)}
-\item \texttt{endsWidth(Path)} et \texttt{endsWidth(String)}
-\item \texttt{isSameFile()} (voir plus loin, la classe \texttt{Files}
-\end{itemize}
+	\begin{itemize}
+	\item \texttt{startWidth(Path)} et \texttt{startWidth(String)}
+	\item \texttt{endsWidth(Path)} et \texttt{endsWidth(String)}
+	\item \texttt{isSameFile()} (voir plus loin, la classe \texttt{Files})
+	\end{itemize}
 \item implémente \texttt{Iterable}
 \item implémente \texttt{Comparable}
 \end{itemize}
@@ -193,17 +191,17 @@ System.out.println("Path: " + path.resolve("file"));
 \begin{itemize}
 \item \textbf{Principe} \textit{varargs} est un principe java permettant 
 d'écrire des méthodes acceptant un nombre variable d'arguments
-\item Une même méthode \texttt{foo} peut-être appelée de différentes manières
-\begin{lstlisting}{} 
+\item Une même méthode \texttt{foo} peut-être appelée 
+\begin{Java} 
 foo("one");
 foo("one","two");
 String[] ss = {"one", "two", "three"};
 foo(ss);
-\end{lstlisting} 
-\item Pour ce faire, il suffit de la déclarer (par exemple) comme suit 
-\begin{lstlisting}{} 
+\end{Java} 
+\item Pour ce faire, 
+\begin{Java} 
 public void foo(String... ss) { <enter code here> }
-\end{lstlisting} 
+\end{Java} 
 \item ... et le paramètre reçu est un \textbf{simple tableau}
 \end{itemize}
 \end{frame}
@@ -213,23 +211,22 @@ public void foo(String... ss) { <enter code here> }
 
 \begin{frame}[fragile]{Opérations sur les fichiers, la classe <<Files>>}
 \begin{itemize}
-\item La classe \texttt{Files} est la deuxième classe utilitaire importante du \textit{package} NIO.2
+\item La classe \emph{\texttt{Files}} est la deuxième classe utilitaire importante du \textit{package} NIO.2
 \item Vérifier (\textit{checking}) un fichier ou un répertoire
-\begin{itemize}
-\item \textbf{\texttt{exists(Path, LinkOption)}} teste l'existence d'un fichier
-\begin{lstlisting}{} 
-Files.exists(path);
-Files.exists(path, LinkOption.NOFOLLOW_LINKS));
-\end{lstlisting} 
-\item \textbf{\texttt{notExists(Path, LinkOption)}} teste la non-existence du fichier
-\begin{lstlisting}{} 
-Files.notExists(path);
-\end{lstlisting} 
-\item Ces deux méthodes ne sont pas complémentaires ... 
-un fichier peut exister et être inaccessible
-\item \bigskip
-\textbf{Remarque} L'utilisation de \textit{NOFOLLOW\_LINKS} n'est pas concluante chez moi
-\end{itemize}
+	\begin{itemize}
+	\item \textbf{\texttt{exists(Path, LinkOption)}} teste l'existence
+	\begin{Java} 
+	Files.exists(path);
+	Files.exists(path, LinkOption.NOFOLLOW_LINKS));
+	\end{Java}
+	\item \textbf{\texttt{notExists(Path, LinkOption)}} teste la non-existence 
+	\begin{Java} 
+	Files.notExists(path);
+	\end{Java} 
+	\item Ces deux méthodes ne sont pas complémentaires ... 
+	\item \bigskip
+	\textbf{Remarque} L'utilisation de \textit{NOFOLLOW\_LINKS} n'est pas concluante chez moi
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -239,7 +236,7 @@ un fichier peut exister et être inaccessible
 \begin{itemize}
 \item \textbf{\texttt{isReadable(Path)}} vérifie si le fichier est accessible en lecture
 \item \textbf{\texttt{isWritable(Path)}} vérifie si le fichier est accessible en écriture
-\item \textbf{\texttt{isexecutable(Path)}} vérifie si le fichier est accessible en exécution
+\item \textbf{\texttt{isExecutable(Path)}} vérifie si le fichier est accessible en exécution
 \item \textbf{\texttt{isSameFile(Path, Path)}} vérifie si les deux chemins 
 renseignent le même fichier
 \end{itemize}
@@ -250,13 +247,11 @@ renseignent le même fichier
 \begin{itemize}
 \item Effacer (\textit{delete}) un fichier ou un répertoire
 \begin{itemize}
-\item \textbf{\texttt{delete(Path)}}
-\begin{itemize}
-\item lance une exception si le fichier/répertoire n'existe pas
+	\item \textbf{\texttt{delete(Path)}} \\
+	lance une exception si le fichier/répertoire n'existe pas
+	\item \textbf{\texttt{deleteIfExists(Path)}}
 \end{itemize}
-\item \textbf{\texttt{deleteIfExists(Path)}}
-\end{itemize}
-\item \begin{lstlisting}{} 
+\begin{Java} 
 try {
     Files.delete(path);
 } catch (NoSuchFileException x) {
@@ -269,70 +264,76 @@ try {
     // are caught here.
     System.err.println(x);
 }
-\end{lstlisting} 
+\end{Java} 
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Opérations sur les fichiers, la classe <<Files>>}
 \begin{itemize}
 \item Copier un fichier ou un répertoire
-\begin{itemize}
-\item \textbf{\texttt{copy(Path, Path, CopyOption)}}
-\begin{itemize}
-\item Sans l'option \textit{replace existing}, 
-la copie échoue si le fichier existe
-\item Copier un répertoire vers un autre ne copie que le répertoire
-\textbf{pas son contenu}
-\end{itemize}
-\item Copie de fichiers ou de répertoires
-\begin{lstlisting}{} 
+	\begin{itemize}
+		\item \textbf{\texttt{copy(Path, Path, CopyOption)}}
+		\begin{itemize}
+		\item Sans \textit{replace existing}, la copie échoue si le fichier existe
+		\item Copier un répertoire vers un autre ne copie que le répertoire
+		\textbf{pas son contenu}
+		\end{itemize}
+		\item Copie de fichiers ou de répertoires
+\begin{Java} 
 Files.copy(source, target);
 Files.copy(source, target, CopyOption.REPLACE\_EXISTING);
-\end{lstlisting} 
-\item Il existe deux méthodes permettant de copier de/vers un autre type de lfux
-\begin{itemize}
-\item \texttt{copy(InputStream, Path, CopyOption...)}
-\item \texttt{copy(Path, OutputStream)}
-\end{itemize}
-\end{itemize}
+\end{Java} 
+		\item Il existe deux méthodes permettant de copier de/vers un 
+		\textbf{autre type de flux}
+		\begin{itemize}
+			\item \texttt{copy(InputStream, Path, CopyOption...)}
+			\item \texttt{copy(Path, OutputStream)}
+		\end{itemize}
+	\end{itemize}
 \item Déplacer un fichier ou un répertoire
-\begin{itemize}
-\item \textbf{\texttt{move(Path, Path, CopyOption)}}
-\begin{itemize}
-\item \textit{idem} \texttt{copy}
-\end{itemize}
-\end{itemize}
+	\begin{itemize}
+		\item \textbf{\texttt{move(Path, Path, CopyOption)}}
+		\begin{itemize}
+			\item \textit{idem} \texttt{copy}
+		\end{itemize}
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Opérations sur les fichiers, la classe <<Files>>}
 \begin{itemize}
-\item Obtenir les métadonnées d'un fichier \\ 
+\item Obtenir les métadonnées d'un fichier \\
+(quelques méthodes en vrac) \\ 
 \begin{center}\tt
-size(Path) isHidden(Path)  isDirectory(Path) isRegularFile(Path) isSymbolicLink(Path) getLastModifiedTime(Path, LinkOption...) setLastModifiedTime(Path, FileTime)  \\  getOwner(Path, LinkOption...)  \\ setOwner(Path, UserPrincipal) ...
+size(Path) isHidden(Path)  isDirectory(Path) isRegularFile(Path)
+isSymbolicLink(Path) getLastModifiedTime(Path, LinkOption...)
+setLastModifiedTime(Path, \textit{FileTime})  \\  getOwner(Path, LinkOption...)
+\\ setOwner(Path, \textit{UserPrincipal}) ...
 \end{center}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Opérations sur les fichiers, la classe <<Files>>}
 \begin{itemize}
-\item Obtenir les métadonnées d'un fichier (suite)
-\begin{itemize}
-\item \texttt{FileTime} représente un temps associé à un fichier. 
-Par exemple, un \textit{timestamp} dans une heure
-\begin{lstlisting}{} 
+	\item Obtenir les métadonnées d'un fichier (suite)
+	\begin{itemize}
+		\item \texttt{FileTime} représente un temps associé à un fichier. 
+		Par exemple, un \textit{timestamp} dans une heure
+\begin{Java} 
 FileTime ft = FileTime.fromMillis(
     System.currentTimeMillis() 
        + (1000*60*60));
-\end{lstlisting} 
-\item La valeur de \texttt{UserPrincipal} est obtenue grâce au 
-\textit{user lookup service} comme suit
-\begin{lstlisting}{} 
+\end{Java} 
+		\item La valeur de \texttt{UserPrincipal} est obtenue grâce au 
+		\textit{user lookup service} comme suit
+\begin{Java} 
 UserPrincipal owner = FileSystems.getDefault()
     .getUserPrincipalLookupService()
     .lookupPrincipalByName("alice");
-\end{lstlisting} 
-\end{itemize}
+\end{Java} 
+		{\small La classe \emph{\texttt{FileSystems}} est une classe utilitaire de
+		NIO.2}
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -344,7 +345,7 @@ UserPrincipal owner = FileSystems.getDefault()
 \item Lire un fichier
 \begin{itemize}
 \item \textbf{Rappel} Pour lire un fichier, on faisait:
-\begin{lstlisting}{} 
+\begin{Java} 
 try {
     BufferedReader reader = new BufferedReader(
         new FileReader("input.txt"));
@@ -356,33 +357,39 @@ catch (IOException x) {
       try {
           reader.close();
       } catch (IOException x2) {
-           // Plus rien à faire (on ne peut 
-           // même pas fermer le flux
+           // Plus rien à faire
       }
    }
 }
-\end{lstlisting} 
+\end{Java} 
 \end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Où l'on reparle de lire / écrire des fichiers}
 \begin{itemize}
+	\item Lire un fichier (suite)
+	\begin{itemize}
+		\item La classe \texttt{\emph{Files}} propose une méthode  \\ 
+		\hspace{1cm}\texttt{newBufferedReader(Path, Charset)}
+		\begin{itemize}
+			\item plus efficace
+			\item la méthode est \texttt{Closeable}
+		\end{itemize}
+		\bigskip
+		\item C'est une \textbf{bonne pratique d'utiliser le \textit{try-with-resources}} car alors le compilateur génère automatiquement le code permettant de fermer (\textit{close}) lesdites ressources (celles qui sont \texttt{Closeable})
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Où l'on reparle de lire / écrire des fichiers}
+\begin{itemize}
 \item Lire un fichier (suite)
-\begin{itemize}
-\item La classe \texttt{Files} propose une méthode  \\ 
-\hspace{1cm}\texttt{newBufferedReader(Path, Charset)}
-\begin{itemize}
-\item plus efficace
-\item la méthode est \texttt{Closeable}
-\end{itemize}
-\item C'est une \textbf{bonne pratique d'utiliser le \textit{try-with-resources}} car alors le compilateur génère automatiquement le code permettant de fermer (\textit{close}) lesdites ressources (celles qui sont \texttt{Closeable})
-\end{itemize}
-\item \begin{lstlisting}{} 
+\begin{Java} 
 // ...
 Charset charset = Charset.forName("UTF-8");
 Path file = Paths.get(args[0]);
-try (BufferedReader reader = Files.newBufferedReader(file, charset)) {
+try (BufferedReader reader = Files.newBufferedReader(file, charset)){
     String line = null;
     while ((line = reader.readLine()) != null) {
         System.out.println(line);
@@ -391,7 +398,7 @@ try (BufferedReader reader = Files.newBufferedReader(file, charset)) {
     System.err.format("IOException: %s%n", x);
     System.exit(1);
 }
-\end{lstlisting} 
+\end{Java} 
 \end{itemize}
 \end{frame}
 
@@ -399,32 +406,40 @@ try (BufferedReader reader = Files.newBufferedReader(file, charset)) {
 \begin{itemize}
 \item Écrire un fichier
 \begin{itemize}
-\item De même, la classe \texttt{Files} propose une méthode  \\ 
+\item De même, la classe \texttt{\emph{Files}} propose une méthode  \\ 
 \hspace{1cm}\texttt{newBufferedWriter(Path, Charset)}
 \end{itemize}
-\item \begin{lstlisting}{} 
+\item \begin{Java} 
 // ...
 Charset charset = Charset.forName("UTF-8");
 Path file = Paths.get(args[0]);
 String s = "Hello world\n";
-try (BufferedWriter writer = Files.newBufferedWriter(file, charset)) {
+try (BufferedWriter writer = Files.newBufferedWriter(file, charset)){
     writer.write(s, 0, s.length());
 } catch (IOException x) {
     System.err.format("IOException: %s%n", x);
 }
-\end{lstlisting} 
+\end{Java} 
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}[fragile]{Où l'on reparle de lire / écrire des fichiers}
 \begin{itemize}
-\item D'autres méthodes encore de la classe \texttt{Files}
+	\item D'autres méthodes encore de la classe \texttt{\emph{Files}}
+	\begin{itemize}
+		\item \texttt{newInputStream(Path, OpenOption...)} retournant un \textit{input stream}
+		\item \texttt{newOutputStream(Path, OpenOption...)} retournant un \textit{output stream}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Où l'on reparle de lire / écrire des fichiers}
 \begin{itemize}
-\item \texttt{newInputStream(Path, OpenOption...)} retournant un \textit{input stream}
-\item \texttt{newOutputStream(Path, OpenOption...)} retournant un \textit{output stream}
-\item \texttt{createTempFile(String, String)} pour créer un \textbf{fichier temporaire}
-\item \begin{lstlisting}{} 
+\item D'autres méthodes encore de la classe \texttt{\emph{Files}} (suite)
+	\begin{itemize}
+		\item \texttt{createTempFile(String, String)} pour créer un \textbf{fichier temporaire}
+\begin{Java} 
 try {
     Path tempFile =
         Files.createTempFile(null, ".myapp");
@@ -433,9 +448,9 @@ try {
 } catch (IOException x) {
     System.err.format("IOException: %s%n", x);
 }
-\end{lstlisting} 
+\end{Java} 
 $\longrightarrow$ The temporary file has been created: /tmp/8614889884323775294.myapp
-\end{itemize}
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -448,7 +463,7 @@ $\longrightarrow$ The temporary file has been created: /tmp/8614889884323775294.
 \begin{itemize}
 \item \texttt{probeContentType(Path)} permet d'obtenir le MIME type d'un fichier
 \end{itemize}
-\item \begin{lstlisting}{} 
+\item \begin{Java} 
 // ...
 try {			 
     path = Paths.get(args[0]).toRealPath();
@@ -460,7 +475,7 @@ try {
     System.err.println(x);
     System.exit(1);
 }
-\end{lstlisting} 
+\end{Java} 
 \end{itemize}
 \end{frame}
 
@@ -469,18 +484,24 @@ try {
 
 \begin{frame}[fragile]{Au sujet des exceptions}
 \begin{itemize}
-\item La plupart des méthodes retournent une \texttt{IOException}
-\begin{itemize}
-\item \texttt{java.io.Exception}
+	\item La plupart des méthodes retournent une \texttt{IOException}
+	\begin{itemize}
+		\item \texttt{java.io.Exception}
+	\end{itemize}
+	\bigskip
+	\item La classe \texttt{\emph{FileSystemException}} est une 
+	\texttt{IOException} offrant plus d'informations sur l'exception
+	\begin{itemize}
+		\item \texttt{java.nio.file.FileSystemException}
+		\item \texttt{getReason}, \texttt{getFile}, \texttt{getMessage}, \texttt{getOtherFile}
+	\end{itemize}
 \end{itemize}
-\item La classe \texttt{FileSystemException} est une 
-\texttt{IOException} offrant plus d'informations sur l'exception
+\end{frame}
+
+\begin{frame}[fragile]{Au sujet des exceptions}
 \begin{itemize}
-\item \texttt{java.nio.file.FileSystemException}
-\item \texttt{getReason}, \texttt{getFile}, \texttt{getMessage}, \texttt{getOtherFile}
-\end{itemize}
-\item Il pourrait être intéressant d'écrire ...
-\begin{lstlisting}{} 
+	\item Il pourrait être intéressant d'écrire (par exemple) ...
+\begin{Java} 
 try {			 
     // ...
 } catch (FileSystemException x) {
@@ -491,7 +512,7 @@ try {
     System.err.println(x);
     System.exit(1);
 }
-\end{lstlisting} 
+\end{Java} 
 \end{itemize}
 \end{frame}
 
@@ -515,4 +536,3 @@ http://docs.oracle.com/javase/tutorial/essential/io/walk.html
 \end{itemize}
 \end{frame}
 
-\end{document}
