@@ -42,13 +42,15 @@ void f(int nb) {
 \begin{frame}[fragile]{Itinéraire d'une exception}
 Une exception remonte la <<pile d'appel>> jusqu'à ce qu'un bout de code dédié l'attrape.
 \\\bigskip
-\emph{Exemple} : \java{main} appelle \java{f} qui appelle \java{g}       
+\emph{Exemple} : \java{main} appelle \java{f} qui appelle \java{toInt}       
 \begin{itemize}
 \item[]
   \begin{Java}
-  void g() { int nb = Integer.parseInt("Douze"); }
+  public int toInt (String chaine) {
+      return Integer.parseInt(chaine);
+  }
   \end{Java}
-\item \java{g} ne gère pas l'exception, elle passe à \java{f}
+\item \java{toInt} ne gère pas l'exception, elle passe à \java{f}
 \item Si \java{f} ne la gère pas, elle passe à \java{main}
 \item Si \java{main} ne la gère pas, elle passe à la \sigle{JVM}
 \item La \sigle{JVM} attrape tout, affiche un message complet et arrête le programme
@@ -208,7 +210,7 @@ Cette hiérarchie des exceptions explique pourquoi on peut écrire :
   \item Mise en oeuvre du polymorphisme
   \end{itemize}
 \bigskip
-\warning{À éviter car on attrape aussi d'\emph{autres} exceptions. (qu'on ne saura peut-être pas traiter)}
+\warning{À éviter ! On attrape aussi d'\emph{autres} exceptions (qu'on ne saura peut-être pas traiter)}
 \end{frame}
 
 \begin{frame}[fragile]{Attraper plusieurs exceptions}
@@ -529,6 +531,22 @@ public class DépassementCapacitéException extends Exception {
   \end{itemize}
 \item Permet d'indiquer un code qui doit toujours être exécuté
 \item Rarement utilisé (par ex: pour fermer une ressource externe comme un fichier)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Le try avec ressource}
+\includegraphics[scale=.5]{../img/java7.jpeg} Java 7
+\begin{itemize}
+\item Permet de s'assurer qu'une ressource sera bien libérée
+\\(un fichier par exemple)
+\item Plus facile et plus sûr que via la clause \java|finally|
+\item Plus d'info dans la leçon sur les entrées-sorties
+\item \emph{Exemple}
+\begin{Java}
+    try (InputStream fis = new FileInputStream(source)) {
+        // traitement du fichier
+    }   // ...
+\end{Java}
 \end{itemize}
 \end{frame}
 

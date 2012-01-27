@@ -202,16 +202,16 @@ Exemples & \java|Math| & \java|String|, \java|Scanner| \\
 \end{tabular}
 \end{small}
 \\\bigskip
-\textit{En pratique, on rencontrera des situations intermédiaires}
+\textit{En pratique, on rencontrera des situations mixtes}
 \end{frame}
 
 \begin{frame}{Visibilité des membres}
 En \sigle{Java} : 4 visibilités
 \begin{description}
-  \item[public] : visible dans \textbf{toutes} les classes
-  \item[privé] : n'est accessible que de \textbf{la} classe 
-  \item[<<paqueté>>] : (pas de mot clé)  visible dans toutes les classes du \textit{package}
-  \item[protégé] : (pas vu en 1ère année)
+  \item[public] : visible dans \textbf{toutes} les classes (\java|public|)
+  \item[privé] : n'est accessible que de \textbf{la} classe (\java|private|)
+  \item[<<paqueté>>] : visible dans toutes les classes du \textit{package} (pas de mot clé)
+  \item[protégé] : pas vu en 1ère année (\java|protected|)
 \end{description}
 \bigskip
 Rappel \emph{bonne pratique} :
@@ -371,7 +371,7 @@ Il est conseillé d'effectuer des \emph{tests de validité} sur les paramètres
 \end{itemize}
 \emph{Exemple} :
 \begin{Java}
-  public void setnuméro(int unNuméro) {
+  public void setNuméro(int unNuméro) {
     if (unNuméro<=0) {
       throw new IllegalArgumentException("Le numéro est négatif !");
     }
@@ -458,12 +458,17 @@ Le mot clé \java{this} est une référence à soi-même
 \item Implicite lors d'une utilisation directe du membre
 \item \emph{Exemple}
   \begin{Java}
-  public Etudiant( String nom ) {
-    setNom( nom );  // implicitement: this.setNom( nom );
-  }
-
   public void setNom( String unNom ) {
     nom = unNom;  // implicitement: this.nom = unNom;
+  }
+
+  public void aRéussi() {
+    féliciter(); // implicitement : this.féliciter();
+    // ...
+  }
+
+  public void féliciter() {
+    // ...
   }
   \end{Java}
 \end{itemize}
@@ -501,7 +506,7 @@ Règle : un paramètre/une variable locale \emph{masque} un attribut
     \item Utilisation courante : constantes
   \\\emph{Exemple}
   \begin{Java}
-  public Board {
+  public class Board { 
     public static final int NB_LIGNES = 8;
     public static final int NB_COLONNES = 7;
   }
@@ -512,7 +517,7 @@ Règle : un paramètre/une variable locale \emph{masque} un attribut
 \begin{frame}[fragile]{Comprendre <<static>>}
   \emph{Méthode} statique
   \begin{itemize}
-    \item Elle ne possède ni ne peut modifier les attributs de l'objet
+    \item Ne peut pas accéder aux membres des instances
     \item Utilisation courante : méthodes non objets
   \\\emph{Exemple}
   \begin{Java}
@@ -682,9 +687,13 @@ Une classe définit un type de données
 \begin{Java}
 // Affiche un tableau d'étudiants
 public static void afficher(Etudiant[] étudiants) {
+    int année;
     System.out.println("Il y a " + étudiants.length + " étudiants");
     for( Etudiant étudiant : étudiants ) {
-        System.out.println( étudiant );
+        System.out.print( étudiant.getNuméro() 
+                 + ", " + étudiant.getNom() 
+                 + ", " + étudiant.getAnnée() 
+                 );
     }
 }
 \end{Java}
@@ -703,10 +712,10 @@ public static void tournéeGénérale(Etudiant[] étudiants) {
 \begin{Java}
   // Test
   Etudiant[] groupe11 = {
-      new Etudiant("20000", "Tintin"),
-      new Etudiant("20001", "Milou"),
-      new Etudiant("20002", "Professeur Tournesol"),
-      new Etudiant("20003", "Capitaine Haddock");
+      new Etudiant(20000, "Tintin"),
+      new Etudiant(20001, "Milou"),
+      new Etudiant(20002, "Professeur Tournesol"),
+      new Etudiant(20003, "Capitaine Haddock");
   };
   afficher(groupe11);
   tournéeGénérale(groupe11);
@@ -726,7 +735,7 @@ Un tableau définit un type de données
 \end{frame}
 
 \begin{frame}[fragile]{Des tableaux \textbf{dans} les objets}
-\begin{Java}
+\begin{Java}[basicstyle=\scriptsize]
 public class Groupe {
     private Etudiant[] étudiants;
     private int nbEtudiants;
@@ -744,29 +753,33 @@ public class Groupe {
         étudiants[nbEtudiants] = étudiant;
         nbEtudiants++;
     }
+
     // ...
 \end{Java}
 \end{frame}
 
 \begin{frame}[fragile]{Des tableaux \textbf{dans} les objets}
-\begin{Java}
+\begin{Java}[basicstyle=\scriptsize]
     public void afficher() {
         System.out.println("Il y a " + nbEtudiants + " étudiants");
         // Pourquoi pas un foreach ?
         for( int i=0; i<nbEtudiants; i++ ) {
-            System.out.println( étudiants[i] );
+            System.out.print( étudiant.getNuméro() 
+                     + ", " + étudiant.getNom() 
+                     + ", " + étudiant.getAnnée() 
+                     );
+        }
     }
-    
     // On pourrait encore définir beaucoup de méthodes utiles
 }
 \end{Java}
-\begin{Java}
+\begin{Java}[basicstyle=\scriptsize]
   // Test
   Groupe groupe11 = new Groupe(10);
-  groupe11.ajouter(new Etudiant("20000", "Tintin"));
-  groupe11.ajouter(new Etudiant("20001", "Milou"));
-  groupe11.ajouter(new Etudiant("20002", "Professeur Tournesol"));
-  groupe11.ajouter(new Etudiant("20003", "Capitaine Haddock"));
+  groupe11.ajouter(new Etudiant(20000, "Tintin"));
+  groupe11.ajouter(new Etudiant(20001, "Milou"));
+  groupe11.ajouter(new Etudiant(20002, "Professeur Tournesol"));
+  groupe11.ajouter(new Etudiant(20003, "Capitaine Haddock"));
   groupe11.afficher();
 \end{Java}
 \end{frame}
