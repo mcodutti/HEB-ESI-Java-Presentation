@@ -173,9 +173,7 @@ permet de créer un chemin sur base de deux chemins incomplets
 \begin{Java} 
 Path path;
 path = Paths.get(".").toRealPath();
-System.err.println("Error: " + e.getMessage());
-System.exit(1);
-}
+// ...
 System.out.println("Path: " + path);		
 System.out.println("Path: " + path.resolve("file"));			
 \end{Java} 
