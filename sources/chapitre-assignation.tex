@@ -131,16 +131,64 @@ Il existe tout de même une différence
   \begin{itemize}
   \item \java|++i| : \java|i| est incrémenté \emph{avant} d'être utilisé
   \item \java|i++| : \java|i| est incrémenté \emph{après} avoir été utilisé
-  \item Exemples
+  \item \emph{Exemples}
+  \begin{Java}
+    int i = 5;
+    j = i++;
+    j = ++i;
+    System.out.println(i++);
+  \end{Java}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Post/pré incrémentation/décrémentation}
+Précisons.
+\begin{itemize}
+\item Avec \java|i++| :
+  \begin{enumerate}
+  \item \java|i| donne sa valeur à l'expression \java|i++|
+  \item \java|i| est incrémenté
+  \end{enumerate}
+\item Avec \java|++i| :
+  \begin{enumerate}
+  \item \java|i| est incrémenté
+  \item \java|i| donne sa valeur à l'expression \java|++i|
+  \end{enumerate}
+\end{itemize}
+\emph{Exemples}
   \begin{Java}
     int i = 5;
     i = i++;
     i = ++i;
     i = i++ + ++i;
+    i = ++i + i++;
     i = (i++)++;    
     i = 2++;        
   \end{Java}
-  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Post/pré incrémentation/décrémentation}
+\emph{Exercice} : Qu'affichent les bouts de code suivants
+\begin{Java}
+for(int i=0; i<5; i++) {
+    System.out.println(i);
+}
+\end{Java}
+\begin{Java}
+for(int i=0; i<5; ++i) {
+    System.out.println(i);
+}
+\end{Java}
+\begin{Java}
+for(int i=0; i<5; i++) {
+    System.out.println(i++);
+}
+\end{Java}
+\begin{Java}
+for(int i=0; ++i<5; ) {
+    System.out.println(i);
+}
+\end{Java}
 \end{frame}
 
 \begin{frame}[fragile]{Post/pré incrémentation/décrémentation}
