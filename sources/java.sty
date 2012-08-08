@@ -99,6 +99,24 @@
 \end{frame}
 }
 
+\newcommand{\leconwithtocquote}[1]{
+\begin{frame}
+\begin{block}{\center Leçon \thesection}
+  {
+  \begin{center}
+  \insertsection
+  \end{center}
+  \tableofcontents[sectionstyle=hide,subsectionstyle=show/show/hide]
+  \bigskip
+  }
+\end{block}
+\bigskip
+  \begin{flushright}
+  \small\textit{#1}
+  \end{flushright}
+\end{frame}
+}
+
 \newcommand{\leconwithtocinside}{
 \begin{frame}
 \begin{block}{\center Où en sommes-nous ?}
@@ -136,6 +154,23 @@
   \bigskip
   }
 \end{block}
+\end{frame}
+}
+
+\newcommand{\leconwithabstractquote}[2]{
+\begin{frame}
+\begin{block}{\center Leçon \thesection\ --- \insertsection}
+  {
+  \medskip
+  \begin{center}
+  \textit{#1}
+  \end{center}
+  }
+\end{block}
+\bigskip
+  \begin{flushright}
+  \small\textit{#2}
+  \end{flushright}
 \end{frame}
 }
 
