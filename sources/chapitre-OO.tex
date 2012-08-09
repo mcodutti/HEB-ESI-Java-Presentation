@@ -1062,16 +1062,16 @@ Objects fournit aussi des méthodes facilitant les tests.
 \\\medskip
 Ceci n'est pas suffisant
 \begin{Java}
-  if (adresse.equals(autre.adresse)) { //...
+  if (adresse1.equals(adresse2)) { //...
 \end{Java}
 On peut le rendre plus sûr en écrivant
 \begin{Java}
-  if (   adresse == autre.adresse // ok si les 2 sont null 
-      || adresse != null && adresse.equals(autre.adresse) ) { //...
+  if (   adresse1 == adresse2 // ok si les 2 sont null 
+      || adresse1 != null && adresse1.equals(adresse2) ) { //...
 \end{Java}
 \java|Objects.equals| fait la même chose en plus court
 \begin{Java}
-  if ( Objects.equals(adresse, autre.adresse) ) { //...
+  if ( Objects.equals(adresse1, adresse2) ) { //...
 \end{Java} 
 \end{frame}
 
