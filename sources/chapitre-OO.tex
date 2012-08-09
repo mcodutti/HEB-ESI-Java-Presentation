@@ -764,9 +764,9 @@ public class Groupe {
         System.out.println("Il y a " + nbEtudiants + " étudiants");
         // Pourquoi pas un foreach ?
         for( int i=0; i<nbEtudiants; i++ ) {
-            System.out.print( étudiant.getNuméro() 
-                     + ", " + étudiant.getNom() 
-                     + ", " + étudiant.getAnnée() 
+            System.out.print( étudiant[i].getNuméro() 
+                     + ", " + étudiant[i].getNom() 
+                     + ", " + étudiant[i].getAnnée() 
                      );
         }
     }
