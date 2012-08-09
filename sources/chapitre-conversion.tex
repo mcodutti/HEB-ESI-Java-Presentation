@@ -424,25 +424,27 @@ Remarques sur les conversions \emph{arrondisantes}
   \begin{itemize}
   \item on prend les octets de poids faible
   \item $\Longrightarrow$ valeur convertie peut être fort différente
-  \end{itemize}
+  \end{itemize}\medskip
 \item \emph{Exemple} : \java{byte b = (byte) 256;}
-\end{itemize}
-\medskip
-\begin{center}
-256 = 
+  \medskip
+  \begin{itemize}
+  \item 256 = 
 \begin{tabular}{|c|c|c|c|}
 \hline
-0 & 0 & 0 \dots 0 1 & 0 \\
+0 & 0 & 1 & 0 \\
 \hline
 \end{tabular}
-$\Longrightarrow$ b = 
+(\java|int| codé sur 4 bytes)
+  \medskip
+  \item $\Longrightarrow$ b = 
 \begin{tabular}{|c|}
 \hline
 0 \\
 \hline
 \end{tabular}
 = 0
-\end{center}
+  \end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Le \textit{casting}}
