@@ -62,7 +62,7 @@ Illustrons ces concepts avec la notion d'\textit{étudiant à l'ESI}
         \hline
         - numéro : Entier\\
         - nom : Chaine\\
-        - annéeEtude : Entier\\
+        - annéeÉtude : Entier\\
         - doubleur : Booléen\\
         - ancien : Booléen\\
         \hline
@@ -100,7 +100,7 @@ Illustrons ces concepts avec la notion d'\textit{étudiant à l'ESI}
       \hline
       - numéro = 34000\\
       - nom = "James Gosling"\\
-      - annéeEtude = 1\\
+      - annéeÉtude = 1\\
       - doubleur = faux\\
       - ancien = faux\\
       \hline
@@ -114,7 +114,7 @@ Illustrons ces concepts avec la notion d'\textit{étudiant à l'ESI}
       \hline
       - numéro = 33800\\
       - nom = "Ada Lovelace"\\
-      - annéeEtude = 2\\
+      - annéeÉtude = 2\\
       - doubleur = faux\\
       - ancien = faux\\
       \hline
@@ -146,7 +146,7 @@ Les méthodes d'une instance agissent sur les attributs de cette instance
 
     private int numéro; 
     private String nom;
-    private int annéeEtude;
+    private int annéeÉtude;
     private boolean doubleur;
     private boolean ancien; 
 
@@ -158,8 +158,8 @@ Les méthodes d'une instance agissent sur les attributs de cette instance
 
     public void aRéussi() {
       doubleur = false;
-      annéeEtude++;
-      if (annéeEtude == 4 ) {
+      annéeÉtude++;
+      if (annéeÉtude == 4 ) {
         ancien = true;
       }
     }
@@ -226,7 +226,7 @@ Rappel \emph{bonne pratique} :
   public Etudiant (int unNuméro, String unNom) {
     numéro = unNuméro;
     nom = unNom;
-    annéeEtude = 1;
+    annéeÉtude = 1;
     doubleur = false;
     ancien = false;
   }
@@ -302,7 +302,7 @@ Code que l'on peut trouver
 \begin{Java}
   public int getNuméro() {return numéro;}
   public String getNom() {return nom;}
-  public int getAnnéeEtude() {return annéeEtude;}
+  public int getAnnéeÉtude() {return annéeÉtude;}
   public boolean isDoubleur() {return doubleur;}
   public boolean isAncien() {return ancien;}
 \end{Java}
@@ -316,12 +316,12 @@ Par convention, l'accesseur de \java|attribut| est \java|getAttribut|
 \begin{Java}
 public static void main(String[] args) {
     Etudiant ada = new Etudiant(33800, "Ada Lovelace");
-    System.out.println(ada.getAnnéeEtude()); // 1
+    System.out.println(ada.getAnnéeÉtude()); // 1
     ada.aRéussi();
-    System.out.println(ada.getAnnéeEtude()); // 2
+    System.out.println(ada.getAnnéeÉtude()); // 2
     System.out.println(ada.isDoubleur()); // false
     ada.aRaté();
-    System.out.println(ada.getAnnéeEtude()); // 2
+    System.out.println(ada.getAnnéeÉtude()); // 2
     System.out.println(ada.isDoubleur()); // true
 }
 \end{Java}
@@ -418,7 +418,7 @@ Très utile pour les constructeurs
   public Etudiant (int unNuméro, String unNom) {
     numéro = unNuméro;
     nom = unNom;
-    annéeEtude = 1;
+    annéeÉtude = 1;
     doubleur = false;
     ancien = false;
   }
@@ -427,7 +427,7 @@ Très utile pour les constructeurs
                    boolean doubl, boolean anc) {
     numéro = unNuméro;
     nom = unNom;
-    annéeEtude = année;
+    annéeÉtude = année;
     doubleur = doubl;
     ancien = anc;
   }
@@ -632,7 +632,7 @@ public class Adresse {
   private String localité;
   
   public Adresse (String uneRue, String unNuméro, 
-          int unCodePostal, String unelocalité) {
+          int unCodePostal, String uneLocalité) {
     // ...
   }
   // + accesseurs 
@@ -687,12 +687,11 @@ Une classe définit un type de données
 \begin{Java}
 // Affiche un tableau d'étudiants
 public static void afficher(Etudiant[] étudiants) {
-    int année;
     System.out.println("Il y a " + étudiants.length + " étudiants");
     for( Etudiant étudiant : étudiants ) {
         System.out.print( étudiant.getNuméro() 
                  + ", " + étudiant.getNom() 
-                 + ", " + étudiant.getAnnée() 
+                 + ", " + étudiant.getAnnéeÉtude() 
                  );
     }
 }
@@ -883,7 +882,7 @@ On peut redéfinir la méthode \java|toString|
     if (ancien) {
         res = res + ", ancien";
     } else {
-        res = res + ", " + annéeEtude;
+        res = res + ", " + annéeÉtude;
         if (doubleur) { 
             res = res + ", doubleur";
         }
@@ -999,7 +998,7 @@ Au final, on a
     Etudiant autre = (Etudiant) o;
     return this.numéro ==  autre.numéro 
         && this.nom.equals(autre.nom)
-        && this.annéeEtude == autre.annéeEtude
+        && this.annéeÉtude == autre.annéeÉtude
         && this.doubleur == autre.doubleur
         && this.ancien == autre.ancien;
   }
