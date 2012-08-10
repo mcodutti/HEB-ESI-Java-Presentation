@@ -506,9 +506,9 @@ Règle : un paramètre/une variable locale \emph{masque} un attribut
     \item Utilisation courante : constantes
   \\\emph{Exemple}
   \begin{Java}
-  public class Board { 
-    public static final int NB_LIGNES = 8;
-    public static final int NB_COLONNES = 7;
+  public class Math { 
+    public static final double PI = 3.14159265358979323846;
+    public static final double E = 2.7182818284590452354;
   }
   \end{Java}
   \end{itemize}
@@ -548,7 +548,7 @@ Règle : un paramètre/une variable locale \emph{masque} un attribut
 
 \begin{frame}[fragile]{Comprendre <<static>>}
   \java{import static} crée un raccourci pour l'accès aux membres statiques 
-  \\\bigskip\emph{Exemple}
+  \\\medskip\emph{Exemple}
   \begin{Java}
   import static java.lang.Math.log;
   import static java.lang.Math.E;
@@ -557,6 +557,10 @@ Règle : un paramètre/une variable locale \emph{masque} un attribut
       System.out.println( log(E) );
     }
   }
+  \end{Java}
+  \medskip\emph{Exemple}
+  \begin{Java}
+  import static org.junit.Assert.*;
   \end{Java}
 \end{frame}
 
@@ -908,8 +912,8 @@ L'affichage est à présent plus clair
   \item[] affiche
   \item[]
   \begin{Java}
-  (Lovelace,33800,1)
-  (Lovelace,33800,2)
+  (Ada Lovelace,33800,1)
+  (Ada Lovelace,33800,2)
   \end{Java}
   \end{itemize}
 \end{frame}
