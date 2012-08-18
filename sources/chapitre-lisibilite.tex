@@ -63,9 +63,9 @@ Nous lui prÈfÈrons celui-ci plus lisible :
   double ‡Payer;
   int prixUnitaire = clavier.nextInt();
   int nombreArticles = clavier.nextInt();
-  int tauxTva = clavier.nextInt();
+  int tauxTVA = clavier.nextInt();
 
-  ‡Payer = prixUnitaire * nombreArticles * (1 + tauxTva/100.0);
+  ‡Payer = prixUnitaire * nombreArticles * (1 + tauxTVA/100.0);
 
   System.out.println(‡Payer);
 \end{Java}
@@ -86,10 +86,10 @@ Nous lui prÈfÈrons celui-ci plus lisible :
 \begin{frame}[fragile]{Un code lisible}
 \emph{Exemple} : reprenons l'exemple du calcul du prix ‡ payer
 \begin{Java}
-  int prixUnitaireHTva = clavier.nextInt();
+  int prixUnitaireHTVA = clavier.nextInt();
   int nombreArticles = clavier.nextInt();
-  int tauxTva = clavier.nextInt();
-  int prixUnitaireTTC = prixUnitaireHTva * (1 + tauxTva/100.0);                               
+  int tauxTVA = clavier.nextInt();
+  int prixUnitaireTTC = prixUnitaireHTVA * (1 + tauxTVA/100.0);                               
   double ‡Payer = prixUnitaireTTC * nombreArticles;
 \end{Java}
 \medskip

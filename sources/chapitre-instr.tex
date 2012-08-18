@@ -457,15 +457,20 @@ Exemples divers
 for(;;) System.out.println("Je ne me fatigue pas !");
 \end{Java}
 \begin{Java}
-int[] tab = {1,2,3,4,5};
+int[] entiers = {1,2,3,4,5};
 int i,j;
-int n = tab.length;
+int n = entiers.length;
 for(i=0,j=n-1; i<n/2; i++,--j) {
-    int t = tab[i];
-    tab[i] = tab[j];
-    tab[j] = t;
+    int t = entiers[i];
+    entiers[i] = entiers[j];
+    entiers[j] = t;
 }
 \end{Java} 
+\begin{Java}
+for(int i=0; ++i<5; ) {
+    System.out.println(i);
+}
+\end{Java}
 \end{frame}
 
 \begin{frame}[fragile]{foreach}
@@ -486,18 +491,18 @@ for(i=0,j=n-1; i<n/2; i++,--j) {
 
 \begin{frame}[fragile]{foreach - exemples}
 \begin{Java}
-double[] tab = new double[10];
+double[] réels = new double[10];
 ...
-for( double valeur : tab ) {
+for( double valeur : réels ) {
     System.out.println( valeur );
 }
 \end{Java}
 Écriture simplifiée pour
 \begin{Java}
-double[] tab = new double[10];
+double[] réels = new double[10];
 ...
-for( int i=0; i<tab.length; i++) {
-    double valeur = tab[i];
+for( int i=0; i<réels.length; i++) {
+    double valeur = réels[i];
     System.out.println( valeur );
 }
 \end{Java}
@@ -509,9 +514,9 @@ for( int i=0; i<tab.length; i++) {
 \item OK pour consulter
 \item mais \emph{pas pour modifier}
 \begin{Java}
-double[] tab = new double[10];
+double[] réels = new double[10];
 ...
-for( double valeur : tab ) {
+for( double valeur : réels ) {
     valeur = 1.0; // aucune erreur mais...
     // ne modifie pas le tableau !
 }

@@ -259,8 +259,8 @@ La taille doit être un \java|int|
 \emph{Rappel} : on connait la taille via \java|length|
 \par\medskip Si plusieurs dimensions
     \begin{itemize}
-    \item Taille (potentiellement) différente d'un élément à l'autre
-    \item $\Rightarrow$ Spécifier l'élément
+    \item Taille (potentiellement) différente d'une ligne à l'autre
+    \item $\Rightarrow$ Spécifier la ligne
     \item Exemple :
       \begin{Java}
   int[][]t = {{1,2},{2,3,4}};
@@ -445,7 +445,8 @@ Pourrait s'écrire
 \begin{frame}[fragile]{Erreurs et exceptions}
 Lors de l'accès à un élément
 \begin{itemize}
-\item Si l'indice n'est pas valide (par rapport à la taille du tableau), la \sigle{JVM} lance une exception (\emph{IndexOutOfBoundException})
+\item Si l'indice n'est pas valide (par rapport à la taille du tableau), 
+la \sigle{JVM} lance une exception (\emph{ArrayIndexOutOfBoundException})
 \item \emph{Exemple} :
 \begin{Java}
   int[] entiers = {7,14,0};
