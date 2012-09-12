@@ -15,7 +15,7 @@
 \emph{Principe} \textit{varargs} est un principe java permettant 
 d'écrire des méthodes acceptant un nombre variable d'arguments
 
-\bigskip Une même méthode \texttt{foo} peut-être appelée 
+\bigskip Une même méthode \texttt{foo} peut être appelée 
 \begin{Java} 
 foo("one");
 foo("one","two");
@@ -326,9 +326,9 @@ UserPrincipal owner = FileSystems.getDefault()
 \leconwithtocinside 
 
 \begin{frame}[fragile]{Où l'on reparle de lire / écrire des fichiers}
-Lire un fichier
+Lire dans un fichier
 \begin{itemize}
-\item \textbf{Rappel} Pour lire un fichier, on faisait:
+\item \textbf{Rappel} Pour lire dans un fichier, on faisait:
 \begin{Java} 
 try {
     BufferedReader reader = new BufferedReader(
@@ -350,7 +350,7 @@ catch (IOException x) {
 \end{frame}
 
 \begin{frame}[fragile]{Où l'on reparle de lire / écrire des fichiers}
-Lire un fichier (suite)
+Lire dans un fichier (suite)
 	\begin{itemize}
 		\item La classe \texttt{\emph{Files}} propose une méthode  \\ 
 		\hspace{1cm}\texttt{newBufferedReader(Path, Charset)}
@@ -364,7 +364,7 @@ Lire un fichier (suite)
 \end{frame}
 
 \begin{frame}[fragile]{Où l'on reparle de lire / écrire des fichiers}
-Lire un fichier (suite)
+Lire dans un fichier (suite)
 \begin{Java} 
 // ...
 Charset charset = Charset.forName("UTF-8");
@@ -382,7 +382,7 @@ try (BufferedReader reader = Files.newBufferedReader(file, charset)){
 \end{frame}
 
 \begin{frame}[fragile]{Où l'on reparle de lire / écrire des fichiers}
-Écrire un fichier
+Écrire dans un fichier
 \begin{itemize}
 \item De même, la classe \texttt{\emph{Files}} propose une méthode  \\ 
 \hspace{1cm}\texttt{newBufferedWriter(Path, Charset)}
