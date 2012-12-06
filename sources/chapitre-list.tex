@@ -183,25 +183,44 @@ Recherche un élément de \emph{même valeur}
 
 \subsection{Wrapper}
 
-\begin{frame}{Wrapper}
+\begin{frame}{Les wrappers}
 Seuls les objets sont permis dans les listes.
 \begin{itemize}
 \item Et pour les types primitifs (\java|int|, \java|boolean|, \dots) ?
-\item Existence de \textit{wrapper} (\textit{enveloppe})
-  \begin{itemize}
-  \item Englobe une valeur primitive dans un objet
-  \item Conversion automatique de l'un à l'autre
-  \end{itemize}
+\item Existence de \emph{wrapper} (\emph{enveloppe})
+\item Englobe une valeur primitive dans un objet
 \end{itemize}
+{\small
 \begin{center}
-\begin{tabular}{r|l}
-  Type primitif & Enveloppe \\\hline
-  \java|int| & \java|Integer| \\
-  \java|boolean| & \java|Boolean| \\
-  \java|char| & \java|Character| \\
-  \dots & \dots \\
+\begin{tabular}{rcl|rcl}
+\java|boolean| & : & \code|Boolean|   & \java|int|    & : & \code|Integer| \\
+\java|byte|    & : & \code|Byte|      & \java|long|   & : & \code|Long| \\
+\java|char|    & : & \code|Character| & \java|float|  & : & \code|Float| \\
+\java|short|   & : & \code|Short|     & \java|double| & : & \code|Double| \\
 \end{tabular}
 \end{center}
+}
+\end{frame}
+
+\begin{frame}[fragile]{Les wrappers}
+Utile là o\`u un objet est requis
+\begin{itemize}
+\item \emph{Exemple}
+\begin{Java}
+  List<Integer> list = new ArrayList<Integer>();
+\end{Java}
+\end{itemize}
+Conversions automatiques
+\begin{itemize}
+\item Du primitif vers le wrapper (\emph{boxing})
+\item Du wrapper vers le primitif (\emph{unboxing})
+\item Ajoutées par le compilateur
+  \begin{itemize}
+  \item Dans les expressions
+  \item Dans les assignations
+  \item Avec les paramètres effectifs
+  \end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Wrapper}

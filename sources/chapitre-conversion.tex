@@ -315,55 +315,6 @@ System.out.println(1+2+"3");
 \end{itemize}
 \end{frame}
 
-\subsection{Boxing et unboxing}
-\leconwithtocinside
-
-\begin{frame}[fragile]{Les wrappers}
-\`A chaque type primitif correspond une classe \emph{englobante} (\emph{wrapper})
-
-{\small
-\begin{center}
-\begin{tabular}{rcl|rcl}
-\java|boolean| & : & \code|Boolean|   & \java|int|    & : & \code|Integer| \\
-\java|byte|    & : & \code|Byte|      & \java|long|   & : & \code|Long| \\
-\java|char|    & : & \code|Character| & \java|float|  & : & \code|Float| \\
-\java|short|   & : & \code|Short|     & \java|double| & : & \code|Double| \\
-\end{tabular}
-\end{center}
-}
-
-\begin{itemize}
-\item Objet avec la même valeur que la valeur primitive 
-\item Utile là o\`u un objet est requis
-\item \emph{Exemple}
-\begin{Java}
-  List<Integer> list = new ArrayList<Integer>();
-\end{Java}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Boxing / unboxing}
-Conversions automatiques
-\begin{itemize}
-\item Du primitif vers le wrapper (\emph{boxing})
-\item Du wrapper vers le primitif (\emph{unboxing})
-\item Ajoutées par le compilateur
-  \begin{itemize}
-  \item Dans les expressions
-  \item Dans les assignations
-  \item Avec les paramètres effectifs
-  \end{itemize}
-\item \emph{Exemple} : repérez les (un)boxing implicites
-\begin{Java}
-List<Integer> list = new ArrayList<Integer>();
-list.add(1);
-System.out.println(list.get(0)+1);
-list.set(0, list.get(0)+1 );
-int i = list.get(0);
-\end{Java}
-\end{itemize}
-\end{frame}
-
 \subsection{Le casting}
 \leconwithtocinside
 
@@ -410,7 +361,8 @@ Quelles sont les conversions permises ?
 \item \emph{identique}
   \begin{itemize}
   \item conversion dans le type que possède déjà l'expression 
-  \item par facilité (si on n'est pas sûr) 
+  \item par facilité (si on n'est pas sûr)
+  \item parfois nécessaire pour aider le compilateur (cf. OO)
   \item permise aussi dans les autres contextes car simplifie les règles
   \end{itemize}
 \end{itemize}
@@ -491,10 +443,9 @@ Il y a \emph{8 sortes} de conversions
 \begin{itemize}
 \item Élargissante / arrondissante de type primitif
 \item Conversion en chaine de caractères
-\item Boxing / Unboxing
 \item Conversion identique
-\item Élargissante / arrondissante de type référence
-\\On n'insiste pas sur celles-ci mais on peut en retrouver une illustration dans les méthodes \java|equals|
+\item \shaded{Boxing / Unboxing}
+\item \shaded{Élargissante / arrondissante de type référence}
 \end{itemize}
 \end{frame}
 
@@ -513,12 +464,12 @@ Il y a \emph{5 contextes} de conversion
 \begin{scriptsize}
 \begin{center}
 \begin{tabular}{r|cccccc}
- & élargis. & arrondi & chaine & boxing & unboxing & ident. \\ \hline
-promotion num. & $\surd$& & & & $\surd$ & $\surd$ \\
-assignation & $\surd$ & $\surd$ (*) &  & $\surd$& $\surd$ & $\surd$ \\
-chaine & & & $\surd$  & && $\surd$ \\
-casting & $\surd$ & $\surd$ &  &  $\surd$& $\surd$& $\surd$ \\ 
-méthode & $\surd$ & &  &  $\surd$& $\surd$& $\surd$ \\
+ & élargis. & arrondi & chaine & ident. \\ \hline
+promotion num. & $\surd$& & & $\surd$ \\
+assignation & $\surd$ & $\surd$ (*) & & $\surd$ \\
+chaine & & & $\surd$ & $\surd$ \\
+casting & $\surd$ & $\surd$ &  &  $\surd$ \\ 
+méthode & $\surd$ & &  & $\surd$ \\
 \hline
 \end{tabular}
 \end{center}
@@ -526,6 +477,24 @@ méthode & $\surd$ & &  &  $\surd$& $\surd$& $\surd$ \\
 (*) : sous certaines conditions
 \end{scriptsize}
 \end{frame}  
+
+%\begin{frame}[fragile]{Récapitulatif}
+%\begin{scriptsize}
+%begin{center}
+%\begin{tabular}{r|cccccc}
+% & élargis. & arrondi & chaine & boxing & unboxing & ident. \\ \hline
+%promotion num. & $\surd$& & & & $\surd$ & $\surd$ \\
+%assignation & $\surd$ & $\surd$ (*) &  & $\surd$& $\surd$ & $\surd$ \\
+%chaine & & & $\surd$  & && $\surd$ \\
+%casting & $\surd$ & $\surd$ &  &  $\surd$& $\surd$& $\surd$ \\ 
+%méthode & $\surd$ & &  &  $\surd$& $\surd$& $\surd$ \\
+%\hline
+%\end{tabular}
+%\end{center}
+%\bigskip
+%(*) : sous certaines conditions
+%\end{scriptsize}
+%\end{frame}  
 
 
 
