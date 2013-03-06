@@ -15,7 +15,7 @@
 \emph{Principe} \textit{varargs} est un principe java permettant 
 d'écrire des méthodes acceptant un nombre variable d'arguments
 
-\bigskip Une même méthode \texttt{foo} peut être appelée 
+\bigskip Une même méthode \texttt{foo} peut-être appelée 
 \begin{Java} 
 foo("one");
 foo("one","two");
@@ -114,7 +114,7 @@ vers un chemin absolu (si \texttt{pwd $\rightarrow$ /home/alice})
 Path path =  Paths.get("file");
 System.out.println(path.toAbsolutePath());
 \end{Java} 
-$\longrightarrow$ /home/alice/file
+$\longrightarrow$ /home/alice/foo
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -157,7 +157,7 @@ $ls -l /elsewhere
 lrwxrwxrwx 1   bob bob  13 Jan 13 16:57 link -> file
 		\end{Java} 
 		\item \texttt{java RealPath file} $\longrightarrow$ /elsewhere/file
-		\item \texttt{java RealPath /elsewhere/file} $\longrightarrow$ /eslewhere/file
+		\item \texttt{java RealPath /elsewhere/file} $\longrightarrow$ /elsewhere/file
 		\item \texttt{java RealPath link} $\longrightarrow$ /elsewhere/file
 		\end{itemize}
 	\end{itemize}
@@ -186,7 +186,7 @@ System.out.println("Path: " + path.resolve("file"));
 
 \begin{frame}[fragile]{L'interface <<Path>>}
 \begin{itemize}
-\item ... et finalement la classe \texttt{Path}
+\item ... et finalement l'interface \texttt{Path}
 \begin{itemize}
 \item impose une méthode \texttt{equals(Object)}
 \item ajoute des méthodes
