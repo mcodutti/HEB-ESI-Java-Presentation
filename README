@@ -41,5 +41,5 @@ Pour contribuer à une leçon, éditer le fichier chapitre*.tex correspondant
 
 - Les fichiers .tex et .sty sont en latin1 car en utf8, le package listings pose des problèmes (accents non reconnus)
 (TODO : vérifier si c'est toujours le cas)
-
+- 
 
