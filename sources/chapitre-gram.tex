@@ -7,91 +7,96 @@
 \subsection{La notion de grammaire}
 
 \begin{frame}{Le besoin d'une référence}
-Un langage de programmation doit pouvoir
-  \begin{itemize}
-  \item \emph{être décrit} auprès des programmeurs
-  \item faire l'objet d'une \emph{compilation rigoureuse}
-  \end{itemize} 
-\medskip\pause
-Il faut un \emph{document de référence}
-  \begin{itemize}
-  \item Pour Java : \emph{The Java Language Specification}
-    \begin{itemize}
-    \item Contient beaucoup de texte (en \emph{Anglais})
-    \item Ce qui est parfois \emph{incomplet} / \emph{ambigu}
-    \end{itemize} 
-  \end{itemize}
-\medskip\pause
-Nécessité d'utiliser un \emph{formalisme} précis
-  \begin{itemize}
-  \item En Logique : LDA
-  \item En Analyse : UML
-  \item En Langage : une \emph{grammaire} 
-  \end{itemize} 
+	Un langage de programmation doit pouvoir
+		\begin{itemize}
+		\item \emph{être décrit} auprès des programmeurs
+		\item faire l'objet d'une \emph{compilation rigoureuse}
+		\end{itemize} 
+	\medskip\pause
+	Il faut un \emph{document de référence}
+		\begin{itemize}
+		\item Pour Java : \emph{The Java Language Specification}
+			\begin{itemize}
+			\item Contient beaucoup de texte (en \emph{Anglais})
+				\\ parfois \emph{incomplet} / \emph{ambigu}
+			\item Nécessité d'utiliser un \emph{formalisme} précis : 
+				\\ une \emph{grammaire} 
+			\end{itemize} 
+		\end{itemize} 
+\end{frame}
+
+\begin{frame}{Analogie avec le français}
+	Le français aussi doit pouvoir être décrit
+	\begin{center}
+		phrase $\supset$ mots $\supset$ caractères
+	\end{center} 
+	\begin{itemize}
+		\item
+			L'\emph{alphabet} donne les caractères reconnus
+		\item 
+			Un \emph{dictionnaire/lexique} donne les mots corrects
+		\item 
+			La \emph{grammaire} renseigne sur l'ordre des mots
+		\item 
+			La \emph{sémantique} traite du sens de la phrase
+		\item Exemples :
+			\\\textit{<<L$\epsilon$ ch$\wedge\uparrow$ $\bowtie$>>}
+			\hfill\textit{<<El tahc tse rion>>} 
+			\\\textit{<<Le est chat noir>>} 
+			\hfill\textit{<<La table boit la télé>>}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Un langage de programmation}
+	Qu'en est-il pour un langage de programmation ?
+	\begin{itemize}
+		\item
+			L'alphabet : liste donnée dans la référence
+		\item 
+			Les mots (\emph{token} en informatique)
+			\begin{itemize}
+				\item Impossible via un dictionnaire. Pourquoi ?
+				\item Donnés par une \emph{grammaire lexicale}
+			\end{itemize}
+		\item 
+			Les séquences de mots : données par une \emph{grammaire syntaxique}
+		\item 
+			La \emph{sémantique} : ne peut être décrite formellement
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{La notion de grammaire}
-Une grammaire est une description \emph{finie} de l'\emph{infinité} des programmes corrects
-\begin{center}
-programme $\equiv$ phrase $\supset$ mots $\supset$ caractères
-\end{center} 
-\begin{itemize}
-\item Chaque \emph{mot} (on dit \emph{token} en informatique) doit être légal
-  \begin{itemize}
-  \item déterminé par une \emph{grammaire lexicale}
-  \end{itemize} 
-\item \emph{Séquence de mots} doit être légale
-  \begin{itemize}
-  \item déterminé par une \emph{grammaire syntaxique}
-  \end{itemize}
-\item La \emph{sémantique} ne peut pas être décrite aussi rigoureusement 
-\end{itemize}
+	Grammaire
+		\begin{itemize}
+		\item Description \emph{finie} de l'\emph{infinité} des programmes corrects
+		\item Composée de
+			\begin{itemize}
+			\item l'ensemble des tokens pouvant apparaitre tels quels (\textit{symboles \emph{terminaux}})
+			\item l'ensemble des \emph{règles de production}
+				\begin{itemize}
+				\item nom de la règle (\textit{symbole \emph{non terminal}})
+				\item séquences de symboles produits par la règle 
+				\end{itemize}
+			\item une règle de production de \emph{départ} 
+			\end{itemize}
+		\end{itemize}
+		\begin{center}
+		Est \emph{valide} ce qui peut être \emph{produit} par la grammaire
+		\end{center}
 \end{frame}
 
 \begin{frame}{La notion de grammaire}
-Parallèle avec une \emph{langue naturelle}
-\\(dictionnaire, grammaire)
-\\\bigskip\emph{Exemples}
-  \begin{itemize}
-  \item \textit{<<El tahc tse rion>>} 
-  \item \textit{<<Le est chat noir>>}
-  \item \textit{<<Le chat est noir>>}
-  \item \textit{<<Le parapluie mange l'ascenceur>>}
-  \end{itemize} 
-\end{frame}
-
-\subsection{Comment fonctionne une grammaire ?}
-
-\begin{frame}{Comment fonctionne une grammaire ?}
-Une grammaire est composée de
-\begin{itemize}
-\item l'ensemble des tokens pouvant apparaitre tels quels (\textit{symboles \emph{terminaux}})
-\item l'ensemble des \emph{règles de production}
-  \begin{itemize}
-  \item nom de la règle (\textit{symbole \emph{non terminal}})
-  \item séquences de symboles produits par la règle 
-  \end{itemize}
-\item une règle de production de \emph{départ} 
-\end{itemize}
-\begin{center}
-Est \emph{valide} ce qui peut être \emph{produit} par la grammaire
-\end{center}
-\end{frame}
-
-\begin{frame}{Comment fonctionne une grammaire ?}
-Pour la grammaire \emph{syntaxique}
-  \begin{itemize}
-  \item les symboles terminaux sont les mots
-  \item les règles construisent la phrase 
-  \end{itemize}
-\bigskip
-Pour la grammaire \emph{lexicale}
-  \begin{itemize}
-  \item les symboles terminaux sont les caractères
-  \item les règles construisent le mot 
-  \end{itemize}
-\bigskip
-Pourquoi ne pas utiliser un dictionnaire pour les mots ?
+	La grammaire \emph{lexicale} valide les tokens 
+		\begin{itemize}
+		\item les symboles terminaux sont les caractères
+		\item les règles construisent le mot 
+		\end{itemize}
+	\bigskip
+	La grammaire \emph{syntaxique} valide les séquences de tokens 
+		\begin{itemize}
+		\item les symboles terminaux sont les mots
+		\item les règles construisent la phrase 
+		\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Exemple : le langage MU}
