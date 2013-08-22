@@ -253,16 +253,17 @@ switch(mois) {
 \begin{frame}[fragile]{selon que avec conditions}
 Le switch ne permet pas de traduire le selon-que \emph{avec condition} 
 \begin{Java}
-   if (âge < 5)
+   if (âge < 5) {
         System.out.println ("hors catégorie");
-   else if (âge < 6) // 5 ans
+   } else if (âge < 6) {    // 5 ans
         System.out.println ("groupe poussins");
-   else if (âge < 9) // 6,7,8
+   } else if (âge < 9) {    // 6,7,8
         System.out.println ("groupe benjamins");
-   else if (âge < 11) // 9,10
+   } else if (âge < 11) {   // 9,10
         System.out.println ("groupe pupilles");
-   else		      // > 10
+   } else {                 // > 10
         System.out.println ("hors catégorie");
+   }
 \end{Java}
 \begin {itemize}
 \item Remarquez l'indentation dans ce cas
@@ -278,12 +279,12 @@ Le switch ne permet pas de traduire le selon-que \emph{avec condition}
 \begin{itemize}
 \item Instruction quelconque
 \item Expression booléenne
-\item L'expression booléenne est recalculée dans la boucle
 \item \emph{Ex} : recherche du premier élément non nul
 \begin{Java}
    int pos = 0; 
-   while (pos < tableau.length &&  tableau[pos] == 0)
+   while (pos < tableau.length &&  tableau[pos] == 0) {
        pos++;
+   }
 \end{Java}
 \end {itemize}
 \end{frame}
@@ -292,8 +293,9 @@ Le switch ne permet pas de traduire le selon-que \emph{avec condition}
 Remarquez l'ordre des opérandes
 \begin{Java}
    int pos = 0; 
-   while (tableau[pos] == 0 && pos < tableau.length)
+   while (tableau[pos] == 0 && pos < tableau.length) {
        pos++;
+   }
 \end{Java}
 \begin {itemize}
 \item Provoque une \emph{ArrayIndexOutOfBoundsException} si aucun élément non
@@ -308,10 +310,11 @@ Une autre écriture
    boolean nonNulTrouvé = false;
    while (! nonNulTrouvé && pos < tableau.length)
 
-       if (tableau[pos] != 0)
+       if (tableau[pos] != 0) {
            nonNulTrouvé = true;
-       else
+       } else {
            pos++;
+       }
 \end{Java}
 \end{frame}
 
@@ -320,26 +323,27 @@ Dans certains cas, les accolades améliorent la lisibilité
 \begin{Java}
    int pos = 0; 
    boolean nonNulTrouvé = false;
-   while (! nonNulTrouvé && pos < tableau.length){
+   while (! nonNulTrouvé && pos < tableau.length) {
 
-       if (tableau[pos] != 0)
+       if (tableau[pos] != 0) {
            nonNulTrouvé = true;
-       else
+       } else {
            pos++;
-
+       }
    }
 \end{Java}
+D'ailleurs, on les recommande toujours
 \end{frame}
 
 \begin{frame}[fragile]{while - exemples}
 Qu'en est-il de : 
 \begin{Java}
-	cpt =0;
+	cpt = 0;
 	while (cpt < 100) ;
 	   cpt++;
 \end{Java}
 \begin{Java}
-	cpt =0;
+	cpt = 0;
 	while (cpt < 100) 
 	   cpt = cpt++;
 \end{Java}
