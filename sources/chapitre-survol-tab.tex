@@ -88,6 +88,7 @@ On peut aussi combiner déclaration/création
 \begin{frame}[fragile]{Création}
 On peut aussi créer le tableau en \emph{donnant ses valeurs}
   \begin{itemize}
+  \item Uniquement lors de la déclaration
   \item Dans ce cas, on ne spécifie pas la taille \\(elle est déduite)
   \item \emph{Exemple} :
     \begin{Java}
@@ -255,7 +256,7 @@ Pour indiquer plusieurs dimensions, on multiple les \java{[]}
     int[][] entierss = new int[3][4];
     for( int i=0; i<3; i++) {
       for( int j=0; j<4; j++) {
-          entierss[i][j] = i*j*(i+j);
+          entierss[i][j] = i*j;
       }
     } 
 \end{Java}

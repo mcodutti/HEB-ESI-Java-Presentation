@@ -89,15 +89,15 @@ Exemples valides \emph{mais non recommandés} (archaïsme)
 \begin{frame}[fragile]{Création}
   \emph{Exemples} :
   \begin{Java}
-  int[]   t1 = new int[3];
-  int[][] t2 = new int[3][2];
+  int[]   entiers = new int[3];
+  int[][] entierss = new int[3][2];
   \end{Java}
   \begin{Java}
-  int[] t1;
-  int[][] t2;
+  int[] entiers;
+  int[][] entierss;
   int nb = clavier.nextInt();
-  t1 = new int[nb];
-  t2 = new int[nb][nb];
+  entiers = new int[nb];
+  entierss = new int[nb][nb];
   \end{Java}
 \end{frame}
 
@@ -184,16 +184,16 @@ Exemples valides \emph{mais non recommandés} (archaïsme)
 \begin{frame}[fragile]{Création}
 \emph{Exemple} de format long
   \begin{Java}
-  int[] t1 = new int[] {4,5,6};
-  int[] t2;
-  t2 = new int[] {4,5,6};
+  int[] entiers = new int[] {4,5,6};
+  int[] entiers;
+  entiers = new int[] {4,5,6};
   \end{Java}
 \medskip
 Écriture abrégée (uniquement à la déclaration)
   \begin{Java}
-int[] t2 = {4,5,6}; // Écriture abrégée acceptée
-int[] t3;
-t3 = {4,5,6}; // Erreur à la compilation
+int[] entiers = {4,5,6}; // Écriture abrégée acceptée
+int[] entiers;
+entiers = {4,5,6}; // Erreur à la compilation
   \end{Java}
 \medskip
 \emph{Exercice} : Donnez la représentation mémoire
@@ -206,11 +206,11 @@ t3 = {4,5,6}; // Erreur à la compilation
 \begin{frame}[fragile]{Création}
   \emph{Exercice} : Les créations suivantes sont-elles correctes ? Pourquoi ?
   \begin{itemize}
-  \item \java|int[][] t = new int[2];|
-  \item \java|int[][] t = new int[] {1,2};|
-  \item \java|int[][] t = new int[] {{1},{2}};|
-  \item \java|int[][] t = new int[3][2] {1,2};|
-  \item \java|int[][] t = new int[3][2] {null,null};|
+  \item \java|int[][] entierss = new int[2];|
+  \item \java|int[][] entierss = new int[] {1,2};|
+  \item \java|int[][] entierss = new int[] {{1},{2}};|
+  \item \java|int[][] entierss = new int[3][2] {1,2};|
+  \item \java|int[][] entierss = new int[3][2] {null,null};|
   \end{itemize}
 \end{frame}
 
@@ -240,7 +240,7 @@ La taille doit être un \java|int|
   \item Jusqu'à 2 milliards d'éléments ;-)
   \item Peut être \emph{nulle}
     \begin{itemize}
-    \item ex : \java|int[][] t = new int[0][2];|
+    \item ex : \java|int[][] entierss = new int[0][2];|
     \item peut avoir un sens comme cas limite
     \end{itemize}
   \item Ne peut \emph{pas} être \emph{négative}
@@ -250,7 +250,7 @@ La taille doit être un \java|int|
     \end{itemize}
   \item Est une expression générale
     \begin{itemize}
-    \item ex : \java|int[] t2 = new int[clavier.nextInt()];|
+    \item ex : \java|int[] entiers = new int[clavier.nextInt()];|
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -263,9 +263,9 @@ La taille doit être un \java|int|
     \item $\Rightarrow$ Spécifier la ligne
     \item Exemple :
       \begin{Java}
-  int[][]t = {{1,2},{2,3,4}};
+  int[][] entierss = {{1,2},{2,3,4}};
   System.out.println( "Nombre d'éléments = "
-      + (t[0].length + t[1].length) );
+      + (entierss[0].length + entierss[1].length) );
       \end{Java}
     \end{itemize}
 \end{frame}
@@ -277,11 +277,11 @@ La taille doit être un \java|int|
 
   public class ParcoursLigneParLigne{
      public static void main(String[] args){
-        String[][] tableau= {{"00","01","02","03","04"},
+        String[][] entierss = {{"00","01","02","03","04"},
                              {"10","11","12","13","14"}};
-        for(int i = 0; i < tableau.length; i = i + 1)
-           for(int j = 0; j < tableau.length; j = j + 1)
-              System.out.println(tableau[i][j]);
+        for(int i = 0; i < entierss.length; i = i + 1)
+           for(int j = 0; j < entierss.length; j = j + 1)
+              System.out.println(entierss[i][j]);
      }
   }
 \end{Java}
@@ -294,11 +294,11 @@ La taille doit être un \java|int|
 
   public class ParcoursLigneParLigne{
      public static void main(String[] args){
-        String[][] tableau= {{"00","01","02","03","04"},
+        String[][] entierss = {{"00","01","02","03","04"},
                           {"10","11","12","13","14"}};
-        for(int i = 0; i < tableau.length; i = i + 1)
-           for(int j = 0; j < tableau[i].length; j = j + 1)
-              System.out.println(tableau[i][j]);
+        for(int i = 0; i < entierss.length; i = i + 1)
+           for(int j = 0; j < entierss[i].length; j = j + 1)
+              System.out.println(entierss[i][j]);
      }
   }
 \end{Java}
@@ -311,8 +311,8 @@ La taille doit être un \java|int|
 \begin{itemize}
 \item[]
   \begin{Java}
-  public static void afficher( int[] tab )  {
-    for( int val : tab ) {
+  public static void afficher( int[] entiers )  {
+    for( int val : entiers ) {
       System.out.print( val + " " );
     }
   }
