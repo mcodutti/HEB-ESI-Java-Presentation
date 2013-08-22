@@ -242,15 +242,16 @@ public static void copier( FileInputStream in, FileOutputStream out)
     while((b = in.read()) != -1) {
         out.write(b);
     }
-    in.close();   
-    out.close();
 }
 \end{Java}
   \begin{itemize}
   \item Appel possible : 
   \begin{Java}
-      copier( new FileInputStream("date.txt"),
-              new FileOutputStream("data.bak") ); 
+    FileInputStream f1 = new FileInputStream("date.txt");
+    FileOutputStream f2 = new FileOutputStream("data.bak");
+    copier( f1, f2 ); 
+    f1.close(); 
+    f2.close(); 
   \end{Java}
   \end{itemize}
 \end{frame}
@@ -454,7 +455,6 @@ On a déjà abordé la classe \java|Scanner|
   ...
   Scanner clavier = new Scanner(System.in);
   int somme=0;
-  int nb;
   while (clavier.hasNextInt()) {
       somme += clavier.nextInt();
   } 
@@ -471,7 +471,6 @@ La classe \java|Scanner| fonctionne aussi avec un fichier texte
   ...
   Scanner fileIn = new Scanner( new FileReader( "mesData" ) );
   int somme=0;
-  int nb;
   while (fileIn.hasNextInt()) {
       somme += fileIn.nextInt();
   } 
