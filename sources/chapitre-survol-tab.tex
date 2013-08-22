@@ -67,19 +67,19 @@ La déclaration suit la syntaxe habituelle
 Il faut encore \emph{créer} le tableau (via le mot clé \java|new|)
 \\\emph{Exemple} :
     \begin{Java}
-    int[] t;
-    t = new int[3];
+    int[] entiers;
+    entiers = new int[3];
     \end{Java}
     \vspace{-10pt}
   \begin{center}
-  t \begin{tabular}{|c|c|c|}\hline  &   &  \\\hline\end{tabular}
+  entiers \begin{tabular}{|c|c|c|}\hline  &   &  \\\hline\end{tabular}
   (espace pour 3 entiers)
   \end{center}
     \pause
 On peut aussi combiner déclaration/création
   \\\emph{Exemple} :
     \begin{itemize}
-    \item \java|int[] t = new int[3];|
+    \item \java|int[] entiers = new int[3];|
     \end{itemize}
 \medskip\pause
 Éléments initialisés à \java|0| (numériques) ou \java|false| (booléens)
@@ -123,9 +123,9 @@ En \sigle{Java} on ne choisit pas l'indice de départ : toujours 0
 
   public class InitialisationTableau {
      public static void main(String[] args) {
-        int[] tableau = new int[10];
+        int[] entiers = new int[10];
         for(int i = 0; i < 10; i++) {
-           tableau[i] = i;
+           entiers[i] = i;
         }
      }
   }
@@ -155,9 +155,9 @@ En \sigle{Java} : tout tableau connait sa \emph{taille}
 
   public class SimpleParcoursAscendant {
      public static void main(String[] args){
-        int[] tableau = {1,2,3,4,5,6,7,8,9,10};
-        for(int i = 0; i < tableau.length; i = i + 1) {
-           System.out.println(tableau[i]);
+        int[] entiers = {1,2,3,4,5,6,7,8,9,10};
+        for(int i = 0; i < entiers.length; i = i + 1) {
+           System.out.println(entiers[i]);
         }
      }
   }
@@ -171,9 +171,9 @@ En \sigle{Java} : tout tableau connait sa \emph{taille}
 
   public class SimpleParcoursDescendant {
      public static void main(String[] args){
-        int[] tableau = {1,2,3,4,5,6,7,8,9,10};
-        for(int i = tableau.length - 1; i >= 0; i = i-1) {
-           System.out.println(tableau[i]);
+        int[] entiers = {1,2,3,4,5,6,7,8,9,10};
+        for(int i = entiers.length - 1; i >= 0; i = i-1) {
+           System.out.println(entiers[i]);
         }
      }
   }
@@ -186,9 +186,9 @@ En \sigle{Java} : tout tableau connait sa \emph{taille}
 Un tableau peut être un paramètre d'une méthode.
 \\\emph{Exemple} : Afficher un tableau 
 \begin{Java}
-   public static void afficher( int[] tab ) {
-      for(int i = 0; i<tab.length; i++) {
-         System.out.println(tab[i]);
+   public static void afficher( int[] entiers ) {
+      for(int i = 0; i<entiers.length; i++) {
+         System.out.println(entiers[i]);
       }
    }
 \end{Java}
@@ -211,9 +211,9 @@ En \sigle{Java} : passage de paramètres par \emph{valeur}
 {\small (lié à la réprésentation mémoire que nous verrons plus tard)}
   \emph{Exemple} : Remplir un tableau 
   \begin{Java}
-   public static void remplir( int[] tab, int val ) {
-      for(int i = 0; i<tab.length; i++) {
-         tab[i] = val;
+   public static void remplir( int[] entiers, int val ) {
+      for(int i = 0; i<entiers.length; i++) {
+         entiers[i] = val;
       }
    }
   \end{Java}
@@ -231,11 +231,11 @@ En \sigle{Java} : passage de paramètres par \emph{valeur}
   \\\emph{Exemple} : Créer un tableau avec valeur
   \begin{Java}
    public static int[] créer( int taille, int val ) {
-      int[] tab = new int[taille];
+      int[] entiers = new int[taille];
       for(int i = 0; i<taille; i++) {
-         tab[i] = val;
+         entiers[i] = val;
       }
-      return tab;
+      return entiers;
    }
   \end{Java}
   \begin{itemize}
@@ -252,10 +252,10 @@ En \sigle{Java} : passage de paramètres par \emph{valeur}
 Pour indiquer plusieurs dimensions, on multiple les \java{[]}
 \\\emph{Exemple} :
 \begin{Java}
-    int[][] tab = new int[3][4];
+    int[][] entierss = new int[3][4];
     for( int i=0; i<3; i++) {
       for( int j=0; j<4; j++) {
-          tab[i][j] = i*j*(i+j);
+          entierss[i][j] = i*j*(i+j);
       }
     } 
 \end{Java}
@@ -265,10 +265,10 @@ Pour indiquer plusieurs dimensions, on multiple les \java{[]}
 On peut demander le nb de colonnes comme le nb de lignes
 \\\emph{Exemple} : afficher un tableau reçu en paramètre
 \begin{Java}
-public static void afficher(int[][] tab) {
-    for( int i=0; i<tab.length; i++) {
-        for( int j=0; j<tab[0].length; j++) {
-            System.out.print(tab[i][j] + " ");
+public static void afficher(int[][] entierss) {
+    for( int i=0; i<entierss.length; i++) {
+        for( int j=0; j<entierss[0].length; j++) {
+            System.out.print(entierss[i][j] + " ");
         }
         System.out.println();
     }
