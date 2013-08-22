@@ -63,7 +63,7 @@ public class Test {
 \begin{frame}[fragile]{Exercice} 
 Comment traduire cet algorithme ?
 \begin{Code}
-MODULE Test
+MODULE test ()
     nombre1: Entier
     LIRE nombre1
     SI nombre1 > 0 ALORS
@@ -128,15 +128,14 @@ public class Exemple {
 \begin{frame}[fragile]{Le \og selon-que\fg} 
 Première forme
 \begin{Java}
-  switch(numéroJour) {
-    case 1 : intituléJour="Lundi"; break;
-    case 2 : intituléJour="Mardi"; break;
-    case 3 : intituléJour="Mercredi"; break;
-    case 4 : intituléJour="Jeudi"; break;
-    case 5 : intituléJour="Vendredi"; break;
-    case 6 : intituléJour="Samedi"; break;
-    case 7 : intituléJour="Dimanche"; break;
-    default : intituléJour="Inconnu"; break;
+  switch(produit) {
+    case "Coca" : 
+    case "Sprite" : 
+    case "Fanta" :  prixDistributeur=60; break;
+    case "IceTea" : prixDistributeur=70; break;
+    case "Aquarius" : 
+    case "Nalu" :   prixDistributeur=80; break;
+    default :       prixDistributeur=0 break;
   }
 \end{Java}
 \begin{itemize}
@@ -151,7 +150,7 @@ Deuxième forme : la logique suivante
   Selon que 
     nb > 0 : Ecrire "positif"
     nb = 0 : Ecrire "nul"
-    autrement : Ecrire "négatif"
+    autres : Ecrire "négatif"
   Fin selon que
 \end{Code}
 s'écrit en Java
