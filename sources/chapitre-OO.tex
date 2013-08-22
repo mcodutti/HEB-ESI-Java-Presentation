@@ -536,13 +536,16 @@ Règle : un paramètre/une variable locale \emph{masque} un attribut
   \item on préfixe par le nom de la classe
   \begin{Java}
   int abs = Outils.abs(-3);
-  int lg = Board.NB_LIGNES;
   double un = Math.log (Math.E);
   \end{Java}
   \item ou un objet de la classe (non recommandé)
   \begin{Java}
-  int lg = monBoard.NB_LIGNES;
+  Outils outil = new Outils();
+  int lg = outil.abs(-3);
   \end{Java}
+  Pourquoi peut-on créer un \code{outil} ?
+ 
+  Comment l'empêcher ?
   \end{itemize}
 \end{frame}
 
@@ -656,7 +659,7 @@ public class Etudiant {
     // ...
   }
 
-  public Adresse getAdressse() {return adresse;}
+  public Adresse getAdresse() {return adresse;}
 
   public void setAdresse(Adresse uneAdresse) {
     adresse = uneAdresse;
@@ -767,9 +770,9 @@ public class Groupe {
         System.out.println("Il y a " + nbEtudiants + " étudiants");
         // Pourquoi pas un foreach ?
         for( int i=0; i<nbEtudiants; i++ ) {
-            System.out.print( étudiant[i].getNuméro() 
-                     + ", " + étudiant[i].getNom() 
-                     + ", " + étudiant[i].getAnnée() 
+            System.out.print( étudiants[i].getNuméro() 
+                     + ", " + étudiants[i].getNom() 
+                     + ", " + étudiants[i].getAnnée() 
                      );
         }
     }
@@ -1045,16 +1048,17 @@ La documentation de \java|equals| précise qu'il faut aussi redéfinir \java|hashC
 \end{frame}
 
 \begin{frame}[fragile]{La méthode hashCode()}
-La méthode \java|Objects.hashCode()| crée un code à partir des paramètres fournis
+La méthode \java|Objects.hash(Object... values)| 
+\\crée un code à partir des paramètres fournis
 \begin{itemize}
 \item Si un attribut sert d'identifiant, donner celui-là
-\item Sinon, donner un ensemble d'identifiants avec des valeurs fort différentes d'un objet à l'autre
+\item Sinon, donner un ensemble d'attributs avec des valeurs fort différentes d'un objet à l'autre
 \end{itemize}
 \medskip
 \emph{Exemple} : Pour un étudiant
 \begin{Java}
   public int hashCode() {
-    return Objects.hashCode(this.numéro);
+    return Objects.hash(this.numéro);
   }
 \end{Java}
 \end{frame}
