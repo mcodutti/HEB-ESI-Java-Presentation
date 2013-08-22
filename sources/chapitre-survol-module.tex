@@ -94,9 +94,11 @@ public static double moyenne ( double nb1, double nb2 ) {
 \emph{Exemple} : la valeur absolue
 \begin{Java}
 public static int absolu ( int nb ) {  
-    int abs = nb;
+    int abs;
     if (nb<0) {
         abs = -nb;
+    } else {
+        abs = nb;
     }
     return abs;
 }
@@ -189,7 +191,6 @@ Plus de détails dans la leçon dédiée à la documentation du code
 
 \begin{frame}[fragile]{Un exemple complet}
 \begin{Java}[basicstyle=\scriptsize]
-package be.heb.esi.lg1.cours;
 import java.util.Scanner;
 
 public class MaxEntiers { 
