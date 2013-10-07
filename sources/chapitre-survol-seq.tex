@@ -1,16 +1,16 @@
 % === Cours de Java
 % === Chapitre : Survol 
 
-\section{Algorithmes séquentiels (survol)}
+\section{Algorithmes sï¿½quentiels (survol)}
 
-\leconwithabstracttoc{Nous voyons comment traduire les algorithmes séquentiels que vous écrivez au cours de Logique}
+\leconwithabstracttoc{Nous voyons comment traduire les algorithmes sï¿½quentiels que vous ï¿½crivez au cours de Logique}
 
-\subsection{Structure générale d'un programme}
+\subsection{Structure gï¿½nï¿½rale d'un programme}
 
-\begin{frame}[fragile]{Structure générale du programme}
+\begin{frame}[fragile]{Structure gï¿½nï¿½rale du programme}
 \begin{Java}
   public class NomClasse {
-    // Mettre ici les modules (on dit méthode en Java)
+    // Mettre ici les modules (on dit mï¿½thode en Java)
   }
 \end{Java}
 \begin{itemize}
@@ -20,7 +20,7 @@
 \bigskip
 \emph{Attention !} En \sigle{Java} : minuscule $\neq$ majuscule
 \par\medskip
-\emph{Exemple} : on ne peut pas écrire
+\emph{Exemple} : on ne peut pas ï¿½crire
 \begin{Java}
   Public CLASS NomClasse {
     
@@ -28,18 +28,18 @@
 \end{Java}
 \end{frame}
 
-\begin{frame}[fragile]{La méthode principale}
+\begin{frame}[fragile]{La mï¿½thode principale}
 \begin{Java}
   public class NomClasse {
     public static void main(String[] args) {
-      // Code de la méthode ici     
+      // Code de la mï¿½thode ici     
     }
   }
 \end{Java}
 \begin{itemize}
-\item \java|main| est le nom de la méthode principale
-\item C'est par là que commence le programme
-\item \`A écrire tel quel, on verra pourquoi
+\item \java|main| est le nom de la mï¿½thode principale
+\item C'est par lï¿½ que commence le programme
+\item \`A ï¿½crire tel quel, on verra pourquoi
 \end{itemize}
 \end{frame}
 
@@ -51,13 +51,13 @@ Les types disponibles
 \begin{tabular}{r|l}
 En Logique & En  Java \\ \hline
 Entier & \java|int| \\ 
-Réel & \java|double| \\ 
+Rï¿½el & \java|double| \\ 
 Chaine & \java|String| \\ 
-Caractère & \java|char| \\ 
-Booléen & \java|boolean| \\  
+Caractï¿½re & \java|char| \\ 
+Boolï¿½en & \java|boolean| \\  
 \end{tabular} 
 \end{center}
-Exemple de déclaration
+Exemple de dï¿½claration
 \begin{Java}
    int nb1;
 \end{Java}
@@ -69,14 +69,14 @@ L'assignation se fait via le symbole \java|=|
    nb1 = 1;
 \end{Java}
 \bigskip
-Les calculs : on dispose de tous les opérateurs \textit{classiques}
+Les calculs : on dispose de tous les opï¿½rateurs \textit{classiques}
     \\\medskip
     \begin{tabular}{r|l}
     \java|+| & plus \\ 
     \java|-| & moins \\ 
     \java|*| & fois \\ 
-    \java|/| & au moins 1 réel $\Longrightarrow$ division \emph{réelle} \\
-             & 2 entiers $\Longrightarrow$ division \emph{entière} (\sigle{DIV} en \sigle{Logique})\\ 
+    \java|/| & au moins 1 rï¿½el $\Longrightarrow$ division \emph{rï¿½elle} \\
+             & 2 entiers $\Longrightarrow$ division \emph{entiï¿½re} (\sigle{DIV} en \sigle{Logique})\\ 
              
     \java|%| & reste (\sigle{MOD} en \sigle{Logique})\\ 
     \end{tabular} 
@@ -87,9 +87,9 @@ Les calculs : on dispose de tous les opérateurs \textit{classiques}
   public class Moyenne {
     public static void main(String[] args) {
 
-      int nombre1;
-      int nombre2;
-      int moyenne;
+      double nombre1;
+      double nombre2;
+      double moyenne;
 
       nombre1 = 34345;
       nombre2 = -3213213;
@@ -109,7 +109,7 @@ Les calculs : on dispose de tous les opérateurs \textit{classiques}
       int nombre2 = -321321;
       double moyenne;
 
-      // division réelle car un des 2 opérandes est réel
+      // division rï¿½elle car un des 2 opï¿½randes est rï¿½el
       moyenne = (nombre1 + nombre2) / 2.0;    
       System.out.println("La moyenne est " + moyenne); 
     }
@@ -120,7 +120,7 @@ Les calculs : on dispose de tous les opérateurs \textit{classiques}
 \subsection{Lire au clavier}
 
 \begin{frame}[fragile]{Lire au clavier}
-Moins direct que l'affichage à l'écran
+Moins direct que l'affichage ï¿½ l'ï¿½cran
   \begin{itemize}
   \item Applications modernes (graphiques)
   \item Lectures dans des champs de saisie
@@ -159,13 +159,13 @@ public class Test {
 \begin{frame}{Lire au clavier}
 \begin{center}
 \begin{tabular}{r|l}
-Pour lire\dots & on écrit\dots \\ \hline
+Pour lire\dots & on ï¿½crit\dots \\ \hline
 un entier & \java|nextInt()| \\ 
-un réel & \java|nextDouble()| \\ 
-un booléen & \java|nextBoolean()| \\ 
+un rï¿½el & \java|nextDouble()| \\ 
+un boolï¿½en & \java|nextBoolean()| \\ 
 un mot & \java|next()|\\  
 une ligne & \java|nextLine()|\\  
-un caractère & \java|next().charAt(0)| \\ 
+un caractï¿½re & \java|next().charAt(0)| \\ 
 \end{tabular} 
 \end{center}
 \end{frame}
@@ -175,19 +175,19 @@ un caractère & \java|next().charAt(0)| \\
 \begin{frame}[fragile]{Constante locale}
 Clause \java|final| {} $\Rightarrow$ constante
 \par\medskip
-Valeur donnée
+Valeur donnï¿½e
   \begin{itemize}
-  \item Soit à la déclaration 
-  \item Soit par assignation ultérieure
+  \item Soit ï¿½ la dï¿½claration 
+  \item Soit par assignation ultï¿½rieure
   \end{itemize} 
 \begin{Java}
   final int X = 1;
   final int Y;
   Y = 2*X;
-  X = 2; // Erreur : possède déjà une valeur
+  X = 2; // Erreur : possï¿½de dï¿½jï¿½ une valeur
   Y = 3; // Idem
 \end{Java}
-Pourquoi une constante au lieu d'un littéral ?
+Pourquoi une constante au lieu d'un littï¿½ral ?
 \end{frame}
 
 \subsection{Conventions}
@@ -196,24 +196,24 @@ Pourquoi une constante au lieu d'un littéral ?
 Pour une variable :
   \begin{itemize}
   \item Tout mettre en \emph{minuscules}
-  \item Sauf les débuts de \textit{noms composés} en majuscule
+  \item Sauf les dï¿½buts de \textit{noms composï¿½s} en majuscule
   \end{itemize} 
 \medskip
 Pour une constante :
   \begin{itemize}
   \item Tout mettre en \emph{majuscules}
-  \item Utiliser \java|_|  pour séparer les mots
+  \item Utiliser \java|_|  pour sï¿½parer les mots
   \end{itemize}
 \medskip
-Dans tous les cas : \emph{être explicite}
-\\(sauf abréviations courantes)
+Dans tous les cas : \emph{ï¿½tre explicite}
+\\(sauf abrï¿½viations courantes)
 \end{frame}
 
 \begin{frame}[fragile]{Conventions de noms}
 \emph{Exemples}
 \begin{Java}
   String nom;
-  int annéeEtude;
+  int annï¿½eEtude;
   int nbEtudiants;
   boolean partieFinie;
   final double PI;
@@ -230,9 +230,9 @@ Dans tous les cas : \emph{être explicite}
      plusieurs lignes */
   \end{Java}
 \begin{itemize}
-\item Destiné aux humains
+\item Destinï¿½ aux humains
 \item Sans effet sur le programme
-\item Néanmoins crucial
+\item Nï¿½anmoins crucial
 \end{itemize}
 \end{frame}
 
