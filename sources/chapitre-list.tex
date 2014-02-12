@@ -23,7 +23,7 @@ Ce concept est présent en \sigle{Java}
 La classe \java|ArrayList|
 \medskip
 \begin{Java}
-  ArrayList<String> liste = new ArrayList<String> ();
+  ArrayList<String> liste = new ArrayList<> ();
 \end{Java}
 \medskip
 \begin{itemize}
@@ -34,15 +34,17 @@ La classe \java|ArrayList|
 \end{frame}
 
 \begin{frame}[fragile]{Déclaration / Création}
-Écriture vieillie (\emph{non recommandée}) : \\Ne pas mettre les \java|<>|
+Écritures vieillies (\emph{non recommandée}) : 
+\begin{itemize}
+\item Ne pas mettre les \java|<>|
 \begin{Java}
   ArrayList liste = new ArrayList ();
 \end{Java}
-\medskip
-\includegraphics[scale=.5]{../img/java7.jpeg}En Java7, on peut ne plus spécifier le type des éléments à droite (déduit par le compilateur)
+\item Spécifier le type des éléments à droite également
 \begin{Java}
-  ArrayList<String> liste = new ArrayList<>();
+  ArrayList<String> liste = new ArrayList<String>();
 \end{Java}
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Ajout d'éléments}
@@ -57,7 +59,7 @@ La classe \java|ArrayList|
 \end{itemize}
 \emph{Exemple} :
 \begin{Java}
-  ArrayList<String> dictionnaire = new ArrayList<String>(); 
+  ArrayList<String> dictionnaire = new ArrayList<>(); 
   dictionnaire.add("zèbre");
   dictionnaire.add("éléphant");
   dictionnaire.add(1, "girafe");
@@ -70,7 +72,7 @@ La méthode \java|toString| a été récrite pour afficher les éléments
 \\\bigskip
 \emph{Exemple} :
 \begin{Java}
-  ArrayList<String> dictionnaire = new ArrayList<String>(); 
+  ArrayList<String> dictionnaire = new ArrayList<>(); 
   dictionnaire.add("zèbre");
   dictionnaire.add("éléphant");
   dictionnaire.add(1, "girafe");
@@ -87,7 +89,7 @@ La méthode \java|toString| a été récrite pour afficher les éléments
 \bigskip
 \\\emph{Exemple} :
 \begin{Java}
-  ArrayList<String> dictionnaire = new ArrayList<String>();
+  ArrayList<String> dictionnaire = new ArrayList<>();
   System.out.println( dictionnaire.size() );    // 0
   System.out.println( dictionnaire.isEmpty() ); // true
  dictionnaire.add("zèbre");
@@ -207,7 +209,7 @@ Utile là o\`u un objet est requis
 \begin{itemize}
 \item \emph{Exemple}
 \begin{Java}
-  List<Integer> list = new ArrayList<Integer>();
+  List<Integer> list = new ArrayList<>();
 \end{Java}
 \end{itemize}
 Conversions automatiques
@@ -229,7 +231,7 @@ Conversions automatiques
 import java.util.ArrayList ;
 public class TestBox {
   public static void main ( String[] args ) {
-    ArrayList<Integer>  liste = new ArrayList<Integer>() ;
+    ArrayList<Integer>  liste = new ArrayList<>() ;
     liste.add(1) ; liste.add(14); liste.add(1) ;
     int premier = liste.get(0);
     liste.set(2, liste.get(2) + 1 );
@@ -366,7 +368,7 @@ Une interface définit un \textit{type}
   \item Choix de l'implémentation uniquement lors de l'instanciation
   \begin{Java}
   List<String> maListe;
-  maListe = new ArrayList<String>(); // Java 7 : new ArrayList<>();
+  maListe = new ArrayList<>(); 
   \end{Java}
   \item Assure que l'on ne va utiliser que les méthodes définies dans l'interface
   \item Facilite le changement d'implémentation
@@ -391,7 +393,7 @@ La classe \java{java.util.Collections} propose des services pour les listes
 \begin{frame}[fragile]{Collections}
 \emph{Exemple} : 
 \begin{Java}
-   List<String> animaux = new ArrayList<String>() ;  
+   List<String> animaux = new ArrayList<>() ;  
 
    animaux.add("âne");
    animaux.add("zèbre");
