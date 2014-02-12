@@ -1,7 +1,7 @@
 # Slides LGJ1
 Slides pour le cours de Java en BAC1 à l'ÉSI, [HEB-ÉSI](http://www.heb.be/esi)
 
-Contact : <mcodutti@heb.be>
+Contact : Marco Codutti<mcodutti@heb.be>
 
 ## Dépendances
 Pour pouvoir créer les slides, vous aurez besoin des outils suivants :
