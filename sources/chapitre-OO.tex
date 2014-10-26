@@ -1,10 +1,10 @@
 %=== Cours de Java
 %=== Chapitre : OO
 
-\section{L'orienté objet}
+\section{L'orientï¿½ objet}
 
 \begin{frame}
-\begin{block}{\center Leçon \thesection\ ---   \insertsection}
+\begin{block}{\center Leï¿½on \thesection\ ---   \insertsection}
   {
   \begin{multicols}{2}
   \tableofcontents[sectionstyle=hide,subsectionstyle=show/show/hide]
@@ -15,72 +15,72 @@
 \end{frame}
 
 \begin{frame}{Avertissement}
-Pour qu'un langage soit \textit{orienté objet} il doit posséder 3 propriétés
+Pour qu'un langage soit \textit{orientï¿½ objet} il doit possï¿½der 3 propriï¿½tï¿½s
   \begin{itemize}
   \item L' \emph{encapsulation}
-  \item L' \emph{héritage}
+  \item L' \emph{hï¿½ritage}
   \item Le \emph{polymorphisme}
   \end{itemize} 
 \bigskip
-Trop pour le cours de 1ère année
+Trop pour le cours de 1ï¿½re annï¿½e
   \begin{itemize}
   \item Nous allons surtout voir l'encapsulation \\(comme au cours de logique)
-  \item Et effleurer le reste $\longrightarrow$ parfois imprécis
+  \item Et effleurer le reste $\longrightarrow$ parfois imprï¿½cis
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Rappels}
-Voici ce que vous avez déjà vu en logique
+Voici ce que vous avez dï¿½jï¿½ vu en logique
 \begin{center}
 \includegraphics[scale=.6]{../img/oo-rappels}
 \end{center}
 \end{frame}
 
-\begin{frame}{Présentation de l'exemple}
-Illustrons ces concepts avec la notion d'\textit{étudiant à l'ESI}
+\begin{frame}{Prï¿½sentation de l'exemple}
+Illustrons ces concepts avec la notion d'\textit{ï¿½tudiant ï¿½ l'ESI}
 \begin{itemize}
- \item Un étudiant
+ \item Un ï¿½tudiant
     \begin{itemize}
-    \item possède un nom et un numéro unique
-    \item est inscrit dans une année d'étude
+    \item possï¿½de un nom et un numï¿½ro unique
+    \item est inscrit dans une annï¿½e d'ï¿½tude
     \item est doubleur ou pas
-    \item est un \textit{ancien} (a terminé) ou pas
+    \item est un \textit{ancien} (a terminï¿½) ou pas
     \end{itemize}
-  \item Il peut réussir son année ou la rater
+  \item Il peut rï¿½ussir son annï¿½e ou la rater
   \end{itemize}
 \end{frame}
 
 \subsection{La classe}
 
 \begin{frame}{La classe}
-  \emph{Exemple}: Représentation graphique (UML) de la classe \textit{Etudiant}
+  \emph{Exemple}: Reprï¿½sentation graphique (UML) de la classe \textit{Etudiant}
   \begin{center}
   \begin{tabular}{cl}
     {\small\fcolorbox{black}{bleu}{
       \begin{tabular}{l}
         ~~~~~~~~~Etudiant\\ 
         \hline
-        - numéro : Entier\\
+        - numï¿½ro : Entier\\
         - nom : Chaine\\
-        - annéeÉtude : Entier\\
-        - doubleur : Booléen\\
-        - ancien : Booléen\\
+        - annï¿½eï¿½tude : Entier\\
+        - doubleur : Boolï¿½en\\
+        - ancien : Boolï¿½en\\
         \hline
-        + aRéussi()\\
-        + aRaté()\\
+        + aRï¿½ussi()\\
+        + aRatï¿½()\\
       \end{tabular}
     }} &
     {\small
       \begin{tabular}{l}
         \textbf{Nom de la classe} \\ 
         \textbf{Attributs} \\
-        Le "-" indique qu'ils sont \textbf{privés}\\
+        Le "-" indique qu'ils sont \textbf{privï¿½s}\\
         Connus uniquement dans la classe\\
-        En \sigle{Java} on écrira \java|private|\\
+        En \sigle{Java} on ï¿½crira \java|private|\\
         \\
-        \textbf{Méthodes}\\
+        \textbf{Mï¿½thodes}\\
         Le "+" car elles sont \textbf{publiques}\\
-        En \sigle{Java} on écrira \java|public|\\
+        En \sigle{Java} on ï¿½crira \java|public|\\
       \end{tabular}
     } \\
   \end{tabular}
@@ -90,7 +90,7 @@ Illustrons ces concepts avec la notion d'\textit{étudiant à l'ESI}
 \subsection{Les objets}
 
 \begin{frame}{Les objets}
-  \emph{Exemple} : Représentation graphique de 2 objets (instances) possibles :
+  \emph{Exemple} : Reprï¿½sentation graphique de 2 objets (instances) possibles :
   \medskip
   \begin{center}
   \begin{tabular}{cc}
@@ -98,28 +98,28 @@ Illustrons ces concepts avec la notion d'\textit{étudiant à l'ESI}
     \begin{tabular}{l}
       \underline{James Gosling}: Etudiant\\ 
       \hline
-      - numéro = 34000\\
+      - numï¿½ro = 34000\\
       - nom = "James Gosling"\\
-      - annéeÉtude = 1\\
+      - annï¿½eï¿½tude = 1\\
       - doubleur = faux\\
       - ancien = faux\\
       \hline
-      + aRéussi()\\
-      + aRaté()\\
+      + aRï¿½ussi()\\
+      + aRatï¿½()\\
     \end{tabular}
   }} &
   {\small\fcolorbox{black}{bleu}{
     \begin{tabular}{l}
       \underline{Ada Lovelace}: Etudiant\\ 
       \hline
-      - numéro = 33800\\
+      - numï¿½ro = 33800\\
       - nom = "Ada Lovelace"\\
-      - annéeÉtude = 2\\
+      - annï¿½eï¿½tude = 2\\
       - doubleur = faux\\
       - ancien = faux\\
       \hline
-      + aRéussi()\\
-      + aRaté()\\
+      + aRï¿½ussi()\\
+      + aRatï¿½()\\
     \end{tabular}
   }} \\
   \end{tabular}
@@ -129,37 +129,37 @@ Illustrons ces concepts avec la notion d'\textit{étudiant à l'ESI}
 \subsection{Les membres}
 
 \begin{frame}{Les membres}
-Chaque instance possède les mêmes attributs mais avec des \emph{valeurs différentes}
+Chaque instance possï¿½de les mï¿½mes attributs mais avec des \emph{valeurs diffï¿½rentes}
 \\\bigskip
-Les méthodes d'une instance agissent sur les attributs de cette instance 
+Les mï¿½thodes d'une instance agissent sur les attributs de cette instance 
   \begin{itemize}
-   \item La méthode \textit{aRaté()} d'un étudiant va mettre \emph{son} attribut \textit{doubleur} à vrai
-   \item Que ferait la méthode \textit{aRéussi()} ?
+   \item La mï¿½thode \textit{aRatï¿½()} d'un ï¿½tudiant va mettre \emph{son} attribut \textit{doubleur} ï¿½ vrai
+   \item Que ferait la mï¿½thode \textit{aRï¿½ussi()} ?
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{La classe en Java}
-  À ce stade la classe \texttt{Etudiant} peut s'écrire :
+  ï¿½ ce stade la classe \texttt{Etudiant} peut s'ï¿½crire :
   \begin{multicols}{2}  
   \begin{Java}
   public class Etudiant {
 
-    private int numéro; 
+    private int numï¿½ro; 
     private String nom;
-    private int annéeÉtude;
+    private int annï¿½eï¿½tude;
     private boolean doubleur;
     private boolean ancien; 
 
-    public void aRaté() {
+    public void aRatï¿½() {
       doubleur = true;
     }
   \end{Java}
   \begin{Java}
 
-    public void aRéussi() {
+    public void aRï¿½ussi() {
       doubleur = false;
-      annéeÉtude++;
-      if (annéeÉtude == 4 ) {
+      annï¿½eï¿½tude++;
+      if (annï¿½eï¿½tude == 4 ) {
         ancien = true;
       }
     }
@@ -168,19 +168,19 @@ Les méthodes d'une instance agissent sur les attributs de cette instance
   \end{Java}
   \end{multicols}
 \begin{itemize}
-\item Remarquez l'absence de \java{static} pour les méthodes
+\item Remarquez l'absence de \java{static} pour les mï¿½thodes
 \end{itemize}
 \end{frame}
 
 \begin{frame}{OO or not OO ?}
-On utilisait déjà \java|class|. On faisait de l'objet ?
+On utilisait dï¿½jï¿½ \java|class|. On faisait de l'objet ?
 \\\bigskip
 Oui et non ;)
 \begin{itemize}
-\item \sigle{Java} est un langage orienté objet
-\item Mais il permet une écriture non OO
+\item \sigle{Java} est un langage orientï¿½ objet
+\item Mais il permet une ï¿½criture non OO
 \item Via l'utilisation de \java|static|
-(qui a un sens plus large que nous détaillerons plus loin)
+(qui a un sens plus large que nous dï¿½taillerons plus loin)
 \end{itemize}
 \end{frame}
 
@@ -191,12 +191,12 @@ En gros, on a 2 sortes de classes :
 \begin{tabular}{l|l|l}
 \hline\hline
 & {\small \emph{approche non OO}} & {\small \emph{approche OO}} \\\hline
-But & regrouper des méthodes & définir un type de données \\
+But & regrouper des mï¿½thodes & dï¿½finir un type de donnï¿½es \\
 Attribut & non (sauf constantes) & oui \\
 Instances & non & oui \\
 Utilisation via & le nom de la classe & une instance \\
 \java|static| & oui & non \\
-Fréquence & rare & fréquent \\
+Frï¿½quence & rare & frï¿½quent \\
 Exemples & \java|Math| & \java|String|, \java|Scanner| \\
 \hline\hline
 \end{tabular}
@@ -205,37 +205,37 @@ Exemples & \java|Math| & \java|String|, \java|Scanner| \\
 \textit{En pratique, on rencontrera des situations mixtes}
 \end{frame}
 
-\begin{frame}{Visibilité des membres}
-En \sigle{Java} : 4 visibilités
+\begin{frame}{Visibilitï¿½ des membres}
+En \sigle{Java} : 4 visibilitï¿½s
 \begin{description}
   \item[public] : visible dans \textbf{toutes} les classes (\java|public|)
-  \item[privé] : n'est accessible que de \textbf{la} classe (\java|private|)
-  \item[<<paqueté>>] : visible dans toutes les classes du \textit{package} (pas de mot clé)
-  \item[protégé] : pas vu en 1ère année (\java|protected|)
+  \item[privï¿½] : n'est accessible que de \textbf{la} classe (\java|private|)
+  \item[<<paquetï¿½>>] : visible dans toutes les classes du \textit{package} (pas de mot clï¿½)
+  \item[protï¿½gï¿½] : pas vu en 1ï¿½re annï¿½e (\java|protected|)
 \end{description}
 \bigskip
 Rappel \emph{bonne pratique} :
-\\attributs privés / méthodes publiques
+\\attributs privï¿½s / mï¿½thodes publiques
 \end{frame}
 
 \subsection{Constructeur}
 
 \begin{frame}[fragile]{Constructeur}
-\emph{Exemple} : Définition d'un constructeur
+\emph{Exemple} : Dï¿½finition d'un constructeur
   \begin{Java}
-  public Etudiant (int unNuméro, String unNom) {
-    numéro = unNuméro;
+  public Etudiant (int unNumï¿½ro, String unNom) {
+    numï¿½ro = unNumï¿½ro;
     nom = unNom;
-    annéeÉtude = 1;
+    annï¿½eï¿½tude = 1;
     doubleur = false;
     ancien = false;
   }
   \end{Java}
-  Ressemble à une méthode mais
+  Ressemble ï¿½ une mï¿½thode mais
   \begin{itemize}
-    \item Pas de type de retour déclaré
-%    \item En pratique, retourne la référence de l'objet 
-    \item A le même nom que celui de la classe
+    \item Pas de type de retour dï¿½clarï¿½
+%    \item En pratique, retourne la rï¿½fï¿½rence de l'objet 
+    \item A le mï¿½me nom que celui de la classe
   \end{itemize}
 \end{frame}
 
@@ -244,84 +244,84 @@ Rappel \emph{bonne pratique} :
 \begin{frame}[fragile]{Instanciation}
 Pour instancier 
 \begin{itemize}
-\item On utilise l'opérateur \java|new|
-\item On fournit les paramètres au constructeur
+\item On utilise l'opï¿½rateur \java|new|
+\item On fournit les paramï¿½tres au constructeur
 \end{itemize}
 \medskip
-\emph{Exemple} : instanciation d'un étudiant
+\emph{Exemple} : instanciation d'un ï¿½tudiant
 \begin{itemize}
 \item[]
 \begin{Java}
 Etudiant ada = new Etudiant(33800, "Ada Lovelace");
 \end{Java}
-\item Crée un nouvel objet \java|Etudiant|
+\item Crï¿½e un nouvel objet \java|Etudiant|
 \item Appelle le constructeur pour l'initialiser
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Instanciation}
-Une classe est un type \emph{référence} (comme les tableaux)
+Une classe est un type \emph{rï¿½fï¿½rence} (comme les tableaux)
 \medskip
 \\\emph{Exemple} :
 \begin{Java}
-    Etudiant ada;  // référence créée sur la pile
+    Etudiant ada;  // rï¿½fï¿½rence crï¿½ï¿½e sur la pile
 \end{Java}
 \vspace{-10pt}
 \begin{center}\includegraphics[scale=.4]{../img/java-oo-alloc1}\end{center}
 \begin{Java}
-    ada = new Etudiant(33800,"Ada Lovelace"); // objet créé sur le tas
+    ada = new Etudiant(33800,"Ada Lovelace"); // objet crï¿½ï¿½ sur le tas
 \end{Java}
 \vspace{-10pt}
 \begin{center}\includegraphics[scale=.5]{../img/java-oo-alloc2}\end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Appel d'une méthode}
-Utilisation de la notation \textit{pointée} (opérateur \code{.})
+\begin{frame}[fragile]{Appel d'une mï¿½thode}
+Utilisation de la notation \textit{pointï¿½e} (opï¿½rateur \code{.})
 \\\bigskip
 \emph{Exemple}
 \begin{Java}
 public static void main(String[] args) {
     Etudiant ada = new Etudiant(33800, "Ada Lovelace");
-    ada.aRéussi();
+    ada.aRï¿½ussi();
 }
 \end{Java}
 \bigskip
 Code que l'on peut trouver
 \begin{itemize}
 \item dans une autre classe
-\item dans la classe même
+\item dans la classe mï¿½me
 \end{itemize}
 \end{frame}
 
 \subsection{Accesseurs}
 
 \begin{frame}[fragile]{Accesseurs}
-\emph{Accesseur} : méthode donnant la valeur d'un attribut 
+\emph{Accesseur} : mï¿½thode donnant la valeur d'un attribut 
 \\\bigskip
-\emph{Exemple} : pour notre classe étudiant
+\emph{Exemple} : pour notre classe ï¿½tudiant
 \begin{Java}
-  public int getNuméro() {return numéro;}
+  public int getNumï¿½ro() {return numï¿½ro;}
   public String getNom() {return nom;}
-  public int getAnnéeÉtude() {return annéeÉtude;}
+  public int getAnnï¿½eï¿½tude() {return annï¿½eï¿½tude;}
   public boolean isDoubleur() {return doubleur;}
   public boolean isAncien() {return ancien;}
 \end{Java}
 \bigskip
 Par convention, l'accesseur de \java|attribut| est \java|getAttribut| 
-(\java|isAttribut| pour un booléen)
+(\java|isAttribut| pour un boolï¿½en)
 \end{frame}
 
-\begin{frame}[fragile]{Appel d'une méthode}
+\begin{frame}[fragile]{Appel d'une mï¿½thode}
 \emph{Exemple} : Utilisation des accesseurs
 \begin{Java}
 public static void main(String[] args) {
     Etudiant ada = new Etudiant(33800, "Ada Lovelace");
-    System.out.println(ada.getAnnéeÉtude()); // 1
-    ada.aRéussi();
-    System.out.println(ada.getAnnéeÉtude()); // 2
+    System.out.println(ada.getAnnï¿½eï¿½tude()); // 1
+    ada.aRï¿½ussi();
+    System.out.println(ada.getAnnï¿½eï¿½tude()); // 2
     System.out.println(ada.isDoubleur()); // false
-    ada.aRaté();
-    System.out.println(ada.getAnnéeÉtude()); // 2
+    ada.aRatï¿½();
+    System.out.println(ada.getAnnï¿½eï¿½tude()); // 2
     System.out.println(ada.isDoubleur()); // true
 }
 \end{Java}
@@ -330,7 +330,7 @@ public static void main(String[] args) {
 \subsection{Mutateurs}
 
 \begin{frame}[fragile]{Mutateurs}
-\emph{Mutateur} : sert à modifier un attribut 
+\emph{Mutateur} : sert ï¿½ modifier un attribut 
 \\\bigskip
 \emph{Exemple} : un mutateur possible pour \textit{Etudiant}
 \begin{Java}
@@ -350,84 +350,84 @@ Par convention, le mutateur de \java|attribut| est \java|setAttribut|
 
 \begin{frame}{Mutateurs}
 \emph{Bonne pratique} : 
-\\Bien réfléchir avant de fournir un mutateur
+\\Bien rï¿½flï¿½chir avant de fournir un mutateur
 \begin{itemize} 
-\item Est-ce que le numéro peut changer ? Non !
+\item Est-ce que le numï¿½ro peut changer ? Non !
 \item Est-ce que le nom peut changer ? Euh !
-\item Est-ce que l'année peut changer ? Oui ! 
+\item Est-ce que l'annï¿½e peut changer ? Oui ! 
   \begin{itemize} 
   \item Mais est-ce qu'il faut permettre de la changer directement ?
-  \item ou uniquement via des méthodes comme \java|aRéussi()| ? 
-  \\À voir au cas par cas
+  \item ou uniquement via des mï¿½thodes comme \java|aRï¿½ussi()| ? 
+  \\ï¿½ voir au cas par cas
   \end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Tests de validité}
-Il est conseillé d'effectuer des \emph{tests de validité} sur les paramètres
+\begin{frame}[fragile]{Tests de validitï¿½}
+Il est conseillï¿½ d'effectuer des \emph{tests de validitï¿½} sur les paramï¿½tres
 \begin{itemize}
-\item Constructeur : objet créé dans un état valide
-\item Mutateur : l'état reste valide
+\item Constructeur : objet crï¿½ï¿½ dans un ï¿½tat valide
+\item Mutateur : l'ï¿½tat reste valide
 \end{itemize}
 \emph{Exemple} :
 \begin{Java}
-  public void setNuméro(int unNuméro) {
-    if (unNuméro<=0) {
-      throw new IllegalArgumentException("Le numéro est négatif !");
+  public void setNumï¿½ro(int unNumï¿½ro) {
+    if (unNumï¿½ro<=0) {
+      throw new IllegalArgumentException("Le numï¿½ro est nï¿½gatif !");
     }
-    numéro = unNuméro;
+    numï¿½ro = unNumï¿½ro;
   }
 \end{Java}
 \end{frame}
 
-%\begin{frame}[fragile]{Tests de validité}
+%\begin{frame}[fragile]{Tests de validitï¿½}
 %\emph{Bonne pratique} :
 %\\Appeler les mutateurs dans le constructeur
 %\begin{itemize} 
-%  \item On évite ainsi de dupliquer les tests
+%  \item On ï¿½vite ainsi de dupliquer les tests
 %  \item Exemple
 %\begin{Java}
-%  public Etudiant (int unNuméro, String unNom) {
-%    setnuméro(unNuméro);
+%  public Etudiant (int unNumï¿½ro, String unNom) {
+%    setnumï¿½ro(unNumï¿½ro);
 %    // la suite...
 %}
 %\end{Java}
-%\item Et si un test est nécessaire mais qu'on ne veut pas offrir de mutateur ? Définir le mutateur en privé
+%\item Et si un test est nï¿½cessaire mais qu'on ne veut pas offrir de mutateur ? Dï¿½finir le mutateur en privï¿½
 %\end{itemize}
 %\end{frame}
 
 \subsection{Surcharge}
 
 \begin{frame}{Surcharge}
-\emph{Surcharge} (overloading) : possibilité de définir plusieurs méthodes/constructeurs
+\emph{Surcharge} (overloading) : possibilitï¿½ de dï¿½finir plusieurs mï¿½thodes/constructeurs
 \begin{itemize}
-\item De même nom
-\item Si signatures différentes
-\item Facilité pour l'utilisateur
+\item De mï¿½me nom
+\item Si signatures diffï¿½rentes
+\item Facilitï¿½ pour l'utilisateur
 \end{itemize}
 \bigskip
-Très utile pour les constructeurs
+Trï¿½s utile pour les constructeurs
 \begin{itemize}
-\item Plusieurs façons d'initialiser l'état
+\item Plusieurs faï¿½ons d'initialiser l'ï¿½tat
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Surcharge}
 \emph{Exemple} : Constructeurs pour \texttt{Etudiant}
 \begin{Java}
-  public Etudiant (int unNuméro, String unNom) {
-    numéro = unNuméro;
+  public Etudiant (int unNumï¿½ro, String unNom) {
+    numï¿½ro = unNumï¿½ro;
     nom = unNom;
-    annéeÉtude = 1;
+    annï¿½eï¿½tude = 1;
     doubleur = false;
     ancien = false;
   }
 
-  public Etudiant (int unNuméro, String unNom, int année, 
+  public Etudiant (int unNumï¿½ro, String unNom, int annï¿½e, 
                    boolean doubl, boolean anc) {
-    numéro = unNuméro;
+    numï¿½ro = unNumï¿½ro;
     nom = unNom;
-    annéeÉtude = année;
+    annï¿½eï¿½tude = annï¿½e;
     doubleur = doubl;
     ancien = anc;
   }
@@ -437,23 +437,23 @@ Très utile pour les constructeurs
 \subsection{this}
 
 \begin{frame}[fragile]{this()}
-Souvent, les constructeurs d'une même classe se ressemblent
+Souvent, les constructeurs d'une mï¿½me classe se ressemblent
   \begin{itemize}
-  \item Cf. exemple précédent
+  \item Cf. exemple prï¿½cï¿½dent
   \item Plus facile si un constructeur appelle l'autre
   \item On utilise la notation \java|this()|
   \item Exemple
   \begin{Java}
-  public Etudiant (int numéro, String nom) {
-    this(numéro, nom, 1, false, false);
+  public Etudiant (int numï¿½ro, String nom) {
+    this(numï¿½ro, nom, 1, false, false);
   }
   \end{Java}
-  \item Doit être la \emph{première instruction}
+  \item Doit ï¿½tre la \emph{premiï¿½re instruction}
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Le mot clé <<this>>}
-Le mot clé \java{this} est une référence à soi-même 
+\begin{frame}[fragile]{Le mot clï¿½ <<this>>}
+Le mot clï¿½ \java{this} est une rï¿½fï¿½rence ï¿½ soi-mï¿½me 
 \begin{itemize}
 \item Implicite lors d'une utilisation directe du membre
 \item \emph{Exemple}
@@ -462,39 +462,39 @@ Le mot clé \java{this} est une référence à soi-même
     nom = unNom;  // implicitement: this.nom = unNom;
   }
 
-  public void aRéussi() {
-    féliciter(); // implicitement : this.féliciter();
+  public void aRï¿½ussi() {
+    fï¿½liciter(); // implicitement : this.fï¿½liciter();
     // ...
   }
 
-  public void féliciter() {
+  public void fï¿½liciter() {
     // ...
   }
   \end{Java}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Le mot clé <<this>>}
-Règle : un paramètre/une variable locale \emph{masque} un attribut
+\begin{frame}[fragile]{Le mot clï¿½ <<this>>}
+Rï¿½gle : un paramï¿½tre/une variable locale \emph{masque} un attribut
   \begin{itemize}
-  \item \java|this| permet d'accéder à l'attribut masqué 
+  \item \java|this| permet d'accï¿½der ï¿½ l'attribut masquï¿½ 
   \item \emph{Exemple}
   \begin{Java}
   public void setNom( String nom ) {
     this.nom = nom;
   }
   \end{Java}
-  \item Certains l'utilisent systématiquement pour une meilleure lisibilité
+  \item Certains l'utilisent systï¿½matiquement pour une meilleure lisibilitï¿½
   \end{itemize}
 \end{frame}
 
 \subsection{static}
 
 \begin{frame}{Comprendre <<static>>}
-  \emph{\java{static}} s'applique aux membres (attributs + méthodes)
+  \emph{\java{static}} s'applique aux membres (attributs + mï¿½thodes)
   \begin{itemize}
     \item N'est plus un membre de l'objet (instance de la classe) mais un membre de la classe
-    \item Est \emph{partagé} par toutes les instances
+    \item Est \emph{partagï¿½} par toutes les instances
   \end{itemize}
 \end{frame}
 
@@ -502,7 +502,7 @@ Règle : un paramètre/une variable locale \emph{masque} un attribut
   \emph{Attribut} statique
   \begin{itemize}
     \item Existe en un seul exemplaire 
-    \item Est initialisé lors du chargement de la classe \\(une seule fois)
+    \item Est initialisï¿½ lors du chargement de la classe \\(une seule fois)
     \item Utilisation courante : constantes
   \\\emph{Exemple}
   \begin{Java}
@@ -515,10 +515,10 @@ Règle : un paramètre/une variable locale \emph{masque} un attribut
 \end{frame}
 
 \begin{frame}[fragile]{Comprendre <<static>>}
-  \emph{Méthode} statique
+  \emph{Mï¿½thode} statique
   \begin{itemize}
-    \item Ne peut pas accéder aux membres des instances
-    \item Utilisation courante : méthodes non objets
+    \item Ne peut pas accï¿½der aux membres des instances
+    \item Utilisation courante : mï¿½thodes non objets
   \\\emph{Exemple}
   \begin{Java}
   public class Outils {
@@ -531,26 +531,26 @@ Règle : un paramètre/une variable locale \emph{masque} un attribut
 \end{frame}
 
 \begin{frame}[fragile]{Comprendre <<static>>}
-  À l'extérieur de la classe, 
+  ï¿½ l'extï¿½rieur de la classe, 
   \begin{itemize}
-  \item on préfixe par le nom de la classe
+  \item on prï¿½fixe par le nom de la classe
   \begin{Java}
   int abs = Outils.abs(-3);
   double un = Math.log (Math.E);
   \end{Java}
-  \item ou un objet de la classe (non recommandé)
+  \item ou un objet de la classe (non recommandï¿½)
   \begin{Java}
   Outils outil = new Outils();
   int lg = outil.abs(-3);
   \end{Java}
-  Pourquoi peut-on créer un \code{outil} ?
+  Pourquoi peut-on crï¿½er un \code{outil} ?
  
-  Comment l'empêcher ?
+  Comment l'empï¿½cher ?
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Comprendre <<static>>}
-  \java{import static} crée un raccourci pour l'accès aux membres statiques 
+  \java{import static} crï¿½e un raccourci pour l'accï¿½s aux membres statiques 
   \\\medskip\emph{Exemple}
   \begin{Java}
   import static java.lang.Math.log;
@@ -575,71 +575,71 @@ En Logique, vous avez vu le concept de structure
 \vspace{-0.5cm}
 \begin{multicols}{2}
 \begin{Code}
-structure Adresse composée de
+structure Adresse composï¿½e de
     rue : chaine
-    numéro : chaine
+    numï¿½ro : chaine
     code : entier
-   localité : chaine
+   localitï¿½ : chaine
 fin structure
 \end{Code}
 \begin{Java}
 public class Adresse {
     public String rue;
-    public String numéro;
+    public String numï¿½ro;
     public int    code;
-    public String localité;
+    public String localitï¿½;
 }
 \end{Java}
 \end{multicols}
 \vspace{-0.5cm}
-\item Mais, on préfère une classe normale qui permet de contrôler la valeur des champs
+\item Mais, on prï¿½fï¿½re une classe normale qui permet de contrï¿½ler la valeur des champs
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Précision sur l'instanciation}
-Attributs initialisés à une \emph{valeur par défaut} \\(comme pour les tableaux)
+\begin{frame}{Prï¿½cision sur l'instanciation}
+Attributs initialisï¿½s ï¿½ une \emph{valeur par dï¿½faut} \\(comme pour les tableaux)
   \begin{itemize}
-  \item Numérique : \java|0|
-  \item Booléen : \java|false|
-  \item référence : \java|null| (référence vers \emph{rien})
+  \item Numï¿½rique : \java|0|
+  \item Boolï¿½en : \java|false|
+  \item rï¿½fï¿½rence : \java|null| (rï¿½fï¿½rence vers \emph{rien})
   \end{itemize}
 \bigskip
-Rarement ce qui est souhaité
+Rarement ce qui est souhaitï¿½
   \\$\longrightarrow$ toujours donner des valeurs explicites
 \end{frame}
 
-\begin{frame}{Précision sur les constructeurs}
-Il existe un \emph{constructeur par défaut}
+\begin{frame}{Prï¿½cision sur les constructeurs}
+Il existe un \emph{constructeur par dï¿½faut}
 \begin{itemize}
-  \item sans paramètre 
+  \item sans paramï¿½tre 
   \item ne fait rien
   \item uniquement \emph{si pas de constructeur explicite}
-  \item Rarement une bonne idée 
+  \item Rarement une bonne idï¿½e 
 \end{itemize}
-$\longrightarrow$ toujours écrire explicitement un constructeur
+$\longrightarrow$ toujours ï¿½crire explicitement un constructeur
 \end{frame}
 
 \subsection{Des objets comme attributs}
 
 \begin{frame}[fragile]{Des objets comme attributs}
-Une classe définit un type à part entière 
-\\$\longrightarrow$ peut être attribut d'une autre classe
+Une classe dï¿½finit un type ï¿½ part entiï¿½re 
+\\$\longrightarrow$ peut ï¿½tre attribut d'une autre classe
   \begin{itemize}
-  \item \emph{Ex} : \texttt{String} pour le nom d'un étudiant
-  \item \emph{Ex} : \texttt{Date} (de naissance) d'un étudiant
+  \item \emph{Ex} : \texttt{String} pour le nom d'un ï¿½tudiant
+  \item \emph{Ex} : \texttt{Date} (de naissance) d'un ï¿½tudiant
   \end{itemize}
 \bigskip
 \pause
-\emph{Exemple} : Définissons le concept d'adresse
+\emph{Exemple} : Dï¿½finissons le concept d'adresse
 \begin{Java}[basicstyle=\scriptsize]
 public class Adresse {
   private String rue;
-  private String numéro;
+  private String numï¿½ro;
   private int codePostal;
-  private String localité;
+  private String localitï¿½;
   
-  public Adresse (String uneRue, String unNuméro, 
-          int unCodePostal, String uneLocalité) {
+  public Adresse (String uneRue, String unNumï¿½ro, 
+          int unCodePostal, String uneLocalitï¿½) {
     // ...
   }
   // + accesseurs 
@@ -649,12 +649,12 @@ public class Adresse {
 \end{frame}
 
 \begin{frame}[fragile]{Des objets comme attributs}
-\emph{Exemple} : Ajoutons une adresse à un étudiant
+\emph{Exemple} : Ajoutons une adresse ï¿½ un ï¿½tudiant
 \begin{Java}
 public class Etudiant {
   private Adresse adresse;
   
-  public Etudiant (int unNuméro, String unNom, Adresse uneAdresse) {
+  public Etudiant (int unNumï¿½ro, String unNom, Adresse uneAdresse) {
     adresse = uneAdresse;
     // ...
   }
@@ -670,12 +670,12 @@ public class Etudiant {
 \end{frame}
 
 \begin{frame}[fragile]{Des objets comme attributs}
-\emph{Exemple} : Créons un étudiant
+\emph{Exemple} : Crï¿½ons un ï¿½tudiant
 \begin{Java}
  Adresse adresse = new Adresse("Rue Royale", "67", 1000, "Bruxelles");
  Etudiant james = new Etudiant( 34000, "James Gosling", adresse );
 \end{Java}
-ou, en condensé
+ou, en condensï¿½
 \begin{Java}
   Etudiant james = new Etudiant ( 
                        34000, "James Gosling", 
@@ -687,18 +687,18 @@ ou, en condensé
 \subsection{Objets et tableaux}
 
 \begin{frame}[fragile]{Des tableaux d'objets}
-Une classe définit un type de données 
-\\$\longrightarrow$ on peut définir des tableaux d'objets
+Une classe dï¿½finit un type de donnï¿½es 
+\\$\longrightarrow$ on peut dï¿½finir des tableaux d'objets
 \\\bigskip
-\emph{Exemple} : un tableau d'étudiants \java|Etudiant[]|
+\emph{Exemple} : un tableau d'ï¿½tudiants \java|Etudiant[]|
 \begin{Java}
-// Affiche un tableau d'étudiants
-public static void afficher(Etudiant[] étudiants) {
-    System.out.println("Il y a " + étudiants.length + " étudiants");
-    for( Etudiant étudiant : étudiants ) {
-        System.out.print( étudiant.getNuméro() 
-                 + ", " + étudiant.getNom() 
-                 + ", " + étudiant.getAnnéeÉtude() 
+// Affiche un tableau d'ï¿½tudiants
+public static void afficher(Etudiant[] ï¿½tudiants) {
+    System.out.println("Il y a " + ï¿½tudiants.length + " ï¿½tudiants");
+    for( Etudiant ï¿½tudiant : ï¿½tudiants ) {
+        System.out.print( ï¿½tudiant.getNumï¿½ro() 
+                 + ", " + ï¿½tudiant.getNom() 
+                 + ", " + ï¿½tudiant.getAnnï¿½eï¿½tude() 
                  );
     }
 }
@@ -707,11 +707,11 @@ public static void afficher(Etudiant[] étudiants) {
 
 \begin{frame}[fragile]{Des tableaux d'objets}
 \begin{Java}
-// Faire réussir tous les étudiants
-public static void tournéeGénérale(Etudiant[] étudiants) {
-    // Faire un schéma pour comprendre que le foreach est correct
-    for( Etudiant étudiant : étudiants ) {
-        étudiant.aRéussi();
+// Faire rï¿½ussir tous les ï¿½tudiants
+public static void tournï¿½eGï¿½nï¿½rale(Etudiant[] ï¿½tudiants) {
+    // Faire un schï¿½ma pour comprendre que le foreach est correct
+    for( Etudiant ï¿½tudiant : ï¿½tudiants ) {
+        ï¿½tudiant.aRï¿½ussi();
     }
 }
 \end{Java}
@@ -721,42 +721,42 @@ public static void tournéeGénérale(Etudiant[] étudiants) {
       new Etudiant(20000, "Tintin"),
       new Etudiant(20001, "Milou"),
       new Etudiant(20002, "Professeur Tournesol"),
-      new Etudiant(20003, "Capitaine Haddock");
+      new Etudiant(20003, "Capitaine Haddock")
   };
   afficher(groupe11);
-  tournéeGénérale(groupe11);
+  tournï¿½eGï¿½nï¿½rale(groupe11);
   afficher(groupe11);
 \end{Java}
 \end{frame}
 
 \begin{frame}{Des tableaux \textbf{dans} les objets}
-Un tableau définit un type de données
+Un tableau dï¿½finit un type de donnï¿½es
 \\$\longrightarrow$ on peut le trouver comme attribut
 \\\bigskip
-\emph{Exemple} : Définissons, la classe Groupe (d'étudiants)
+\emph{Exemple} : Dï¿½finissons, la classe Groupe (d'ï¿½tudiants)
 \begin{itemize}
-\item La taille (maximale) du groupe sera donnée à la construction
-\item Une méthode permet d'ajouter un étudiant au groupe
+\item La taille (maximale) du groupe sera donnï¿½e ï¿½ la construction
+\item Une mï¿½thode permet d'ajouter un ï¿½tudiant au groupe
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Des tableaux \textbf{dans} les objets}
 \begin{Java}[basicstyle=\scriptsize]
 public class Groupe {
-    private Etudiant[] étudiants;
+    private Etudiant[] ï¿½tudiants;
     private int nbEtudiants;
 
     public Groupe(int taille) {
         if (taille < 1)
           throw new IllegalArgumentException("Pas de groupe vide");
-        étudiants = new Etudiant[taille]; // Faire un schéma !
+        ï¿½tudiants = new Etudiant[taille]; // Faire un schï¿½ma !
         nbEtudiants = 0;
     } 
 
-    public void ajouter(Etudiant étudiant) {
-        if (nbEtudiants == étudiants.length)
+    public void ajouter(Etudiant ï¿½tudiant) {
+        if (nbEtudiants == ï¿½tudiants.length)
           throw new IllegalStateException("Plus de place !");
-        étudiants[nbEtudiants] = étudiant;
+        ï¿½tudiants[nbEtudiants] = ï¿½tudiant;
         nbEtudiants++;
     }
 
@@ -767,16 +767,16 @@ public class Groupe {
 \begin{frame}[fragile]{Des tableaux \textbf{dans} les objets}
 \begin{Java}[basicstyle=\scriptsize]
     public void afficher() {
-        System.out.println("Il y a " + nbEtudiants + " étudiants");
+        System.out.println("Il y a " + nbEtudiants + " ï¿½tudiants");
         // Pourquoi pas un foreach ?
         for( int i=0; i<nbEtudiants; i++ ) {
-            System.out.print( étudiants[i].getNuméro() 
-                     + ", " + étudiants[i].getNom() 
-                     + ", " + étudiants[i].getAnnée() 
+            System.out.print( ï¿½tudiants[i].getNumï¿½ro() 
+                     + ", " + ï¿½tudiants[i].getNom() 
+                     + ", " + ï¿½tudiants[i].getAnnï¿½e() 
                      );
         }
     }
-    // On pourrait encore définir beaucoup de méthodes utiles
+    // On pourrait encore dï¿½finir beaucoup de mï¿½thodes utiles
 }
 \end{Java}
 \begin{Java}[basicstyle=\scriptsize]
@@ -791,39 +791,39 @@ public class Groupe {
 \end{frame}
 
 \begin{frame}{Rappel}
-Pour qu'un langage soit \textit{orienté objet} il doit posséder 3 propriétés
+Pour qu'un langage soit \textit{orientï¿½ objet} il doit possï¿½der 3 propriï¿½tï¿½s
   \begin{itemize}
   \item L' \emph{encapsulation}
-  \item L' \emph{héritage}
+  \item L' \emph{hï¿½ritage}
   \item Le \emph{polymorphisme}
   \end{itemize} 
 \bigskip
 Nous avons vu l'encapsulation; survolons le reste
 \end{frame}
 
-\begin{frame}{Héritage}
-\emph{Héritage} : Permet de définir une classe à partir d'une autre
+\begin{frame}{Hï¿½ritage}
+\emph{Hï¿½ritage} : Permet de dï¿½finir une classe ï¿½ partir d'une autre
 \begin{itemize}
 \item Un peu comme du \textit{copier-coller}
-\item On récupère ainsi tous les attributs et toutes les méthodes
+\item On rï¿½cupï¿½re ainsi tous les attributs et toutes les mï¿½thodes
 \item Terminologie
   \begin{itemize}
-  \item Classe \emph{parent} : celle dont on hérite
-  \item Classe \emph{enfant} : celle qui hérite
+  \item Classe \emph{parent} : celle dont on hï¿½rite
+  \item Classe \emph{enfant} : celle qui hï¿½rite
   \end{itemize} 
 \end{itemize} 
 \end{frame}
 
-\subsection{Héritage}
+\subsection{Hï¿½ritage}
 
-\begin{frame}{Héritage}
+\begin{frame}{Hï¿½ritage}
 \begin{itemize}
 \item Graphiquement, on le note ainsi
 \begin{center}
 \includegraphics[scale=.5]{../img/oo-heritage}
 \end{center}
-\item L'héritage peut se lire dans la javadoc
-\item Par défaut, on hérite de la classe \java|Object| 
+\item L'hï¿½ritage peut se lire dans la javadoc
+\item Par dï¿½faut, on hï¿½rite de la classe \java|Object| 
 \end{itemize} 
 \end{frame}
 
@@ -835,9 +835,9 @@ Nous avons vu l'encapsulation; survolons le reste
   \begin{itemize}
   \item \java{String toString()}
     \begin{itemize}
-    \item Représentation textuelle de (l'état de) l'objet
-    \item Surtout à des fins de \emph{déverminage}  
-    \item Appelée implicitement par \java|println|
+    \item Reprï¿½sentation textuelle de (l'ï¿½tat de) l'objet
+    \item Surtout ï¿½ des fins de \emph{dï¿½verminage}  
+    \item Appelï¿½e implicitement par \java|println|
     \end{itemize}
 \medskip
   \item \java{boolean equals(Object o)}
@@ -848,21 +848,21 @@ Nous avons vu l'encapsulation; survolons le reste
 \end{frame}
 
 \begin{frame}{Overriding}
-Java permet la réécriture (\emph{overriding}) d'une méthode dans une classe enfant
+Java permet la rï¿½ï¿½criture (\emph{overriding}) d'une mï¿½thode dans une classe enfant
 \begin{itemize}
-  \item Le travail fait par la méthode dans la classe parent ne convient plus dans la classe enfant, je récris la méthode
+  \item Le travail fait par la mï¿½thode dans la classe parent ne convient plus dans la classe enfant, je rï¿½cris la mï¿½thode
 \end{itemize}
 \textbf{Remarque}
 \begin{itemize}
-  \item À ne pas confondre avec l'\emph{overloading} (la surcharge) d'une méthode
+  \item ï¿½ ne pas confondre avec l'\emph{overloading} (la surcharge) d'une mï¿½thode
 \end{itemize}
 \end{frame}
 
-\subsection{Représentation textuelle}
+\subsection{Reprï¿½sentation textuelle}
 
-\begin{frame}[fragile]{Représentation textuelle}
-Par défaut, l'affichage d'un objet est peu clair
-\\(utilisation de la version de \java|toString| héritée d'\java|Object|)
+\begin{frame}[fragile]{Reprï¿½sentation textuelle}
+Par dï¿½faut, l'affichage d'un objet est peu clair
+\\(utilisation de la version de \java|toString| hï¿½ritï¿½e d'\java|Object|)
 \\\bigskip
 \emph{Exemple} :
   \begin{itemize}
@@ -879,17 +879,17 @@ Par défaut, l'affichage d'un objet est peu clair
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Représentation textuelle}
-On peut récrire la méthode \java|toString|
+\begin{frame}[fragile]{Reprï¿½sentation textuelle}
+On peut rï¿½crire la mï¿½thode \java|toString|
 \\\bigskip
 \emph{Exemple} :
 \begin{Java}
   public String toString () {
-    String res = "(" + nom + ", " + numéro;
+    String res = "(" + nom + ", " + numï¿½ro;
     if (ancien) {
         res = res + ", ancien";
     } else {
-        res = res + ", " + annéeÉtude;
+        res = res + ", " + annï¿½eï¿½tude;
         if (doubleur) { 
             res = res + ", doubleur";
         }
@@ -900,8 +900,8 @@ On peut récrire la méthode \java|toString|
 \end{Java}
 \end{frame}
 
-\begin{frame}[fragile]{Représentation textuelle}
-L'affichage est à présent plus clair
+\begin{frame}[fragile]{Reprï¿½sentation textuelle}
+L'affichage est ï¿½ prï¿½sent plus clair
 \\\bigskip
 \emph{Exemple} :
   \begin{itemize}
@@ -909,7 +909,7 @@ L'affichage est à présent plus clair
   \begin{Java}
   Etudiant ada = new Etudiant(33800, "Ada Lovelace");
   System.out.println(ada);
-  ada.aRéussi(); 
+  ada.aRï¿½ussi(); 
   System.out.println(ada);
   \end{Java}
   \item[] affiche
@@ -921,11 +921,11 @@ L'affichage est à présent plus clair
   \end{itemize}
 \end{frame}
 
-\subsection{La méthode equals()}
+\subsection{La mï¿½thode equals()}
 
-\begin{frame}[fragile]{La méthode equals()}
-Les objets sont des types références
-\\$\longrightarrow$ l'opérateur \java|==| teste si c'est le \emph{même} objet
+\begin{frame}[fragile]{La mï¿½thode equals()}
+Les objets sont des types rï¿½fï¿½rences
+\\$\longrightarrow$ l'opï¿½rateur \java|==| teste si c'est le \emph{mï¿½me} objet
 \\\bigskip
 \emph{Exemple}
 \begin{Java}
@@ -934,51 +934,51 @@ Les objets sont des types références
   System.out.println( ada == ada2 );  // false
 \end{Java}
 \bigskip
-La méthode \java|equals| permet de tester
+La mï¿½thode \java|equals| permet de tester
 \begin{itemize}
-\item que les 2 objets sont dans le \emph{même état}  
-\item même si c'est dupliqué en mémoire
+\item que les 2 objets sont dans le \emph{mï¿½me ï¿½tat}  
+\item mï¿½me si c'est dupliquï¿½ en mï¿½moire
 \end{itemize}
 \end{frame}
 
-\begin{frame}{La méthode equals()}
-La méthode par défaut dans \java|Object| se contente de comparer les références
-$\longrightarrow$ besoin de la récrire
+\begin{frame}{La mï¿½thode equals()}
+La mï¿½thode par dï¿½faut dans \java|Object| se contente de comparer les rï¿½fï¿½rences
+$\longrightarrow$ besoin de la rï¿½crire
 \begin{itemize}
 \item Il faut respecter la signature
-\item Doit répondre \og faux\fg\ si on compare à autre chose qu'un étudiant (ou \java|null|)
+\item Doit rï¿½pondre \og faux\fg\ si on compare ï¿½ autre chose qu'un ï¿½tudiant (ou \java|null|)
 \end{itemize}
 \medskip
-\emph{Exemple} : Redéfinissons l'égalité pour les étudiants
+\emph{Exemple} : Redï¿½finissons l'ï¿½galitï¿½ pour les ï¿½tudiants
 \end{frame}
 
 \subsection{Polymorphisme}
 
 \begin{frame}[fragile]{Le polymorphisme}
-La signature de la méthode \java|equals| peut surprendre 
+La signature de la mï¿½thode \java|equals| peut surprendre 
 \begin{Java}
   public boolean equals(Object o) { // ...
 \end{Java}
 \begin{itemize}
-\item Elle attend un \java|Object| en paramètre
+\item Elle attend un \java|Object| en paramï¿½tre
 \item On peut lui passer un \java|Etudiant|
-\item C'est grâce au polymorphisme
+\item C'est grï¿½ce au polymorphisme
 \end{itemize}
 \medskip
-\emph{Polymorphisme} : Là où on attend un objet d'une classe \og parent\fg\ on peut donner un objet
+\emph{Polymorphisme} : Lï¿½ oï¿½ on attend un objet d'une classe \og parent\fg\ on peut donner un objet
 d'une classe \og enfant\fg\
 \end{frame}
 
 \begin{frame}[fragile]{Le polymorphisme}
-Si on peut recevoir n'importe quelle sorte d'objet, comment savoir ce qu'on reçoit vraiment ?
+Si on peut recevoir n'importe quelle sorte d'objet, comment savoir ce qu'on reï¿½oit vraiment ?
 \\\medskip
-Grâce à l'opérateur \java|instanceof|
+Grï¿½ce ï¿½ l'opï¿½rateur \java|instanceof|
 \begin{itemize}
-\item Dit si un objet appartient à une classe donnée \\(ou un de ses enfants)
-\item Par définition, \java|null| n'est instance de rien
+\item Dit si un objet appartient ï¿½ une classe donnï¿½e \\(ou un de ses enfants)
+\item Par dï¿½finition, \java|null| n'est instance de rien
 \end{itemize}
 \medskip
-Notre méthode \java|equals| devient
+Notre mï¿½thode \java|equals| devient
 \begin{Java}
   public boolean equals(Object o) {
     if ( ! (o instanceof Etudiant) ) return false;
@@ -989,23 +989,23 @@ Notre méthode \java|equals| devient
 \begin{frame}{Le polymorphisme}
 Le \emph{casting}
 \begin{itemize}
-\item Nous savons que \java|o| est un étudiant \\(puisque nous faisons le test juste avant)
+\item Nous savons que \java|o| est un ï¿½tudiant \\(puisque nous faisons le test juste avant)
 \item Le compilateur, lui, ne le sait pas
-\item Le compilateur se base sur la déclaration et considère \java|o| comme un \java|Object|
-\item Il refuserait dès lors l'appel de méthodes propres à un \java|Etudiant|
+\item Le compilateur se base sur la dï¿½claration et considï¿½re \java|o| comme un \java|Object|
+\item Il refuserait dï¿½s lors l'appel de mï¿½thodes propres ï¿½ un \java|Etudiant|
 \item Le \emph{casting} \java|(Classe)| demande au compilateur de voir l'objet comme le type enfant
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{La méthode equals()}
+\begin{frame}[fragile]{La mï¿½thode equals()}
 Au final, on a
 \begin{Java}
   public boolean equals(Object o) {
     if ( ! (o instanceof Etudiant) ) return false;
     Etudiant autre = (Etudiant) o;
-    return this.numéro ==  autre.numéro 
+    return this.numï¿½ro ==  autre.numï¿½ro 
         && this.nom.equals(autre.nom)
-        && this.annéeÉtude == autre.annéeÉtude
+        && this.annï¿½eï¿½tude == autre.annï¿½eï¿½tude
         && this.doubleur == autre.doubleur
         && this.ancien == autre.ancien;
   }
@@ -1018,53 +1018,53 @@ Au final, on a
 \end{Java}
 \end{frame}
 
-\begin{frame}[fragile]{La méthode equals()}
-Précision sur la méthode \java|equals|
+\begin{frame}[fragile]{La mï¿½thode equals()}
+Prï¿½cision sur la mï¿½thode \java|equals|
 \begin{itemize}
-\item Si un attribut sert d'identifiant, on peut comparer seulement celui-là
-\item \emph{Exemple} : un étudiant est identifié par son numéro
-(pas 2 étudiants de même numéro)
+\item Si un attribut sert d'identifiant, on peut comparer seulement celui-lï¿½
+\item \emph{Exemple} : un ï¿½tudiant est identifiï¿½ par son numï¿½ro
+(pas 2 ï¿½tudiants de mï¿½me numï¿½ro)
 \begin{Java}
   public boolean equals(Object o) {
     if ( ! (o instanceof Etudiant) ) return false;
     Etudiant autre = (Etudiant) o;
-    return this.numéro ==  autre.numéro;
+    return this.numï¿½ro ==  autre.numï¿½ro;
   }
 \end{Java}
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}[fragile]{La méthode hashCode()}
-La documentation de \java|equals| précise qu'il faut aussi redéfinir \java|hashCode|
+\begin{frame}[fragile]{La mï¿½thode hashCode()}
+La documentation de \java|equals| prï¿½cise qu'il faut aussi redï¿½finir \java|hashCode|
 \begin{itemize}
-\item Méthode liée au \emph{hachage} (sera vu en 2ème)
-\item Prenons déjà la bonne habitude de la redéfinir aussi
-\item Facilité par la classe \java|Objects| (à ne pas confondre avec \java|Object|)
+\item Mï¿½thode liï¿½e au \emph{hachage} (sera vu en 2ï¿½me)
+\item Prenons dï¿½jï¿½ la bonne habitude de la redï¿½finir aussi
+\item Facilitï¿½ par la classe \java|Objects| (ï¿½ ne pas confondre avec \java|Object|)
 \end{itemize}
 \medskip
 \includegraphics[scale=.5]{../img/java7.jpeg}
-\java|Objects| : Classe offrant des méthodes statiques facilitant la manipulation des objets
+\java|Objects| : Classe offrant des mï¿½thodes statiques facilitant la manipulation des objets
 \end{frame}
 
-\begin{frame}[fragile]{La méthode hashCode()}
-La méthode \java|Objects.hash(Object... values)| 
-\\crée un code à partir des paramètres fournis
+\begin{frame}[fragile]{La mï¿½thode hashCode()}
+La mï¿½thode \java|Objects.hash(Object... values)| 
+\\crï¿½e un code ï¿½ partir des paramï¿½tres fournis
 \begin{itemize}
-\item Si un attribut sert d'identifiant, donner celui-là
-\item Sinon, donner un ensemble d'attributs avec des valeurs fort différentes d'un objet à l'autre
+\item Si un attribut sert d'identifiant, donner celui-lï¿½
+\item Sinon, donner un ensemble d'attributs avec des valeurs fort diffï¿½rentes d'un objet ï¿½ l'autre
 \end{itemize}
 \medskip
-\emph{Exemple} : Pour un étudiant
+\emph{Exemple} : Pour un ï¿½tudiant
 \begin{Java}
   public int hashCode() {
-    return Objects.hash(this.numéro);
+    return Objects.hash(this.numï¿½ro);
   }
 \end{Java}
 \end{frame}
 
 \begin{frame}[fragile]{Plus sur Objects}
-Objects fournit aussi des méthodes facilitant les tests.
+Objects fournit aussi des mï¿½thodes facilitant les tests.
 \\\medskip
 \emph{Exemple} : Si on doit comparer 2 adresses de personnes mais que l'adresse est un attribut facultatif.
 \\\medskip
@@ -1072,12 +1072,12 @@ Ceci n'est pas suffisant
 \begin{Java}
   if (adresse1.equals(adresse2)) { //...
 \end{Java}
-On peut le rendre plus sûr en écrivant
+On peut le rendre plus sï¿½r en ï¿½crivant
 \begin{Java}
   if (   adresse1 == adresse2 // ok si les 2 sont null 
       || adresse1 != null && adresse1.equals(adresse2) ) { //...
 \end{Java}
-\java|Objects.equals| fait la même chose en plus court
+\java|Objects.equals| fait la mï¿½me chose en plus court
 \begin{Java}
   if ( Objects.equals(adresse1, adresse2) ) { //...
 \end{Java} 
@@ -1086,15 +1086,15 @@ On peut le rendre plus sûr en écrivant
 \begin{frame}[fragile]{Une illustration du polymorphisme}
 Revenons un instant sur les exceptions
 \begin{itemize}
-\item On a vu qu'on peut attraper une exception en général
+\item On a vu qu'on peut attraper une exception en gï¿½nï¿½ral
   \begin{Java}
   catch(Exception ex)
   \end{Java}
-\item Mais aussi en spécifiant exactement l'exception
+\item Mais aussi en spï¿½cifiant exactement l'exception
   \begin{Java}
   catch(IllegalArgumentException ex)
   \end{Java}
-\item Comment ça fonctionne ?
+\item Comment ï¿½a fonctionne ?
 \end{itemize}
 \end{frame}
 
@@ -1102,16 +1102,16 @@ Revenons un instant sur les exceptions
 \begin{itemize}
 \item Une exception est un objet
   \begin{Java}
-  throw new IllegalArgumentException("L'âge doit être positif !");
+  throw new IllegalArgumentException("L'ï¿½ge doit ï¿½tre positif !");
   \end{Java}
-\item Grâce à l'héritage et au polymorphisme
+\item Grï¿½ce ï¿½ l'hï¿½ritage et au polymorphisme
   \begin{center}
   \includegraphics[scale=.4]{../img/oo-exception}
   \end{center}
-  si on écrit \java|Exception| dans le \java|catch|
+  si on ï¿½crit \java|Exception| dans le \java|catch|
   \begin{itemize}
   \item on attrape \java|IllegalArgumentException|
-  \item mais aussi d'autres exceptions  $\Longrightarrow$ à éviter
+  \item mais aussi d'autres exceptions  $\Longrightarrow$ ï¿½ ï¿½viter
   \end{itemize}
 \end{itemize}
 \end{frame}
